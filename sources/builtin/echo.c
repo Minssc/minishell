@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:45 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 17:31:45 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/03 00:00:48 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	mini_echo(char **argu)
-{
-	g_exit_status = 0;
-	return (0);
-}
+// int	mini_echo(char **argu)
+// {
+// 	g_exit_status = 0;
+// 	return (0);
+// }

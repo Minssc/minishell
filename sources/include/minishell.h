@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 17:50:13 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/03 00:59:25 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h
+# include <stdio.h>
 # include <signal.h>
 # include "libft.h"
 
@@ -27,10 +27,41 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+// typedef struct s_env {
+// 	char			*contents;
+// 	struct s_env	*prev;
+// 	struct s_env	*next;
+// }	t_env;
+
+// typedef struct s_cmd {
+// 	char	**parts;
+// 	int		pipe;
+// 	int		redir;
+// }	t_cmd;
+
+// typedef struct s_input {
+// 	struct s_cmd	*cmd_list;
+// 	struct s_input	*next;
+// }	t_input;
+
+// typedef struct s_info {
+// 	struct s_env	*n_env;
+// 	struct s_input	*chunks;
+// 	char			*input;
+// }	t_info;
+
 typedef struct s_meta
 {
-	t_list	*list_args;
+	int			exit_status;
+	t_list		*list_args;
+	t_list		*list_env;
 }				t_meta;
+
+// env.c
+void	env_init(t_meta *m, char **envp);
+t_list	*env_find(t_meta *m, char *key);
+char	*env_get(t_meta *m, char *key);
+int		env_set(t_meta *m, char *key, char *value);
 
 // parse.c
 void	parse(t_meta *m, char *line);
@@ -45,6 +76,8 @@ void	meta_destroy(void);
 
 // mexit.c
 void	mexit(int ec);
+void	mexit_pe(int ec);
+void	mexit_cm(char *str, int ec);
 void	perror_exit(char *str);
 
 // msfunc/ms_trim.c
@@ -52,56 +85,28 @@ char	*ms_trim(char *str);
 
 // msfunc/ms_argjoin.c
 char	*ms_argjoin(char const *s1, char const *s2);
-typedef struct s_env {
-	char			*contents;
-	struct s_env	*prev;
-	struct s_env	*next;
-}	t_env;
 
-typedef struct s_cmd {
-	char	**parts;
-	int		pipe;
-	int		redir;
-}	t_cmd;
+// msfunc/ms_isspace.c
+int		ms_isspace(char c);
+int		ms_isemptystr(char *str);
 
-typedef struct s_input {
-	struct s_cmd	*cmd_list;
-	struct s_input	*next;
-}	t_input;
+// ft_lst_env.c
+// t_env		*ft_lstnew_env(void);
+// int			ft_lstsize_env(t_env *lst);
+// t_env		*ft_lstlast_env(t_env *lst);
+// void		ft_lstadd_back_env(t_env **lst, t_env *new);
+// void		ft_lstdelone_env(t_env *lst);
 
-typedef struct s_info {
-	struct s_env	*n_env;
-	struct s_input	*chunks;
-	char			*input;
-}	t_info;
-
-int	g_exit_status;
-
-/*
- *			ft_lst_env.c
- */
-t_env		*ft_lstnew_env(void);
-int			ft_lstsize_env(t_env *lst);
-t_env		*ft_lstlast_env(t_env *lst);
-void		ft_lstadd_back_env(t_env **lst, t_env *new);
-void		ft_lstdelone_env(t_env *lst);
-
-/*
- *			ft_isspace.c
- */
+// ft_isspace.c
 int			ft_isspace(char *str);
 
-/*
- *			signal.c
- */
+// signal.c
 void		set_signal(void);
 
-/*
- *			builtin func
- */
-int			mini_pwd(void);
-int			mini_env(t_env *root);
-int			mini_unset(t_env *target, char *key);
-int			mini_echo(char **argu);
+// builtin/
+// int			mini_pwd(void);
+// int			mini_env(t_env *root);
+// int			mini_unset(t_env *target, char *key);
+// int			mini_echo(char **argu);
 
 #endif

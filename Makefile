@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
+#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/02 18:42:35 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/03 00:18:38 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,7 @@ SRCF_B		=	bonus
 BI			=	builtin/
 
 FIL_M		=	main \
-				ft_lst_env \
-				ft_isspace \
-				signal \
-				$(BI)cd \
-				$(BI)echo \
-				$(BI)env \
-				$(BI)exit \
-				$(BI)export \
-				$(BI)pwd \
-				$(BI)unset \
+				env \
 				meta \
 				mexit \
 				minishell \
@@ -35,7 +26,8 @@ FIL_M		=	main \
 				parse \
 				syntax \
 				msfunc/ms_trim \
-				msfunc/ms_argjoin 
+				msfunc/ms_argjoin \
+				msfunc/ms_isspace 
 
 FIL_B		=
 
@@ -46,17 +38,17 @@ OBJS_M		=	$(SRCS_M:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
-CFLAG_EXT	=	-L/usr/lib \
+# CFLAGS		=	-Wall -Wextra -Werror
+CFLAG_EXT	=	-L/usr/lib -lreadline \
 				-Llibft -lft \
 
 CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include
 
 RM			=	rm -f
 
-LIB_NAME		=	readline
-LIB_HEADER		=	/usr/local/opt/readline/include/
-LIB_FOLDER		=	/usr/local/opt/readline/lib/
+# LIB_NAME		=	readline
+# LIB_HEADER		=	/usr/local/opt/readline/include/
+#  LIB_FOLDER		=	/usr/local/opt/readline/lib/
 
 %.o			:	%.c
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
