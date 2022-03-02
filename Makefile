@@ -1,0 +1,59 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
+#    Updated: 2022/03/02 12:41:20 by minsunki         ###   ########seoul.kr   #
+#                                                                              #
+# **************************************************************************** #
+
+NAME		=	minishell
+
+SRCF		=	sources
+SRCF_B		=	bonus
+INCF		=	includes
+
+FIL_M		=	
+
+FIL_B		=	
+
+SRCS_M		=	$(addsuffix .c, $(addprefix $(SRCF)/, $(FIL_M)))
+SRCS_B		=	$(addsuffix _bonus.c, $(addprefix $(SRCF_B)/, $(FIL_M) $(FIL_B)))
+
+OBJS_M		=	$(SRCS_M:.c=.o)
+OBJS_B		=	$(SRCS_B:.c=.o)
+
+CC			=	gcc
+# CFLAGS		=	-O3 -Wall -Wextra -Werror
+CFLAG_EXT	=	-L/usr/lib -lreadline \
+				-Llibft -lft 
+RM			=	rm -f
+
+%.o			:	%.c
+			$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME)		:	$(OBJS_M)
+			make all -C libft
+			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) -o $(NAME)
+
+bonus		:	$(OBJS_B)
+			make all -C libft
+			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) -o $(NAME)
+
+clean		:
+			$(RM) $(OBJS_M) $(OBJS_B)
+			make clean -C libft
+
+all			:	$(NAME)
+
+fclean		:	clean
+			$(RM) $(NAME)
+			make fclean -C libft
+
+re			:	fclean all
+
+
+.PHONY		:	.c.o all clean fclean re bonus
