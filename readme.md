@@ -41,6 +41,9 @@ argv를 < << > >> | delim으로 잘라서 보관. list사용? delim type 저장 
 모든 list에 대하여
 	앞뒤로 공백 trim?
 	"" '' $("미포함?) 선행 처리. 문자열 대체. ()는 서브젝트 포함인가?
+
+	syntax에 맞는지 먼저 확인해야 함.
+
 	처리된 문자열을 기반으로 exec.
 	delim type에 따라 exec 결과물 처리
 		redirection, pipe 

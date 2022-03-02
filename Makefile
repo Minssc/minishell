@@ -6,7 +6,7 @@
 #    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/02 17:53:55 by tjung            ###   ########.fr        #
+#    Updated: 2022/03/02 18:42:35 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,13 @@ FIL_M		=	main \
 				$(BI)pwd \
 				$(BI)unset \
 				meta \
-				mexit
+				mexit \
+				minishell \
+				signal \
+				parse \
+				syntax \
+				msfunc/ms_trim \
+				msfunc/ms_argjoin 
 
 FIL_B		=
 
@@ -56,11 +62,12 @@ LIB_FOLDER		=	/usr/local/opt/readline/lib/
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
 
 $(NAME)		:	$(OBJS_M)
-			make all -C libft
-			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME) -I $(LIB_HEADER) -l$(LIB_NAME) -L $(LIB_FOLDER)
+			make bonus -C libft
+			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
+
 
 bonus		:	$(OBJS_B)
-			make all -C libft
+			make bonus -C libft
 			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL)-o $(NAME)
 
 clean		:
