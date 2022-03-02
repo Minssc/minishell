@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 12:45:58 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/02 13:34:38 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include "libft.h"
 
 // 아래 헤더들 살펴보기
 # include <signal.h>

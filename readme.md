@@ -28,12 +28,12 @@ sudo apt install libreadline-dev
     │   ├── export.c
     │   ├── pwd.c
     │   └── unset.c
+    ├── msfunc				# minishell functions. 유틸 함수들
     ├── include				# 헤더 파일들
     │   └── minishell.h
     ├── main.c				
     ├── meta.c				
-    ├── mexit.c
-    └── msfunc
+    └── mexit.c
 ```
 ## TODO
 ```

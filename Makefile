@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/02 12:50:44 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/02 13:38:11 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ NAME		=	minishell
 
 SRCF		=	sources
 SRCF_B		=	bonus
-INCF		=	sources/include
 
-FIL_M		=	
+FIL_M		=	main \
+				meta \
+				mexit
 
 FIL_B		=	
 
@@ -30,19 +31,21 @@ CC			=	gcc
 # CFLAGS		=	-O3 -Wall -Wextra -Werror
 CFLAG_EXT	=	-L/usr/lib -lreadline \
 				-Llibft -lft \
-				-I$(INCF)
+
+CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include
+
 RM			=	rm -f
 
 %.o			:	%.c
-			$(CC) $(CFLAGS) -c $< -o $@
+			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
 
 $(NAME)		:	$(OBJS_M)
 			make all -C libft
-			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) -o $(NAME)
+			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
 
 bonus		:	$(OBJS_B)
 			make all -C libft
-			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) -o $(NAME)
+			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL)-o $(NAME)
 
 clean		:
 			$(RM) $(OBJS_M) $(OBJS_B)
@@ -55,6 +58,5 @@ fclean		:	clean
 			make fclean -C libft
 
 re			:	fclean all
-
 
 .PHONY		:	.c.o all clean fclean re bonus
