@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/02 14:59:09 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/02 18:42:35 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,11 @@ FIL_M		=	main \
 				meta \
 				mexit \
 				minishell \
-				signal 
+				signal \
+				parse \
+				syntax \
+				msfunc/ms_trim \
+				msfunc/ms_argjoin 
 
 FIL_B		=	
 
@@ -42,11 +46,11 @@ RM			=	rm -f
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
 
 $(NAME)		:	$(OBJS_M)
-			make all -C libft
+			make bonus -C libft
 			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
 
 bonus		:	$(OBJS_B)
-			make all -C libft
+			make bonus -C libft
 			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL)-o $(NAME)
 
 clean		:

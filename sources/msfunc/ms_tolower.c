@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   meta.c                                             :+:      :+:    :+:   */
+/*   ms_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 12:46:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 15:52:54 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/02 16:20:48 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/02 16:22:41 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_meta	*meta_get(void)
+// char	*ms_tolower(char *str)
+// 전달받은 str을 모두 소문자로 변경
+
+char	*ms_tolower(char *str)
 {
-	static t_meta	*m;
-
-	if (!m)
-		m = (t_meta *)ft_calloc(sizeof(t_meta), 1);
-	if (!m)
-		perror_exit("ft_calloc failed @meta_get");
-	return (m);
-}
-
-t_meta	*meta_init(void)
-{
-	t_meta	*m;
-	
-	m = meta_get();
-	return (m);
-}
-
-void	meta_destroy(void)
-{
-	t_meta	*m;
-
-	m = meta_get();
-	free(m);
+	while (*str)
+		*str = ft_tolower(*str);
 }
