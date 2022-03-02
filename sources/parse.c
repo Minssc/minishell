@@ -6,11 +6,26 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 18:35:33 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/02 19:43:59 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+readline의 line 을 parse
+| < << >> > 5개의 분리자를 기준으로 소분
+예) a | b >> c
+	a
+	|
+	b
+	>>
+	c
+크기 5의 list 생성. 이때 앞뒤 공백 문자는 모두 삭제 (trim)
+
+이후 subenv 함수에서 리스트 순회 하며 environment variable을 삽입. 
+*/
+
 
 static void	add_arg(t_meta *m, char *from, char *to)
 {
@@ -27,6 +42,61 @@ static void	add_arg(t_meta *m, char *from, char *to)
 	if (!nl)
 		perror_exit("ft_lstnew failed @add_arg");
 	ft_lstadd_back(&m->list_args, nl);
+}
+
+static void	find_and_sub(t_list *li)
+{
+	char	*cur;
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+	int		i;
+
+	cur = (char *)li->content;
+	while (*cur)
+	{
+		i = 0;
+		if (*cur == '\'')
+		{
+			cur++;
+			while (*cur && *cur != '\'')
+				cur++;
+			if (!*cur)
+				break ;
+		}
+		if (*cur == '$') // TODO $? $$ $< 등등?
+		{
+			tmp = li->content;
+			li->content = ft_substr(li->content, 0,
+				cur - (char *)li->content);
+			while (cur[i] && cur[i] != ' ' && cur[i] != '\"') // TODO make a func for "empty" space
+				i++;
+			tmp3 = ft_substr(cur, 1, i - 1);
+			tmp2 = li->content;
+			li->content = ft_strjoin(li->content, getenv(tmp3));
+			free(tmp3);
+			free(tmp2);
+			tmp2 = li->content;
+			li->content = ft_strjoin(li->content, cur + i);
+			free(tmp2);
+			free(tmp);
+			cur = (char *)li->content;
+			printf("%s\n",(char *)cur);
+		}
+		cur++;
+	}
+}
+
+static void	sub_env(t_meta *m)
+{
+	t_list	*cl;
+
+	cl = m->list_args;
+	while (cl)
+	{
+		find_and_sub(cl);
+		cl = cl->next;
+	}
 }
 
 void	parse(t_meta *m, char *line)
@@ -55,12 +125,20 @@ void	parse(t_meta *m, char *line)
 		add_arg(m, line, cur);
 	
 	t_list *cl;
+	
 	cl = m->list_args;
-
 	while (cl)
 	{
-		printf("cont: %s$\n", (char *)cl->content);
+		printf("cont orig: #%s#\n", (char *)cl->content);
+		cl = cl->next;
+	}
+	sub_env(m);	
+	cl = m->list_args;
+	while (cl)
+	{
+		printf("cont after sub: #%s#\n", (char *)cl->content);
 		cl = cl->next;
 	}
 	ft_lstclear(&m->list_args, free);
+
 }
