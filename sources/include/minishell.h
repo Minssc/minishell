@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 00:59:25 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 01:16:39 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,6 @@
 // libreadline-dev
 # include <readline/readline.h>
 # include <readline/history.h>
-
-// typedef struct s_env {
-// 	char			*contents;
-// 	struct s_env	*prev;
-// 	struct s_env	*next;
-// }	t_env;
-
-// typedef struct s_cmd {
-// 	char	**parts;
-// 	int		pipe;
-// 	int		redir;
-// }	t_cmd;
-
-// typedef struct s_input {
-// 	struct s_cmd	*cmd_list;
-// 	struct s_input	*next;
-// }	t_input;
-
-// typedef struct s_info {
-// 	struct s_env	*n_env;
-// 	struct s_input	*chunks;
-// 	char			*input;
-// }	t_info;
 
 typedef struct s_meta
 {
@@ -89,16 +66,6 @@ char	*ms_argjoin(char const *s1, char const *s2);
 // msfunc/ms_isspace.c
 int		ms_isspace(char c);
 int		ms_isemptystr(char *str);
-
-// ft_lst_env.c
-// t_env		*ft_lstnew_env(void);
-// int			ft_lstsize_env(t_env *lst);
-// t_env		*ft_lstlast_env(t_env *lst);
-// void		ft_lstadd_back_env(t_env **lst, t_env *new);
-// void		ft_lstdelone_env(t_env *lst);
-
-// ft_isspace.c
-int			ft_isspace(char *str);
 
 // signal.c
 void		set_signal(void);

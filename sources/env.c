@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:57:59 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 00:27:44 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 01:24:16 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	env_init(t_meta *m, char **envp)
 
 // TODO getenv setenv 
 // maybe create K:V struct for env instead of raw list. 
+// for now, use list of K=V string.
 
 // t_list	*env_find(t_meta *m, char *key)
 // m->list_env에서 key값을 가진 환경 변수 t_list*를 반환.

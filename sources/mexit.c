@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:36 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 00:59:12 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 01:20:49 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	mexit_cm(char *str, int ec)
 void	perror_exit(char *str)
 {
 	printf("Error\n%s\n",str);
-	mexit(255);
+	mexit_pe(255);
 }
