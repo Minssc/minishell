@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/02 13:38:11 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/02 14:59:09 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRCF_B		=	bonus
 
 FIL_M		=	main \
 				meta \
-				mexit
+				mexit \
+				minishell \
+				signal 
 
 FIL_B		=	
 

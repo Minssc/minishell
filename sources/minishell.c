@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms.h                                               :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 13:15:07 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 13:15:45 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/02 14:52:53 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/02 15:01:00 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_H
-# define MS_H
+#include "minishell.h"
 
-/*	minsunki temporary header	*/
+int	ms_loop(t_meta *m)
+{
+	char	*line;
 
-
-
-# endif
+	line = readline("minishell$ ");
+	if (line)
+	{
+		printf("read: %s\n",line);
+	}
+	return (1);
+}
