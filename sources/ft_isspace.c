@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms.h                                               :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 13:15:07 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 13:15:45 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/02 02:52:06 by tjung             #+#    #+#             */
+/*   Updated: 2022/03/02 17:26:46 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_H
-# define MS_H
+#include "minishell.h"
 
-/*	minsunki temporary header	*/
+int	ft_isspace(char *str)
+{
+	int	i;
 
-
-
-# endif
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] < 9 || str[i] > 13)
+		{
+			if (str[i] == 32)
+				continue ;
+			return (0);
+		}
+	}
+	return (1);
+}
