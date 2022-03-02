@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/02 12:41:20 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/02 12:50:44 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	minishell
 
 SRCF		=	sources
 SRCF_B		=	bonus
-INCF		=	includes
+INCF		=	sources/include
 
 FIL_M		=	
 
@@ -29,7 +29,8 @@ OBJS_B		=	$(SRCS_B:.c=.o)
 CC			=	gcc
 # CFLAGS		=	-O3 -Wall -Wextra -Werror
 CFLAG_EXT	=	-L/usr/lib -lreadline \
-				-Llibft -lft 
+				-Llibft -lft \
+				-I$(INCF)
 RM			=	rm -f
 
 %.o			:	%.c
