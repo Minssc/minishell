@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
 #    Updated: 2022/03/02 18:42:35 by minsunki         ###   ########seoul.kr   #
@@ -15,7 +15,19 @@ NAME		=	minishell
 SRCF		=	sources
 SRCF_B		=	bonus
 
+BI			=	builtin/
+
 FIL_M		=	main \
+				ft_lst_env \
+				ft_isspace \
+				signal \
+				$(BI)cd \
+				$(BI)echo \
+				$(BI)env \
+				$(BI)exit \
+				$(BI)export \
+				$(BI)pwd \
+				$(BI)unset \
 				meta \
 				mexit \
 				minishell \
@@ -25,7 +37,7 @@ FIL_M		=	main \
 				msfunc/ms_trim \
 				msfunc/ms_argjoin 
 
-FIL_B		=	
+FIL_B		=
 
 SRCS_M		=	$(addsuffix .c, $(addprefix $(SRCF)/, $(FIL_M)))
 SRCS_B		=	$(addsuffix _bonus.c, $(addprefix $(SRCF_B)/, $(FIL_M) $(FIL_B)))
@@ -34,13 +46,17 @@ OBJS_M		=	$(SRCS_M:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
 
 CC			=	gcc
-# CFLAGS		=	-O3 -Wall -Wextra -Werror
-CFLAG_EXT	=	-L/usr/lib -lreadline \
+CFLAGS		=	-Wall -Wextra -Werror
+CFLAG_EXT	=	-L/usr/lib \
 				-Llibft -lft \
 
 CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include
 
 RM			=	rm -f
+
+LIB_NAME		=	readline
+LIB_HEADER		=	/usr/local/opt/readline/include/
+LIB_FOLDER		=	/usr/local/opt/readline/lib/
 
 %.o			:	%.c
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
@@ -48,6 +64,7 @@ RM			=	rm -f
 $(NAME)		:	$(OBJS_M)
 			make bonus -C libft
 			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
+
 
 bonus		:	$(OBJS_B)
 			make bonus -C libft
