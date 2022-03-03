@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 12:27:07 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/03 18:44:20 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int	main(int argc, char *argv[] __attribute__((unused)), char *envp[])
 	m = meta_init();
 	env_init(m, envp);
 	set_signal();
-	loop_start(m);
+//	loop_start(m);
 	return (0);
 }
