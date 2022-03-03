@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 18:59:39 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 19:02:45 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,23 @@ void	parse(t_meta *m, char *line)
 			cur++;
 	}
 	add_token(m, line, cur);
+	//임시 코드
+	t_token *ct = m->token_start;
+	printf("Tokens before expanding\n");
+	while (ct)
+	{
+		printf("%s\n",ct->str);
+		ct = ct->next;
+	}
 	expand(m);
+
+	printf("Tokens after expanding\n");
+	ct = m->token_start;
+	while (ct)
+	{
+		printf("%s\n",ct->str);
+		ct = ct->next;
+	}
 	
 	m->token_start = 0;
 }
