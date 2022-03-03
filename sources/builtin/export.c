@@ -6,24 +6,51 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:12 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 20:06:14 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/02 20:39:44 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*except_quotes(char *tmp)
+static int	get_value_len(char *tmp)
 {
-	char	*value;
-	int		qflag;
-	int		i;
+	int	len;
+	int	qflag;
+	int	i;
 
 	qflag = 0;
 	i = -1;
 	while (tmp[++i])
 	{
-		if (tmp[i] == '\"')
+		if (!qflag && tmp[i] == '\"')
 			i++;
+		else if (!qflag && tmp[i] == '\'')
+			i++;
+	}
+	return (len);
+}
+
+static char	*except_quotes(char *tmp)
+{
+	char	*value;
+	int		v_len;
+	int		qflag;
+	int		i;
+	int		j;
+
+	qflag = 0;
+	v_len = get_value_len(tmp);
+	value = (char *)malloc(sizeof(char) * v_len + 1);
+	if (!value)
+		return (NULL);
+	value[v_len] = '\0';
+	i = 0;
+	j = 0;
+	while (value[i])
+	{
+		if (tmp[j] == '\"')
+			j++;
+		value[i++] = tmp[j++];
 	}
 }
 
