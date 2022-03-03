@@ -6,7 +6,7 @@
 #    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/04 01:52:51 by tjung            ###   ########.fr        #
+#    Updated: 2022/03/04 03:53:29 by tjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ FIL_M		=	main \
 				builtin/env \
 				builtin/unset \
 				builtin/export \
-				builtin/echo
+				builtin/echo \
+				builtin/exit
 
 FIL_B		=
 
