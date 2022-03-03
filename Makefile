@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/03 19:19:43 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/03 22:24:25 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ FIL_M		=	main \
 				syntax \
 				expand \
 				unquote \
+				token \
+				exec \
 				msfunc/ms_trim \
 				msfunc/ms_argjoin \
 				msfunc/ms_isspace \

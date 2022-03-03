@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 19:19:37 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 22:24:37 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,23 @@
 # define QUOTES_DQ 0b01;
 # define QUOTES_SQ 0b10;
 
+//Token Type
+// EMPTY, COMMAND, ARGUMENT, PIPE, APPEND LEFT/RIGHT, INPUT, REDIRECTION LEFT/RIGHT
+
+# define T_EMP 0b00000000
+# define T_CMD 0b00000001
+# define T_ARG 0b00000010
+# define T_PIP 0b00000100
+# define T_APL 0b00001000
+# define T_APR 0b00010000
+# define T_INP 0b00100000
+# define T_RDR 0b01000000
+# define T_RDL 0b10000000
+
 typedef struct s_token
 {
 	char			*str;
-	int				type;
+	unsigned char	type;
 	struct s_token	*prev;
 	struct s_token	*next;
 }				t_token;
@@ -43,7 +56,18 @@ typedef struct s_meta
 	int			exit_status;
 	t_token		*token_start;
 	t_list		*list_env;
+	int			p_in;
+	int			p_out;
+	int			in;
+	int			out;
 }				t_meta;
+
+// exec.c
+void	exec_start(t_meta *m);
+
+// token.c
+int		token_istype(t_token *tok, char *str);
+void	token_ident(t_meta *m);
 
 // unquote.c
 void	unquote(t_meta *m);

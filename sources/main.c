@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 13:19:52 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 22:26:02 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static void	loop_start(t_meta *m)
 		parse(m, str);
 		// 파싱에 문제가 없는 경우
 		// 명령어 실행 혹은 에러(예외)처리
+		exec_start(m);
 		free(str);
 	}
 }
@@ -88,8 +89,8 @@ int	main(int argc, char *argv[] __attribute__((unused)), char *envp[])
 		return (0);
 	}
 	m = meta_init();
-	// ft_memset(&info, 0, sizeof(info));
-	// cp_envp_lst(m, envp);
+	m->in = dup(stdin);
+	m->out = dup(stdout);
 	env_init(m, envp);
 	set_signal();
 	loop_start(m);
