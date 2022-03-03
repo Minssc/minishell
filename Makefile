@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/03 00:18:38 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/03 18:30:21 by tjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,11 @@ FIL_M		=	main \
 				syntax \
 				msfunc/ms_trim \
 				msfunc/ms_argjoin \
-				msfunc/ms_isspace 
+				msfunc/ms_isspace \
+				builtin/pwd \
+				builtin/env \
+				builtin/unset \
+				builtin/export
 
 FIL_B		=
 

@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 12:30:16 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/03 18:30:05 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@ int		ms_isemptystr(char *str);
 void	set_signal(void);
 
 // builtin/
-// int			mini_pwd(void);
-// int			mini_env(t_env *root);
-// int			mini_unset(t_env *target, char *key);
+int		builtin_pwd(void);
+int		builtin_env(void);
+int		builtin_unset(char **keys);
+int		builtin_export(char **entries);
 // int			mini_echo(char **argu);
 
 #endif
