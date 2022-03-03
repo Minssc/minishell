@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:57:59 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 12:27:32 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/03 16:40:28 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_list	*env_find(t_meta *m, char *key)
 
 	if (!key)
 		return (0);
+	klen = ft_strlen(key);
 	cur = m->list_env;
 	while (cur)
 	{
