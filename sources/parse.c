@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 18:15:26 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 18:59:39 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,6 @@
 // token 기준 parsing 
 // parsing 후 환경변수 삽입 
 // 환경변수 삽입 후 따옴표 제거 
-
-
-// static void	add_arg(t_meta *m, char *from, char *to)
-// {
-// 	char	*cont;
-// 	char	*tmp;
-// 	t_list	*nl;
-	
-// 	cont = ft_substr(from, 0, to - from);
-// 	tmp = cont;
-// 	cont = ft_strtrim(cont, " \n\r\t"); // TODO "공백 문자 더 있나?"
-// 	if (!cont)
-// 		perror_exit("ft_substr failed @add_arg");
-// 	nl = ft_lstnew(cont);
-// 	if (!nl)
-// 		perror_exit("ft_lstnew failed @add_arg");
-// 	ft_lstadd_back(&m->list_args, nl);
-// }
-
 
 static void	skip_space(char **str)
 {
@@ -73,7 +54,6 @@ static void	add_token(t_meta *m, char *from, char *to)
 		lt->next = nt;
 		nt->prev = lt;
 	}
-	printf("CT S:%s\n",nt->str);
 }
 
 void	parse(t_meta *m, char *line)
@@ -109,55 +89,4 @@ void	parse(t_meta *m, char *line)
 	expand(m);
 	
 	m->token_start = 0;
-	// printf("leftover: #%s#\n",line);
-	// t_list	*nl;
-	// char	*args;
-	// char	*cur;
-	// char	*tmp;
-
-	// args = 0;
-	// cur = line;
-	// while (*line && *cur)
-	// {
-	// 	if (*cur == '\"')
-	// 	{
-	// 		cur++;
-	// 		while (*cur && *cur != '\"')
-	// 			cur++;
-	// 		if (!*cur){
-	// 			printf("minishell: syntax error: unexpected EOF while looking for matching \'\"\'\n");
-	// 			break ;
-	// 		}	
-	// 	}
-	// 	if (*cur == '|' || *cur == '<' || *cur == '>') // TODO ||의 경우는 지금 처리? 후 처리?
-	// 	{
-	// 		add_arg(m, line, cur);
-	// 		line = cur++;
-	// 		if (*cur && (*cur == '<' || *cur == '>'))
-	// 			cur++;
-	// 		add_arg(m, line, cur);
-	// 		line = cur;
-	// 	}
-	// 	cur++;
-	// }
-	// if (*line)
-	// 	add_arg(m, line, cur);
-	
-	// t_list *cl;
-	
-	// cl = m->list_args;
-	// while (cl)
-	// {
-	// 	printf("cont orig: #%s#\n", (char *)cl->content);
-	// 	cl = cl->next;
-	// }
-	// sub_env(m);	
-	// cl = m->list_args;
-	// while (cl)
-	// {
-	// 	printf("cont after sub: #%s#\n", (char *)cl->content);
-	// 	cl = cl->next;
-	// }
-	// ft_lstclear(&m->list_args, free);
-
 }
