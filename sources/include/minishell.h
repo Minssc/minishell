@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 03:53:12 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/04 04:09:20 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int		ms_isemptystr(char *str);
 
 // msfunc/ms_correct.c
 int		ms_correct_builtin_cmd(char *bcmd, char *comp);
+
+// msfunc/ms_find.c
+t_list	*find_prev_node(t_list *root, t_list *cur_ptr);
 
 // signal.c
 void	set_signal(void);
