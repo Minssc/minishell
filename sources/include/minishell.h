@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 18:30:05 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/03 20:31:41 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ int		builtin_pwd(void);
 int		builtin_env(void);
 int		builtin_unset(char **keys);
 int		builtin_export(char **entries);
-// int			mini_echo(char **argu);
+int		builtin_echo(char **contents);
 
 #endif
