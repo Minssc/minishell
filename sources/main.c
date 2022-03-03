@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 18:44:20 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/04 01:55:49 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	loop_start(t_meta *m)
 		if (!str)
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
-			exit(0);
+			mexit(0);
 		}
 		if (ms_isemptystr(str))
 		{
