@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 13:23:14 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/02 16:12:21 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/02 23:41:16 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// 자식 프로세스는 자식 handler 등록 계획.
 
 void	sig_handler(int signum)
 {

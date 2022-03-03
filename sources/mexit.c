@@ -3,11 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   mexit.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:36 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 12:52:40 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 12:23:57 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	mexit(int ec)
+{
+	meta_destroy();
+	exit(ec);
+}
+
+void	mexit_pe(int ec)
+{
+	if (ec == 255)
+		printf("minishell: exit: User defined exit\n");
+	else
+		printf("minishell: exit: %s\n", strerror(ec));
+	mexit(ec);
+}
+
+void	mexit_cm(char *str, int ec)
+{
+	printf("%s\n", str);
+	mexit(ec);
+}
+
+void	perror_exit(char *str)
+{
+	printf("Error\n%s\n", str);
+	mexit_pe(255);
+}
