@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 19:02:45 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 19:19:26 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,16 @@ void	parse(t_meta *m, char *line)
 	}
 	expand(m);
 
-	printf("Tokens after expanding\n");
+	printf("\nTokens after expanding\n");
+	ct = m->token_start;
+	while (ct)
+	{
+		printf("%s\n",ct->str);
+		ct = ct->next;
+	}
+	
+	unquote(m);
+	printf("\nTokens after un-quote\n");
 	ct = m->token_start;
 	while (ct)
 	{

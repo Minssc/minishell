@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 18:52:55 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 19:19:37 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ typedef struct s_meta
 	t_token		*token_start;
 	t_list		*list_env;
 }				t_meta;
+
+// unquote.c
+void	unquote(t_meta *m);
 
 // expand.c
 void	expand(t_meta *m);
