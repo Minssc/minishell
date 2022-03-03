@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 19:20:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 19:37:45 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 22:16:08 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static void	remove_quotes(char **ostr)
 	orig = *ostr;
 	nquotes = count_quotes(*ostr);
 	olen = ft_strlen(*ostr);
-	nstr = (char *)malloc(sizeof(char) * (olen - nquotes));
-	nstr[olen - nquotes - 1] = '\0';
+	nstr = (char *)malloc(sizeof(char) * (olen - nquotes + 1));
+	nstr[olen - nquotes] = '\0';
 	while (**ostr)
 	{
 		if (**ostr != '\'' && **ostr != '\"')
