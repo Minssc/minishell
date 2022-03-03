@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 20:31:41 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/04 01:52:35 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ char	*ms_argjoin(char const *s1, char const *s2);
 // msfunc/ms_isspace.c
 int		ms_isspace(char c);
 int		ms_isemptystr(char *str);
+
+// msfunc/ms_correct.c
+int		ms_correct_builtin_cmd(char *bcmd, char *comp);
 
 // signal.c
 void	set_signal(void);

@@ -6,7 +6,7 @@
 #    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/03 20:31:51 by tjung            ###   ########.fr        #
+#    Updated: 2022/03/04 01:52:51 by tjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ FIL_M		=	main \
 				msfunc/ms_trim \
 				msfunc/ms_argjoin \
 				msfunc/ms_isspace \
+				msfunc/ms_correct.c \
 				builtin/pwd \
 				builtin/env \
 				builtin/unset \
