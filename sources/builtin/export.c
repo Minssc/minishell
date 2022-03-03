@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:12 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 18:29:37 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/03 20:05:47 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*get_data(char *entry, char *equal, char opt)
 }
 
 // norm 분리 - builtin_export 연장
-static int	exec_export(t_meta *m, char *entry, char *equal)
+static int	sub_builtin_export(t_meta *m, char *entry, char *equal)
 {
 	char	*key;
 	char	*value;
@@ -61,7 +61,7 @@ int	builtin_export(char **entries)
 		equal = ft_strchr(entries[i], '=');
 		if (!equal)
 			continue ;
-		if (exec_export(m, entries[i], equal))
+		if (sub_builtin_export(m, entries[i], equal))
 			perror_exit("env_set failed @builtin_export");
 	}
 	m->exit_status = 0;
