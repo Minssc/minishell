@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 01:04:11 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 16:08:16 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,129 +25,146 @@
 
 // 이후 subenv 함수에서 리스트 순회 하며 environment variable을 삽입. 
 
-static void	add_arg(t_meta *m, char *from, char *to)
-{
-	char	*cont;
-	char	*tmp;
-	t_list	*nl;
+// static void	add_arg(t_meta *m, char *from, char *to)
+// {
+// 	char	*cont;
+// 	char	*tmp;
+// 	t_list	*nl;
 	
-	cont = ft_substr(from, 0, to - from);
-	tmp = cont;
-	cont = ft_strtrim(cont, " \n\r\t"); // TODO "공백 문자 더 있나?"
-	if (!cont)
-		perror_exit("ft_substr failed @add_arg");
-	nl = ft_lstnew(cont);
-	if (!nl)
-		perror_exit("ft_lstnew failed @add_arg");
-	ft_lstadd_back(&m->list_args, nl);
+// 	cont = ft_substr(from, 0, to - from);
+// 	tmp = cont;
+// 	cont = ft_strtrim(cont, " \n\r\t"); // TODO "공백 문자 더 있나?"
+// 	if (!cont)
+// 		perror_exit("ft_substr failed @add_arg");
+// 	nl = ft_lstnew(cont);
+// 	if (!nl)
+// 		perror_exit("ft_lstnew failed @add_arg");
+// 	ft_lstadd_back(&m->list_args, nl);
+// }
+
+
+static void	skip_space(char **str)
+{
+	while (ms_isspace(**str))
+		(*str)++;
 }
 
-static void	find_and_sub(t_meta *m, t_list *li)
+void		ms_skip_quotes(char **str, char quote)
 {
-	char	*cur;
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-	int		i;
-
-	cur = (char *)li->content;
-	while (*cur)
-	{
-		i = 0;
-		if (*cur == '\'')
-		{
-			cur++;
-			while (*cur && *cur != '\'')
-				cur++;
-			if (!*cur){
-				printf("minishell: syntax error: unexpected EOF while looking for matching \'\'\'\n");
-				break ;
-			}	
-		}
-		if (*cur == '$') // TODO $? $$ $< 등등?
-		{
-			tmp = li->content;
-			li->content = ft_substr(li->content, 0,
-				cur - (char *)li->content);
-			while (cur[i] && !ms_isspace(cur[i]) && cur[i] != '\"')
-				i++;
-			tmp3 = ft_substr(cur, 1, i - 1);
-			tmp2 = li->content;
-			li->content = ft_strjoin(li->content, env_get(m, tmp3));
-			free(tmp3);
-			free(tmp2);
-			tmp2 = li->content;
-			li->content = ft_strjoin(li->content, cur + i);
-			free(tmp2);
-			free(tmp);
-			cur = (char *)li->content;
-		}
-		cur++;
-	}
+	*str = ft_strchr(*str + 1, quote);
+	if (!(*str))
+		mexit_cm("syntax err \' or \"", 255);
+	(*str)++;
 }
 
-static void	sub_env(t_meta *m)
+static void	add_token(t_meta *m, char *from, char *to)
 {
-	t_list	*cl;
+	t_token *lt;
+	t_token	*nt;
 
-	cl = m->list_args;
-	while (cl)
+	if (from >= to)
+		return ;
+	nt = (t_token *)ft_calloc(sizeof(t_token), 1);
+	if (!nt)
+		perror_exit("ft_calloc failed @add_token");
+	nt->str = ft_substr(from, 0, to - from);
+	if (!nt->str)
+		perror_exit("ft_substr failed @add_token");
+	if (!m->token_start)
+		m->token_start = nt;
+	else
 	{
-		find_and_sub(m, cl);
-		cl = cl->next;
+		lt = m->token_start;
+		while (lt && lt->next)
+			lt = lt->next;
+		lt->next = nt;
+		nt->prev = lt;
 	}
+	printf("CT S:%s\n",nt->str);
 }
 
 void	parse(t_meta *m, char *line)
 {
-	t_list	*nl;
-	char	*args;
 	char	*cur;
-	char	*tmp;
 
-	args = 0;
+	skip_space(&line);
 	cur = line;
-	while (*line && *cur)
+	while (*cur)
 	{
-		if (*cur == '\"')
+		else if (*cur == '\"' || *cur == '\'')
+			ms_skip_quotes(&cur, *cur);
+		else if (*cur == '<' || *cur == '>' || *cur == '|')
 		{
-			cur++;
-			while (*cur && *cur != '\"')
-				cur++;
-			if (!*cur){
-				printf("minishell: syntax error: unexpected EOF while looking for matching \'\"\'\n");
-				break ;
-			}	
-		}
-		if (*cur == '|' || *cur == '<' || *cur == '>') // TODO ||의 경우는 지금 처리? 후 처리?
-		{
-			add_arg(m, line, cur);
+			add_token(m, line, cur);
 			line = cur++;
-			if (*cur && (*cur == '<' || *cur == '>'))
-				cur++;
-			add_arg(m, line, cur);
+			if (*cur && *cur == '<' || *cur == '>')
+				add_token(m, line, ++cur);
+			else
+				add_token(m, line, cur);
 			line = cur;
 		}
-		cur++;
+		else if (ms_isspace(*cur))
+		{
+			add_token(m, line, cur);
+			skip_space(&cur);
+			line = cur;
+		}
+		else
+			cur++;
 	}
-	if (*line)
-		add_arg(m, line, cur);
+	add_token(m, line, cur);
+	expand(m);
 	
-	t_list *cl;
+	m->token_start = 0;
+	// printf("leftover: #%s#\n",line);
+	// t_list	*nl;
+	// char	*args;
+	// char	*cur;
+	// char	*tmp;
+
+	// args = 0;
+	// cur = line;
+	// while (*line && *cur)
+	// {
+	// 	if (*cur == '\"')
+	// 	{
+	// 		cur++;
+	// 		while (*cur && *cur != '\"')
+	// 			cur++;
+	// 		if (!*cur){
+	// 			printf("minishell: syntax error: unexpected EOF while looking for matching \'\"\'\n");
+	// 			break ;
+	// 		}	
+	// 	}
+	// 	if (*cur == '|' || *cur == '<' || *cur == '>') // TODO ||의 경우는 지금 처리? 후 처리?
+	// 	{
+	// 		add_arg(m, line, cur);
+	// 		line = cur++;
+	// 		if (*cur && (*cur == '<' || *cur == '>'))
+	// 			cur++;
+	// 		add_arg(m, line, cur);
+	// 		line = cur;
+	// 	}
+	// 	cur++;
+	// }
+	// if (*line)
+	// 	add_arg(m, line, cur);
 	
-	cl = m->list_args;
-	while (cl)
-	{
-		printf("cont orig: #%s#\n", (char *)cl->content);
-		cl = cl->next;
-	}
-	sub_env(m);	
-	cl = m->list_args;
-	while (cl)
-	{
-		printf("cont after sub: #%s#\n", (char *)cl->content);
-		cl = cl->next;
-	}
-	ft_lstclear(&m->list_args, free);
+	// t_list *cl;
+	
+	// cl = m->list_args;
+	// while (cl)
+	// {
+	// 	printf("cont orig: #%s#\n", (char *)cl->content);
+	// 	cl = cl->next;
+	// }
+	// sub_env(m);	
+	// cl = m->list_args;
+	// while (cl)
+	// {
+	// 	printf("cont after sub: #%s#\n", (char *)cl->content);
+	// 	cl = cl->next;
+	// }
+	// ft_lstclear(&m->list_args, free);
 
 }

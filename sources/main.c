@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 00:53:42 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 13:19:52 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,22 @@
 // 	return (0);
 // }
 
+static int	quotes(char *line)
+{
+	int		flag;
+
+	flag = 0;
+	while (*line)
+	{
+		if (*line == '\'')
+			flag ^= 0b01;
+		else if (*line == '\"')
+			flag ^= 0b10;
+		line++;
+	}
+	return (flag);
+}
+
 static void	loop_start(t_meta *m)
 {
 	char	*str;
@@ -51,6 +67,8 @@ static void	loop_start(t_meta *m)
 			free(str);
 			continue ;
 		}
+		if (quotes(str))
+			continue ;
 		add_history(str);
 		parse(m, str);
 		// 파싱에 문제가 없는 경우

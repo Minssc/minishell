@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 01:16:39 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 15:46:15 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,26 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define QUOTES_DQ 0b01;
+# define QUOTES_SQ 0b10;
+
+typedef struct s_token
+{
+	char			*str;
+	int				type;
+	struct s_token	*prev;
+	struct s_token	*next;
+}				t_token;
+
 typedef struct s_meta
 {
 	int			exit_status;
-	t_list		*list_args;
+	t_token		*token_start;
 	t_list		*list_env;
 }				t_meta;
+
+// expand.c
+void	expand(t_meta *m);
 
 // env.c
 void	env_init(t_meta *m, char **envp);
@@ -42,6 +56,7 @@ int		env_set(t_meta *m, char *key, char *value);
 
 // parse.c
 void	parse(t_meta *m, char *line);
+void	ms_skip_quotes(char **str, char quote);
 
 // minishell.c
 int		ms_loop(t_meta *m);

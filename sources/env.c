@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:57:59 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 01:24:16 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 15:22:53 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,3 +131,8 @@ int		env_set(t_meta *m, char *key, char *value)
 	ft_lstadd_back(&m->list_env, nl);
 	return (0);
 }
+
+// TODO 
+// int	env_del(char *key)
+// key값을 갖는 환경변수 삭제.
+// 성공 시 0, 실패 시 1 반환
