@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/03 15:30:07 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/03 18:52:32 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ FIL_M		=	main \
 				expand \
 				msfunc/ms_trim \
 				msfunc/ms_argjoin \
-				msfunc/ms_isspace 
+				msfunc/ms_isspace \
+				msfunc/ms_substr 
 
 FIL_B		=
 

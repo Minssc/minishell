@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 15:58:04 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 18:57:44 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,60 @@ static char	*find_e(char *str)
 	{
 		if (*str == '\'')
 			ms_skip_quotes(&str, *str);
-		if (*str == '$')
+		else if (*str == '$' && *(str + 1) && !ms_isspace(*(str + 1)))
 			return (str);
 		str++;
 	}
 	return (0);
 }
 
-static void	insert_env(t_meta *m, char **str, char *ep)
-{
-	char	*key;
-	char	*tmp;
-	char	*env_val;
+// static void	insert_env(t_meta *m, char **str, int ep)
+// {
+// 	char	*key;
+// 	char	*tmp;
+// 	char	*env_val;
 	
-	key = ft_strdup(ep);
-	while (*key && !ms_isspace(*key) && *key != '\'' && *key !='\"')
-		key++;
-	*key = '\0';
-	printf("key: %s\n", key);
+// 	key = ft_strdup(ep);
+// 	while (*key && !ms_isspace(*key) && *key != '\'' && *key !='\"')
+// 		key++;
+// 	*key = '\0';
+// 	printf("key: %s\n", key);
+// 	env_val = env_get(m, key);
+// 	free(key);
+// }
+
+static void	stitch(char **s1, char *s2)
+{
+	char	*os1;
+	
+	os1 = *s1;
+	*s1 = ft_strjoin(*s1, s2);
+	free(os1);
+}
+
+static void	insert_env(t_meta *m, char **ostr, char **epos)
+{
+	char	*nstr;
+	char	*key;
+	char	*env_val;
+	char	*orig;
+	
+	nstr = 0;
+	orig = *ostr;
+	if (*ostr != *epos)
+		nstr = ft_substr(*ostr, 0 , (*epos) - (*ostr));
+	*ostr = (*epos)++;
+	while (**epos && !ms_isspace(**epos) && **epos != '$' &&
+			**epos !='\'' && **epos != '\"')
+		(*epos)++;
+	key = ms_substr(*ostr, 1, (*epos) - (*ostr) - 1); // TODO branch when key == ?
 	env_val = env_get(m, key);
+	stitch(&nstr, env_val);
+	stitch(&nstr, *epos);
+	free(orig);
+	free(env_val);
 	free(key);
+	*ostr = nstr;
 }
 
 void	expand(t_meta *m)
@@ -102,28 +136,32 @@ void	expand(t_meta *m)
 	char	*cur;
 
 	ct = m->token_start;
-	if (!ct)
-		return ;
-	cur = ct->str;
 	while (ct)
 	{
-		exp = find_e(cur);//ft_strchr(cur, '$');
-		if (exp)
+		exp = find_e(ct->str);
+		while (exp)
 		{
-			if (*(exp + 1) && *(exp + 1) == '?')
-			{
-				 ; // TODO: replace with exit code
-				cur = cur + 1;
-			}
-			else if (*(exp + 1) && ms_isspace(*(exp + 1)))
-			{
-				cur = exp + 1;
-				continue ;
-			}
-			insert_env(m, &ct->str, exp);
+			insert_env(m, &ct->str, &exp);
+			exp = find_e(ct->str);
 		}
 		ct = ct->next;
-		if (ct)
-			cur = ct->str;
+		// exp = find_e(cur);//ft_strchr(cur, '$');
+		// if (exp)
+		// {
+		// 	if (*(exp + 1) && *(exp + 1) == '?')
+		// 	{
+		// 		 ; // TODO: replace with exit code
+		// 		cur = cur + 1;
+		// 	}
+		// 	else if (*(exp + 1) && ms_isspace(*(exp + 1)))
+		// 	{
+		// 		cur = exp + 1;
+		// 		continue ;
+		// 	}
+		// 	insert_env(m, &ct->str, exp);
+		// }
+		// ct = ct->next;
+		// if (ct)
+		// 	cur = ct->str;
 	}
 }

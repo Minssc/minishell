@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 15:46:15 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 18:52:55 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void	mexit(int ec);
 void	mexit_pe(int ec);
 void	mexit_cm(char *str, int ec);
 void	perror_exit(char *str);
+
+// msfunc/ms_substr.c
+char	*ms_substr(char const *s, unsigned int start, int len);
 
 // msfunc/ms_trim.c
 char	*ms_trim(char *str);

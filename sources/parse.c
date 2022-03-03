@@ -6,24 +6,17 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 16:08:16 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 18:15:26 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-// readline의 line 을 parse
-// | < << >> > 5개의 분리자를 기준으로 소분
-// 예) a | b >> c
-// 	a
-// 	|
-// 	b
-// 	>>
-// 	c
-// 크기 5의 list 생성. 이때 앞뒤 공백 문자는 모두 삭제 (trim)
+// token 기준 parsing 
+// parsing 후 환경변수 삽입 
+// 환경변수 삽입 후 따옴표 제거 
 
-// 이후 subenv 함수에서 리스트 순회 하며 environment variable을 삽입. 
 
 // static void	add_arg(t_meta *m, char *from, char *to)
 // {
@@ -91,7 +84,7 @@ void	parse(t_meta *m, char *line)
 	cur = line;
 	while (*cur)
 	{
-		else if (*cur == '\"' || *cur == '\'')
+		if (*cur == '\"' || *cur == '\'')
 			ms_skip_quotes(&cur, *cur);
 		else if (*cur == '<' || *cur == '>' || *cur == '|')
 		{
