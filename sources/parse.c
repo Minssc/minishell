@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 22:11:59 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 17:10:14 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void		ms_skip_quotes(char **str, char quote)
 	(*str)++;
 }
 
+
+
 static void	add_token(t_meta *m, char *from, char *to)
 {
 	t_token *lt;
@@ -44,16 +46,7 @@ static void	add_token(t_meta *m, char *from, char *to)
 	nt->str = ft_substr(from, 0, to - from);
 	if (!nt->str)
 		perror_exit("ft_substr failed @add_token");
-	if (!m->token_start)
-		m->token_start = nt;
-	else
-	{
-		lt = m->token_start;
-		while (lt && lt->next)
-			lt = lt->next;
-		lt->next = nt;
-		nt->prev = lt;
-	}
+	token_add_back(&m->token_start, nt);
 }
 
 void	parse(t_meta *m, char *line)
@@ -86,7 +79,7 @@ void	parse(t_meta *m, char *line)
 			cur++;
 	}
 	add_token(m, line, cur);
-	token_ident(m);
+	token_ident_all(m);
 	//임시 코드
 	t_token *ct = m->token_start;
 	printf("Tokens before expanding\n");
@@ -114,5 +107,4 @@ void	parse(t_meta *m, char *line)
 		ct = ct->next;
 	}
 
-	m->token_start = 0;
 }

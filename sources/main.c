@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 22:26:02 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 16:48:44 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	main(int argc, char *argv[] __attribute__((unused)), char *envp[])
 		return (0);
 	}
 	m = meta_init();
-	m->in = dup(stdin);
-	m->out = dup(stdout);
+	// m->in = dup(stdin);
+	// m->out = dup(stdout);
 	env_init(m, envp);
 	set_signal();
 	loop_start(m);

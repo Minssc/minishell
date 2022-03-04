@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 22:24:37 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 17:44:31 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,21 @@ typedef struct s_meta
 	int			out;
 }				t_meta;
 
+typedef unsigned char t_byte;
+
+// argv.c
+char	**argv_build(t_token *tok);
+void	argv_destroy(char **argv);
+
 // exec.c
 void	exec_start(t_meta *m);
 
 // token.c
 int		token_istype(t_token *tok, char *str);
-void	token_ident(t_meta *m);
+void	token_ident_all(t_meta *m);
+t_byte	token_ident(t_token *tok);
+void	token_add_back(t_token **th, t_token *nt);
+void	token_del(t_token *tok);
 
 // unquote.c
 void	unquote(t_meta *m);
