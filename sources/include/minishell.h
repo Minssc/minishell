@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:16:36 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 21:00:34 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 // 아래 헤더들 살펴보기
 
+# include <dirent.h>
 # include <signal.h>
 # include "libft.h"
 // libreadline-dev
@@ -42,6 +43,14 @@
 # define T_INP 0b00100000
 # define T_RDR 0b01000000
 # define T_RDL 0b10000000
+
+# define B_CD	0b00000001
+# define B_ECHO	0b00000010
+# define B_ENV	0b00000100
+# define B_EXIT	0b00001000
+# define B_EXPT	0b00010000
+# define B_PWD	0b00100000
+# define B_UNST	0b01000000
 
 typedef struct s_token
 {

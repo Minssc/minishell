@@ -6,11 +6,13 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:18:46 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 21:17:21 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO 대소문자 구분 해야하나?
 
 static t_token	*next_cmd(t_token *tok)
 {
@@ -23,9 +25,40 @@ static t_token	*next_cmd(t_token *tok)
 	return (0);
 }
 
+static int	is_builtin(char *bin)
+{
+	if (ft_strcmp(bin, "cd") == 0)
+		return (B_CD);
+	else if (ft_strcmp(bin, "echo") == 0)
+		return (B_ECHO);
+	else if (ft_strcmp(bin, "env") == 0)
+		return (B_ENV);
+	else if (ft_strcmp(bin, "exit") == 0)
+		return (B_EXIT);
+	else if (ft_strcmp(bin, "export") == 0)
+		return (B_EXPT);
+	else if (ft_strcmp(bin, "pwd") == 0)
+		return (B_PWD);
+	else if (ft_strcmp(bin, "unset") == 0)
+		return (B_UNST);
+	else
+		return (0);
+}
+
+static void	execute_builtin(t_meta *m, int flag)
+{
+	printf("run a builtin! BI flag: %d\n",flag);
+}
+
 static void	execute(t_meta *m, t_token *tok)
 {
-	execute_bin(m);
+	int	bi;
+
+	bi = is_builtin(m->argv[0]);
+	if (bi)
+		execute_builtin(m, bi);
+	else
+		execute_bin(m);
 }
 
 void	exec_start(t_meta *m)
