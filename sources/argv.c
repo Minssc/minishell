@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:36:57 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 17:57:41 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 20:19:56 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	**argv_build(t_token *tok)
 	int			i;
 
 	ct = tok;
-	printf("%d\n",nargs);
 	ret = (char **)ft_calloc(sizeof(char *), (nargs + 1));
 	if (!ret)
 		perror_exit("ft_calloc failed for ret @build_argv");
@@ -62,18 +61,19 @@ char	**argv_build(t_token *tok)
 // frees argv array. 
 // remember to zero the argv afterwards as a good habbit.
 
-void	argv_destroy(char **argv)
+void	argv_destroy(t_meta *m)
 {
-	char	**orig;
+	char	**argv;
 	
-	if (!argv)
+	if (!m->argv)
 		return ;
-	orig = argv;
+	argv = m->argv;
 	while (*argv)
 	{
 		if (*argv)
 			free(*argv);
 		argv++;
 	}
-	free(orig);
+	free(m->argv);
+	m->argv = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 17:44:31 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 20:16:36 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_meta
 	int			exit_status;
 	t_token		*token_start;
 	t_list		*list_env;
+	char		**argv;
 	int			p_in;
 	int			p_out;
 	int			in;
@@ -64,9 +65,12 @@ typedef struct s_meta
 
 typedef unsigned char t_byte;
 
+// bin.c
+void	execute_bin(t_meta *m);
+
 // argv.c
 char	**argv_build(t_token *tok);
-void	argv_destroy(char **argv);
+void	argv_destroy(t_meta *m);
 
 // exec.c
 void	exec_start(t_meta *m);

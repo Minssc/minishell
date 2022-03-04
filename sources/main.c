@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 16:48:44 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 20:16:52 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static void	loop_start(t_meta *m)
 		if (quotes(str))
 			continue ;
 		add_history(str);
+			
+		m->token_start = 0;
 		parse(m, str);
 		// 파싱에 문제가 없는 경우
 		// 명령어 실행 혹은 에러(예외)처리

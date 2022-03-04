@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 17:58:14 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 20:18:46 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static t_token	*next_cmd(t_token *tok)
 	return (0);
 }
 
-static void	execute(t_meta *m, t_token *tok, char **argv)
+static void	execute(t_meta *m, t_token *tok)
 {
-
+	execute_bin(m);
 }
 
 void	exec_start(t_meta *m)
@@ -35,10 +35,9 @@ void	exec_start(t_meta *m)
 	ct = next_cmd(m->token_start);
 	while (ct)
 	{
-		char **argv = argv_build(ct);
-		argv_destroy(argv);
-		execute(m, ct, argv);
+		m->argv = argv_build(ct);
+		execute(m, ct);
+		argv_destroy(m);
 		ct = next_cmd(ct->next);
 	}
-	m->token_start = 0;
 }
