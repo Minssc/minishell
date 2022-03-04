@@ -6,7 +6,7 @@
 #    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/04 04:09:28 by tjung            ###   ########.fr        #
+#    Updated: 2022/03/04 20:35:55 by tjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,14 @@ FIL_M		=	main \
 				msfunc/ms_isspace \
 				msfunc/ms_correct.c \
 				msfunc/ms_find.c \
+				msfunc/ms_custom.c \
 				builtin/pwd \
 				builtin/env \
 				builtin/unset \
 				builtin/export \
 				builtin/echo \
-				builtin/exit
+				builtin/exit \
+				builtin/cd
 
 FIL_B		=
 
