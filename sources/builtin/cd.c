@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:07 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:38:56 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/04 21:53:21 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,16 @@ static int	mv_oldpwd(t_meta *m)
 		perror_exit("getcwd failed @builtin_cd/mv_oldpwd");
 	oldpwd = env_get(m, "OLDPWD");
 	if (!oldpwd)
-	{
-		ft_putendl_fd("cd: OLDPWD not set", STDERR_FILENO);
-		m->exit_status = 1;
-		free(pwd);
-		return (1);
-	}
+		return (custom_perr_and_set_exnum("cd: OLDPWD not set", 1, pwd, 1));
 	if (chdir(oldpwd) == -1)
+	{
+		custom_char_free(oldpwd, pwd);
 		perror_exit("chdir(oldpwd) failed @builtin_cd/mv_oldpwd");
+	}
 	if (env_set(m, "OLDPWD", pwd) || env_set(m, "PWD", oldpwd))
 	{
 		custom_char_free(oldpwd, pwd);
-		perror_exit("chdir() failed @builtin_cd/mv_oldpwd");
+		perror_exit("env_set() failed @builtin_cd/mv_oldpwd");
 	}
 	m->exit_status = 0;
 	custom_char_free(oldpwd, pwd);
@@ -67,12 +65,14 @@ static int	mv_home(t_meta *m)
 	char	*pwd;
 	char	*home;
 
-	pwd = env_get(m, "PWD");
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		perror_exit("getcwd failed @builtin_cd/mv_home");
 	home = env_get(m, "HOME");
 	if (chdir(home) == -1)
 	{
 		custom_char_free(pwd, home);
-		perror_exit("chdir: $HOME failed @builtin_cd/mv_home");
+		perror_exit("chdir(home) failed @builtin_cd/mv_home");
 	}
 	if (env_set(m, "OLDPWD", pwd) || env_set(m, "PWD", home))
 	{
@@ -92,17 +92,17 @@ static int	sub_builtin_cd(t_meta *m, char *path)
 
 	oldpwd = env_get(m, "PWD");
 	if (chdir(path) == -1)
-		perror_exit("chdir(mv_cmd[1]) failed @builtin_cd");
+		perror_exit("chdir(path) failed @builtin_cd/sub_builtin_cd");
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
 		free(oldpwd);
-		perror_exit("getcwd failed @builtin_cd");
+		perror_exit("getcwd failed @builtin_cd/sub_builtin_cd");
 	}
 	if (env_set(m, "OLDPWD", oldpwd) || env_set(m, "PWD", pwd))
 	{
 		custom_char_free(oldpwd, pwd);
-		perror_exit("env_set() failed @builtin_cd");
+		perror_exit("env_set() failed @builtin_cd/sub_builtin_cd");
 	}
 	m->exit_status = 0;
 	custom_char_free(oldpwd, pwd);
@@ -133,7 +133,5 @@ int	builtin_cd(char **mv_cmd)
 		}
 		return (sub_builtin_cd(m, mv_cmd[1]));
 	}
-	ft_putendl_fd("cd: too many arguments", STDERR_FILENO);
-	m->exit_status = 1;
-	return (1);
+	return (custom_perr_and_set_exnum("cd: too many arguments", 1, NULL, 1));
 }

@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:35:45 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/04 21:50:32 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_list	*find_prev_node(t_list *root, t_list *cur_ptr);
 // msfunc/ms_custom.c
 void	custom_char_free(char *one, char *two);
 int		custom_double_char_len(char **ptr);
+int		custom_perr_and_set_exnum(char *str, int exnum, char *heap, int ret);
 
 // signal.c
 void	set_signal(void);
