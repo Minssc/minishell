@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 01:04:11 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 12:25:59 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 // readline의 line 을 parse
 // | < << >> > 5개의 분리자를 기준으로 소분
@@ -23,14 +22,14 @@
 // 	c
 // 크기 5의 list 생성. 이때 앞뒤 공백 문자는 모두 삭제 (trim)
 
-// 이후 subenv 함수에서 리스트 순회 하며 environment variable을 삽입. 
+// 이후 subenv 함수에서 리스트 순회 하며 environment variable을 삽입.
 
 static void	add_arg(t_meta *m, char *from, char *to)
 {
 	char	*cont;
 	char	*tmp;
 	t_list	*nl;
-	
+
 	cont = ft_substr(from, 0, to - from);
 	tmp = cont;
 	cont = ft_strtrim(cont, " \n\r\t"); // TODO "공백 문자 더 있나?"
@@ -62,12 +61,12 @@ static void	find_and_sub(t_meta *m, t_list *li)
 			if (!*cur){
 				printf("minishell: syntax error: unexpected EOF while looking for matching \'\'\'\n");
 				break ;
-			}	
+			}
 		}
 		if (*cur == '$') // TODO $? $$ $< 등등?
 		{
 			tmp = li->content;
-			li->content = ft_substr(li->content, 0,
+			li->content = ft_substr(li->content, 0, \
 				cur - (char *)li->content);
 			while (cur[i] && !ms_isspace(cur[i]) && cur[i] != '\"')
 				i++;
@@ -117,7 +116,7 @@ void	parse(t_meta *m, char *line)
 			if (!*cur){
 				printf("minishell: syntax error: unexpected EOF while looking for matching \'\"\'\n");
 				break ;
-			}	
+			}
 		}
 		if (*cur == '|' || *cur == '<' || *cur == '>') // TODO ||의 경우는 지금 처리? 후 처리?
 		{
@@ -132,16 +131,16 @@ void	parse(t_meta *m, char *line)
 	}
 	if (*line)
 		add_arg(m, line, cur);
-	
+
 	t_list *cl;
-	
+
 	cl = m->list_args;
 	while (cl)
 	{
 		printf("cont orig: #%s#\n", (char *)cl->content);
 		cl = cl->next;
 	}
-	sub_env(m);	
+	sub_env(m);
 	cl = m->list_args;
 	while (cl)
 	{
@@ -149,5 +148,4 @@ void	parse(t_meta *m, char *line)
 		cl = cl->next;
 	}
 	ft_lstclear(&m->list_args, free);
-
 }

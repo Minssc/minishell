@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:52:53 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 17:13:52 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 12:24:28 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sighandl(int signum)
 	}
 	else if (signum == SIGQUIT)
 	{
-		//TODO kill child? 
+		//TODO kill child?
 	}
 }
 
@@ -38,7 +38,7 @@ int	ms_loop(t_meta *m)
 		line = readline("minishell$ ");
 		if (line)
 		{
-			printf("readline: %s\n",line);
+			printf("readline: %s\n", line);
 			parse(m, line);
 			free(line);
 		}

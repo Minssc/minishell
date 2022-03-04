@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ms_correct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 12:51:59 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 03:52:46 by tjung            ###   ########.fr       */
+/*   Created: 2022/03/04 01:39:59 by tjung             #+#    #+#             */
+/*   Updated: 2022/03/04 18:09:28 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_env(char **argu)
+// bcmd		: argument vector 0 번 index 값 - 빌트인 명령어 부분
+// comp		: 비교할 빌트인 명령어 (const)
+// comp_len	: 널문자 포함한 comp 문자열 길이
+// return (1) - 올바른 빌트인 명령
+// return (0) - 잘못된 빌트인 명령
+// bcmd == NULL 이면, 0 return.
+int	ms_correct_builtin_cmd(char *bcmd, char *comp)
 {
-	t_meta	*m;
-	t_list	*cur;
+	int	comp_len;
 
-	m = meta_get();
-	if (argu[1])
-	{
-		m->exit_status = 1;
-		ft_putendl_fd("env: too many arguments", STDERR_FILENO);
+	if (!bcmd)
+		return (0);
+	comp_len = ft_strlen(comp) + 1;
+	if (!ft_strncmp(bcmd, comp, comp_len))
 		return (1);
-	}
-	cur = m->list_env;
-	while (cur)
-	{
-		ft_putendl_fd((char *)cur->content, STDOUT_FILENO);
-		cur = cur->next;
-	}
-	m->exit_status = 0;
 	return (0);
 }

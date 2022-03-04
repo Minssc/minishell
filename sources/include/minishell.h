@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 01:16:39 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/04 21:50:32 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,27 @@ char	*ms_argjoin(char const *s1, char const *s2);
 int		ms_isspace(char c);
 int		ms_isemptystr(char *str);
 
+// msfunc/ms_correct.c
+int		ms_correct_builtin_cmd(char *bcmd, char *comp);
+
+// msfunc/ms_find.c
+t_list	*find_prev_node(t_list *root, t_list *cur_ptr);
+
+// msfunc/ms_custom.c
+void	custom_char_free(char *one, char *two);
+int		custom_double_char_len(char **ptr);
+int		custom_perr_and_set_exnum(char *str, int exnum, char *heap, int ret);
+
 // signal.c
-void		set_signal(void);
+void	set_signal(void);
 
 // builtin/
-// int			mini_pwd(void);
-// int			mini_env(t_env *root);
-// int			mini_unset(t_env *target, char *key);
-// int			mini_echo(char **argu);
+int		builtin_pwd(void);
+int		builtin_env(char **argu);
+int		builtin_unset(char **keys);
+int		builtin_export(char **entries);
+int		builtin_echo(char **contents);
+void	builtin_exit(char **exit_cmd);
+int		builtin_cd(char **mv_cmd);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 02:52:06 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/03 00:16:37 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 12:28:43 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,4 @@ int	ms_isemptystr(char *str)
 		str++;
 	}
 	return (1);
-	// int	i;
-
-	// i = -1;
-	// while (str[++i])
-	// {
-	// 	if (str[i] < 9 || str[i] > 13)
-	// 	{
-	// 		if (str[i] == 32)
-	// 			continue ;
-	// 		return (0);
-	// 	}
-	// }
-	// return (1);
 }

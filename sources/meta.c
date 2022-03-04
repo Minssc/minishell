@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 15:52:54 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 16:26:25 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_meta	*meta_get(void)
 t_meta	*meta_init(void)
 {
 	t_meta	*m;
-	
+
 	m = meta_get();
 	return (m);
 }
