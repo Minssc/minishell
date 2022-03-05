@@ -6,146 +6,106 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 12:25:59 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/04 20:19:27 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// readline의 line 을 parse
-// | < << >> > 5개의 분리자를 기준으로 소분
-// 예) a | b >> c
-// 	a
-// 	|
-// 	b
-// 	>>
-// 	c
-// 크기 5의 list 생성. 이때 앞뒤 공백 문자는 모두 삭제 (trim)
+// token 기준 parsing 
+// parsing 후 환경변수 삽입 
+// 환경변수 삽입 후 따옴표 제거 
 
-// 이후 subenv 함수에서 리스트 순회 하며 environment variable을 삽입.
-
-static void	add_arg(t_meta *m, char *from, char *to)
+static void	skip_space(char **str)
 {
-	char	*cont;
-	char	*tmp;
-	t_list	*nl;
+	while (ms_isspace(**str))
+		(*str)++;
 
-	cont = ft_substr(from, 0, to - from);
-	tmp = cont;
-	cont = ft_strtrim(cont, " \n\r\t"); // TODO "공백 문자 더 있나?"
-	if (!cont)
-		perror_exit("ft_substr failed @add_arg");
-	nl = ft_lstnew(cont);
-	if (!nl)
-		perror_exit("ft_lstnew failed @add_arg");
-	ft_lstadd_back(&m->list_args, nl);
 }
 
-static void	find_and_sub(t_meta *m, t_list *li)
+void		ms_skip_quotes(char **str, char quote)
 {
-	char	*cur;
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-	int		i;
-
-	cur = (char *)li->content;
-	while (*cur)
-	{
-		i = 0;
-		if (*cur == '\'')
-		{
-			cur++;
-			while (*cur && *cur != '\'')
-				cur++;
-			if (!*cur){
-				printf("minishell: syntax error: unexpected EOF while looking for matching \'\'\'\n");
-				break ;
-			}
-		}
-		if (*cur == '$') // TODO $? $$ $< 등등?
-		{
-			tmp = li->content;
-			li->content = ft_substr(li->content, 0, \
-				cur - (char *)li->content);
-			while (cur[i] && !ms_isspace(cur[i]) && cur[i] != '\"')
-				i++;
-			tmp3 = ft_substr(cur, 1, i - 1);
-			tmp2 = li->content;
-			li->content = ft_strjoin(li->content, env_get(m, tmp3));
-			free(tmp3);
-			free(tmp2);
-			tmp2 = li->content;
-			li->content = ft_strjoin(li->content, cur + i);
-			free(tmp2);
-			free(tmp);
-			cur = (char *)li->content;
-		}
-		cur++;
-	}
+	*str = ft_strchr(*str + 1, quote);
+	if (!(*str))
+		mexit_cm("syntax err \' or \"", 255);
+	(*str)++;
 }
 
-static void	sub_env(t_meta *m)
-{
-	t_list	*cl;
 
-	cl = m->list_args;
-	while (cl)
-	{
-		find_and_sub(m, cl);
-		cl = cl->next;
-	}
+
+static void	add_token(t_meta *m, char *from, char *to)
+{
+	t_token *lt;
+	t_token	*nt;
+
+	if (from >= to)
+		return ;
+	nt = (t_token *)ft_calloc(sizeof(t_token), 1);
+	if (!nt)
+		perror_exit("ft_calloc failed @add_token");
+	nt->str = ft_substr(from, 0, to - from);
+	if (!nt->str)
+		perror_exit("ft_substr failed @add_token");
+	token_add_back(&m->token_start, nt);
 }
 
 void	parse(t_meta *m, char *line)
 {
-	t_list	*nl;
-	char	*args;
 	char	*cur;
-	char	*tmp;
 
-	args = 0;
+	skip_space(&line);
 	cur = line;
-	while (*line && *cur)
+	while (*cur)
 	{
-		if (*cur == '\"')
+		if (*cur == '\"' || *cur == '\'')
+			ms_skip_quotes(&cur, *cur);
+		else if (*cur == '<' || *cur == '>' || *cur == '|')
 		{
-			cur++;
-			while (*cur && *cur != '\"')
-				cur++;
-			if (!*cur){
-				printf("minishell: syntax error: unexpected EOF while looking for matching \'\"\'\n");
-				break ;
-			}
-		}
-		if (*cur == '|' || *cur == '<' || *cur == '>') // TODO ||의 경우는 지금 처리? 후 처리?
-		{
-			add_arg(m, line, cur);
+			add_token(m, line, cur);
 			line = cur++;
-			if (*cur && (*cur == '<' || *cur == '>'))
-				cur++;
-			add_arg(m, line, cur);
+			if (*cur && *cur == '<' || *cur == '>')
+				add_token(m, line, ++cur);
+			else
+				add_token(m, line, cur);
+			line = cur;
+
+		}
+		else if (ms_isspace(*cur))
+		{
+			add_token(m, line, cur);
+			skip_space(&cur);
 			line = cur;
 		}
-		cur++;
+		else
+			cur++;
 	}
-	if (*line)
-		add_arg(m, line, cur);
+	add_token(m, line, cur);
+	token_ident_all(m);
+	//임시 코드
+	t_token *ct = m->token_start;
+	// printf("Tokens before expanding\n");
+	// while (ct)
+	// {
+	// 	printf("wat %s\n",ct->str);
+	// 	ct = ct->next;
+	// }
+	// expand(m);
 
-	t_list *cl;
+	// printf("\nTokens after expanding\n");
+	// ct = m->token_start;
+	// while (ct)
+	// {
+	// 	printf("%s\n",ct->str);
+	// 	ct = ct->next;
+	// }
+	
+	unquote(m);
+	printf("\nTokens after un-quote\n");
+	ct = m->token_start;
+	while (ct)
 
-	cl = m->list_args;
-	while (cl)
 	{
-		printf("cont orig: #%s#\n", (char *)cl->content);
-		cl = cl->next;
+		printf("%s# ident: %u\n",ct->str, ct->type);
+		ct = ct->next;
 	}
-	sub_env(m);
-	cl = m->list_args;
-	while (cl)
-	{
-		printf("cont after sub: #%s#\n", (char *)cl->content);
-		cl = cl->next;
-	}
-	ft_lstclear(&m->list_args, free);
 }

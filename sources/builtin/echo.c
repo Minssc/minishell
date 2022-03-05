@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:45 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 20:24:12 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/05 16:22:40 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	str_size(char **contents, int i)
 // opt_n 과 "-n" 을 비교 -> 같으면 1, 다르면 0
 static int	check_opt_n(char *opt_n)
 {
-	if (!ft_strncmp(opt_n, "-n", 3))
+	if (!ft_strcmp(opt_n, "-n"))
 		return (1);
 	return (0);
 }
