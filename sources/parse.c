@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:19:27 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 16:23:57 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	parse(t_meta *m, char *line)
 	// 	printf("wat %s\n",ct->str);
 	// 	ct = ct->next;
 	// }
-	// expand(m);
+	expand(m);
 
 	// printf("\nTokens after expanding\n");
 	// ct = m->token_start;
@@ -100,12 +100,12 @@ void	parse(t_meta *m, char *line)
 	// }
 	
 	unquote(m);
-	printf("\nTokens after un-quote\n");
-	ct = m->token_start;
-	while (ct)
+	// printf("\nTokens after un-quote\n");
+	// ct = m->token_start;
+	// while (ct)
 
-	{
-		printf("%s# ident: %u\n",ct->str, ct->type);
-		ct = ct->next;
-	}
+	// {
+	// 	printf("%s# ident: %u\n",ct->str, ct->type);
+	// 	ct = ct->next;
+	// }
 }

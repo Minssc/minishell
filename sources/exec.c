@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:26:18 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:43:40 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,26 @@ static int	is_builtin(char *bin)
 		return (0);
 }
 
-static void	execute_builtin(t_meta *m, int flag)
+static int	execute_builtin(t_meta *m, int flag)
 {
-	printf("run a builtin! BI flag: %d\n",flag);
+	int		ret;
+
+	ret = 0;
+	if (flag == B_CD)
+		ret = builtin_cd(m->argv);
+	else if (flag == B_ECHO)
+		ret = builtin_echo(m->argv);
+	else if (flag == B_ENV)
+		ret = builtin_env(m->argv);
+	else if (flag == B_EXIT)
+		builtin_exit(m->argv);
+	else if (flag == B_EXPT)
+		ret = builtin_export(m->argv);
+	else if (flag == B_PWD)
+		ret = builtin_pwd();
+	else if (flag == B_UNST)
+		ret = builtin_unset(m->argv);
+	return (ret);
 }
 
 static int	execute_bin(t_meta *m)
