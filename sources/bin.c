@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:37:10 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 16:24:15 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*bin_find_paths(char **paths, char *bin)
 {
 	DIR				*dir;
 	struct dirent	*item;
-	const size_t	blen = ft_strlen(bin);
+	// const size_t	blen = ft_strlen(bin);
 
 	while (*paths)
 	{
@@ -29,7 +29,7 @@ static char	*bin_find_paths(char **paths, char *bin)
 			item = readdir(dir);
 			while (item)
 			{
-				if (ft_strncmp(item->d_name, bin, blen) == 0)
+				if (ft_strcmp(item->d_name, bin) == 0)
 				{
 					closedir(dir);
 					return (*paths);
@@ -89,7 +89,6 @@ char	*bin_find(t_meta *m, char *bin)
 	if (!path)
 		return (0);
 	path_stitch(&path, bin);
-	printf("found executable @%s\n",path);
 	ms_free_dca(&paths);
 	return (path);
 }
@@ -100,11 +99,22 @@ int	bin_run(t_meta *m, char *bin)
 {
 	char	**env;
 	int		ret;
+
 	m->pid = fork();
 	if (m->pid == 0)
 	{
 		env = env_build(m);
-		execve(bin, m->argv, env); // TODO manage errno
+		char **av = m->argv;
+		// printf("bin full path:%s#\n",bin);
+		// printf("argv supplied\n\n");
+		// while (*av)
+		// {
+		// 	printf("%s#\n",*av);
+		// 	av++;
+		// }
+		// printf("EOA");
+		if (execve(bin, m->argv, env) == -1); // TODO manage errno
+			printf("\nerrno: %d\n", errno);
 		ms_free_dca(&env);
 	}
 	else

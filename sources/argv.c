@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:36:57 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:19:56 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:56:49 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	**argv_build(t_token *tok)
 	ret = (char **)ft_calloc(sizeof(char *), (nargs + 1));
 	if (!ret)
 		perror_exit("ft_calloc failed for ret @build_argv");
-	ret[nargs] = '\0';
 	i = -1;
 	while (++i < nargs)
 	{

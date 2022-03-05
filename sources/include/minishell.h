@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:36:55 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:55:00 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <wait.h>
 # include <dirent.h>
 # include <signal.h>
+# include <errno.h>
 # include "libft.h"
 // libreadline-dev
 # include <readline/readline.h>
