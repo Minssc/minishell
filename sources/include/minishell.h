@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 21:13:28 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/06 01:29:30 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@
 # define T_PIP 0b00000100
 # define T_APL 0b00001000
 # define T_APR 0b00010000
-# define T_INP 0b00100000
-# define T_RDR 0b01000000
-# define T_RDL 0b10000000
+# define T_RDR 0b00100000
+# define T_RDL 0b01000000
 
 # define B_CD	0b00000001
 # define B_ECHO	0b00000010

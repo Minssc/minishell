@@ -6,117 +6,13 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 19:20:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 01:22:19 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/06 01:28:06 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-// static char	*find_q(char *str)
-// {
-// 	while (*str)
-// 	{
-// 		if (*str == '\'' || *str == '\"')
-// 			return (str);
-// 		str++;
-// 	}
-// 	return (0);
-// }
-
-// static int	count_quotes(char *str)
-// {
-// 	int	cnt;
-	
-// 	cnt = 0;
-// 	while (*str)
-// 	{
-// 		if (*str == '\'' || *str == '\"')
-// 			cnt++;
-// 		str++;
-// 	}
-// 	return (cnt);
-// }
-
-// static void	remove_quotes(char **ostr)
-// {
-// 	char	*nstr;
-// 	char	*orig;
-// 	int		nquotes;
-// 	int		i;
-// 	int		olen;
-
-// 	i = 0;
-// 	orig = *ostr;
-// 	nquotes = count_quotes(*ostr);
-// 	olen = ft_strlen(*ostr);
-// 	nstr = (char *)malloc(sizeof(char) * (olen - nquotes + 1));
-// 	nstr[olen - nquotes] = '\0';
-// 	while (**ostr)
-// 	{
-// 		if (**ostr != '\'' && **ostr != '\"')
-// 			nstr[i++] = **ostr;
-// 		(*ostr)++;
-// 	}
-// 	free(orig);
-// 	*ostr = nstr;
-// }
-
-// static int	get_nlen(char *str)
-// {
-// 	int		ret;
-// 	char	lq;
-
-// 	ret = 0;
-// 	lq = 0;
-// 	while (*str)
-// 	{
-// 		if (*str == '\\')
-// 		{
-// 			if (!lq && *(str + 1) == '$' || *(str + 1) == '\"' ||
-// 					*(str + 1) == '\'')
-// 				str++;
-// 			else if (lq && lq == '\"')
-// 			{
-
-// 			}
-// 		}
-// 		else if (!lq && *str == '\"' || *str == '\'')
-// 		{
-// 			lq = *str;
-// 		}
-// 		else if (lq && (*str == '\"' || *str == '\''))
-// 		{
-// 			if (lq != *str)
-// 				ret++;
-// 			else
-// 				lq = 0;
-// 		}
-// 		str++;
-// 	}
-// 	return (ret);
-// }
-
-// static void	remove_quotes_and_escape(char **ostr)
-// {
-// 	const size_t	olen = ft_strlen(*ostr);
-// 	char			*nstr;
-// 	char			*cstr;
-// 	int				nlen;
-
-// 	nlen = get_nlen(*ostr);
-// }
-
-// static char	*needs_cleanup(char *str)
-// {
-// 	while (*str)
-// 	{
-// 		if (*str == '\'' || *str == '\"')
-// 			return (0);
-// 		str++;
-// 	}
-// 	return (0);
-// }
+// TODO reduce function count
 
 static void	escape(char **str)
 {

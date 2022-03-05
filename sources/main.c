@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 23:02:24 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/06 01:28:17 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	loop_start(t_meta *m)
 		parse(m, str);
 		// 파싱에 문제가 없는 경우
 		// 명령어 실행 혹은 에러(예외)처리
-		// exec_start(m);
+		exec_start(m);
 		free(str);
 	}
 }
