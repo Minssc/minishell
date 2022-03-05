@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:16:52 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:38:27 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ int	main(int argc, char *argv[] __attribute__((unused)), char *envp[])
 	// m->out = dup(stdout);
 	env_init(m, envp);
 	set_signal();
-//	loop_start(m);
+	loop_start(m);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:26:02 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:37:10 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	path_stitch(char **path, char *file)
 	}
 }
 
-static char	*bin_find(t_meta *m, char *bin)
+char	*bin_find(t_meta *m, char *bin)
 {
 	char	*tmp;
 	char	*path;
@@ -96,7 +96,7 @@ static char	*bin_find(t_meta *m, char *bin)
 
 // find binary file and run it.  
 
-static int	bin_run(t_meta *m, char *bin)
+int	bin_run(t_meta *m, char *bin)
 {
 	char	**env;
 	int		ret;

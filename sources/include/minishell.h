@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:15:18 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:36:55 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ typedef struct s_meta
 typedef unsigned char t_byte;
 
 // bin.c
-int		execute_bin(t_meta *m);
+char	*bin_find(t_meta *m, char *bin);
+int		bin_run(t_meta *m, char *bin);
+// int		execute_bin(t_meta *m);
 
 // argv.c
 char	**argv_build(t_token *tok);

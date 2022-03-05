@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
+#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/05 15:08:31 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/05 15:38:04 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,10 @@ FIL_M		=	main \
 				msfunc/ms_argjoin \
 				msfunc/ms_isspace \
 				msfunc/ms_substr \
-				msfunc/ms_free
-				msfunc/ms_correct.c \
-				msfunc/ms_find.c \
-				msfunc/ms_custom.c \
+				msfunc/ms_free \
+				msfunc/ms_correct \
+				msfunc/ms_find \
+				msfunc/ms_custom \
 				builtin/pwd \
 				builtin/env \
 				builtin/unset \
