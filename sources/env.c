@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:57:59 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 17:30:55 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 18:50:56 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_list	*env_find(t_meta *m, char *key)
 {
 	size_t	klen;
 	t_list	*cur;
+	int		i;
 
 	if (!key)
 		return (0);
@@ -76,7 +77,8 @@ t_list	*env_find(t_meta *m, char *key)
 	cur = m->list_env;
 	while (cur)
 	{
-		if (ft_strcmp((char *)cur->content, key) == 0)
+		if (ft_strncmp((char *)cur->content, key, klen) == 0
+				&& ((char *)(cur->content))[klen] == '=')
 			return (cur);
 		cur = cur->next;
 	}
