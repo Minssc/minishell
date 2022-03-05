@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
 #    Updated: 2022/03/05 15:08:31 by minsunki         ###   ########seoul.kr   #
@@ -36,6 +36,16 @@ FIL_M		=	main \
 				msfunc/ms_isspace \
 				msfunc/ms_substr \
 				msfunc/ms_free
+				msfunc/ms_correct.c \
+				msfunc/ms_find.c \
+				msfunc/ms_custom.c \
+				builtin/pwd \
+				builtin/env \
+				builtin/unset \
+				builtin/export \
+				builtin/echo \
+				builtin/exit \
+				builtin/cd
 
 FIL_B		=
 

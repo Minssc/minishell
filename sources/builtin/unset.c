@@ -6,37 +6,35 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:23 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/02 18:35:11 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/04 04:08:54 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_env	*find_key(t_env *root, char *key)
+// keys[0] = unset 명령어
+int	builtin_unset(char **keys)
 {
-	t_env	*curr;
-	char	*tmp;
-	int		len;
+	t_meta	*m;
+	t_list	*target;
+	t_list	*prev;
+	int		i;
 
-	curr = root;
-	tmp = ft_strjoin(key, "=");
-	len = ft_strlen(tmp);
-	while (curr)
+	m = meta_get();
+	i = 0;
+	while (keys[++i])
 	{
-		if (!ft_strncmp(tmp, curr->contents, len + 1))
-			break ;
-		curr = curr->next;
+		target = env_find(m, keys[i]);
+		if (target)
+		{
+			prev = find_prev_node(m->list_env, target);
+			if (prev)
+				prev->next = target->next;
+			else
+				m->list_env = target->next;
+			ft_lstdelone(target, free);
+		}
 	}
-	free(tmp);
-	return (curr);
-}
-
-int	mini_unset(t_env *root, char *key)
-{
-	t_env	*target;
-
-	target = find_key(root, key);
-	ft_lstdelone_env(target);
-	g_exit_status = 0;
+	m->exit_status = 0;
 	return (0);
 }

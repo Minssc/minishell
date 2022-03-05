@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mexit.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:36 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 01:20:49 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 12:23:57 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	mexit_pe(int ec)
 
 void	mexit_cm(char *str, int ec)
 {
-	printf("%s\n",str);
+	printf("%s\n", str);
 	mexit(ec);
 }
 
 void	perror_exit(char *str)
 {
-	printf("Error\n%s\n",str);
+	printf("Error\n%s\n", str);
 	mexit_pe(255);
 }

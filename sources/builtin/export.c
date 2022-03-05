@@ -3,74 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:12 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 00:00:37 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/03 20:05:47 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static char	*except_quotes(char *tmp)
-// {
-// 	char	*value;
-// 	int		qflag;
-// 	int		i;
+// opt 1 -> key, opt 2 -> value
+static char	*get_data(char *entry, char *equal, char opt)
+{
+	char	*str;
+	int		len;
 
-// 	qflag = 0;
-// 	i = -1;
-// 	while (tmp[++i])
-// 	{
-// 		if (tmp[i] == '\"')
-// 			i++;
-// 	}
-// }
+	if (opt == 'k')
+	{
+		len = equal - entry;
+		str = ft_substr(entry, 0, len);
+	}
+	else if (opt == 'v')
+	{
+		len = ft_strlen(equal) - 1;
+		str = ft_substr(entry, (equal + 1) - entry, len);
+	}
+	return (str);
+}
 
-// static char	*join_key_and_value(char *chunk, char *tmp, char *equal)
-// {
-// 	char	*join;
-// 	char	*keye;
-// 	char	*value;
+// norm 분리 - builtin_export 연장
+static int	sub_builtin_export(t_meta *m, char *entry, char *equal)
+{
+	char	*key;
+	char	*value;
+	int		ret;
 
-// 	keye = ft_substr(chunk, 0, (equal + 1) - chunk);
-// 	value = except_quotes(tmp);
-// 	join = ft_strjoin(keye, value);
-// 	free(keye);
-// 	free(value);
-// 	return (join);
-// }
+	key = get_data(entry, equal, 'k');
+	value = get_data(entry, equal, 'v');
+	ret = env_set(m, key, value);
+	free(key);
+	free(value);
+	return (ret);
+}
 
-// static char	*valid_chunk(char *chunk)
-// {
-// 	char	*var;
-// 	char	*tmp;
-// 	char	*equal;
-// 	int		len;
+//entries[0] = export 명령어
+int	builtin_export(char **entries)
+{
+	t_meta	*m;
+	char	*entry;
+	char	*equal;
+	int		i;
 
-// 	equal = ft_strchr(chunk, '=');
-// 	if (!equal)
-// 		return (NULL);
-// 	len = ft_strlen(equal) - 1;
-// 	tmp = ft_substr(chunk, (equal + 1) - chunk, len);
-// 	var = join_key_and_value(chunk, tmp, equal);
-// 	free(tmp);
-// 	return (var);
-// }
-
-// int	mini_export(t_env *root, char *chunk)
-// {
-// 	t_env	*last;
-// 	char	*env_variable;
-
-// 	env_variable = valid_chunk(chunk);
-// 	if (env_variable)
-// 	{
-// 		last = ft_lstlast_env(root);
-// 		ft_lstadd_back_env(&last, ft_lstnew_env());
-// 		last = last->next;
-// 		last->contents = env_variable;
-// 	}
-// 	g_exit_status = 0;
-// 	return (0);
-// }
+	m = meta_get();
+	i = 0;
+	while (entries[++i])
+	{
+		equal = ft_strchr(entries[i], '=');
+		if (!equal)
+			continue ;
+		if (sub_builtin_export(m, entries[i], equal))
+			perror_exit("env_set failed @builtin_export");
+	}
+	m->exit_status = 0;
+	return (0);
+}

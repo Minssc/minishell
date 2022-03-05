@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
 /*   Updated: 2022/03/04 20:19:27 by minsunki         ###   ########seoul.kr  */
@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 // token 기준 parsing 
 // parsing 후 환경변수 삽입 
@@ -21,6 +20,7 @@ static void	skip_space(char **str)
 {
 	while (ms_isspace(**str))
 		(*str)++;
+
 }
 
 void		ms_skip_quotes(char **str, char quote)
@@ -68,6 +68,7 @@ void	parse(t_meta *m, char *line)
 			else
 				add_token(m, line, cur);
 			line = cur;
+
 		}
 		else if (ms_isspace(*cur))
 		{
@@ -102,9 +103,9 @@ void	parse(t_meta *m, char *line)
 	printf("\nTokens after un-quote\n");
 	ct = m->token_start;
 	while (ct)
+
 	{
 		printf("%s# ident: %u\n",ct->str, ct->type);
 		ct = ct->next;
 	}
-
 }
