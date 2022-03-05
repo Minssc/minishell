@@ -6,14 +6,18 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:08:19 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 17:20:48 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/06 00:15:37 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// if token type is delim, do not update the type.
+
 t_byte	token_ident(t_token *tok)
 {
+	if (tok->type & 0b11111100)
+		return (tok->type);
 	if (ft_strncmp(tok->str, "|", 1) == 0)
 		tok->type = T_PIP;
 	else if (ft_strncmp(tok->str, "<<", 2) == 0)

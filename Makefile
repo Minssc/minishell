@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/05 15:38:04 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/05 21:13:36 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FIL_M		=	main \
 				parse \
 				syntax \
 				expand \
-				unquote \
+				cleanup \
 				token \
 				exec \
 				argv \
@@ -36,7 +36,6 @@ FIL_M		=	main \
 				msfunc/ms_isspace \
 				msfunc/ms_substr \
 				msfunc/ms_free \
-				msfunc/ms_correct \
 				msfunc/ms_find \
 				msfunc/ms_custom \
 				builtin/pwd \

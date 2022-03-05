@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:55:00 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 21:13:28 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ t_byte	token_ident(t_token *tok);
 void	token_add_back(t_token **th, t_token *nt);
 void	token_del(t_token *tok);
 
-// unquote.c
-void	unquote(t_meta *m);
+// cleanup.c
+void	cleanup(t_meta *m);
 
 // expand.c
 void	expand(t_meta *m);
@@ -143,9 +143,6 @@ char	*ms_argjoin(char const *s1, char const *s2);
 // msfunc/ms_isspace.c
 int		ms_isspace(char c);
 int		ms_isemptystr(char *str);
-
-// msfunc/ms_correct.c
-int		ms_correct_builtin_cmd(char *bcmd, char *comp);
 
 // msfunc/ms_find.c
 t_list	*find_prev_node(t_list *root, t_list *cur_ptr);

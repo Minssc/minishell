@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:43:40 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 19:38:20 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int	execute_bin(t_meta *m)
 	int		ret;
 
 	ret = 0;
+	printf("bin: %s#\n",m->argv[0]);
 	bin = bin_find(m, m->argv[0]);
 	if (!bin)
 		return (1); // TODO MANAGE ERROR CODES. FILE NOT FOUND
@@ -84,6 +85,8 @@ static void	execute(t_meta *m, t_token *tok)
 	int	bi;
 
 	bi = is_builtin(m->argv[0]);
+	if (bi)
+		printf("is builtin\n");
 	if (bi)
 		execute_builtin(m, bi);
 	else

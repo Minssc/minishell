@@ -6,11 +6,13 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 16:24:15 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 19:20:03 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO 절대경로 처리
 
 // static int	bin_check(char **paths, char *bin)
 // paths들을 순회하며 bin이 발견될 시 path 반환. 못찾으면 0 반환
