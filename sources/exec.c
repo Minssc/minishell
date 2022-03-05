@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 21:17:21 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:26:18 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ static int	is_builtin(char *bin)
 static void	execute_builtin(t_meta *m, int flag)
 {
 	printf("run a builtin! BI flag: %d\n",flag);
+}
+
+static int	execute_bin(t_meta *m)
+{
+	char	*bin;
+	int		ret;
+
+	ret = 0;
+	bin = bin_find(m, m->argv[0]);
+	if (!bin)
+		return (1); // TODO MANAGE ERROR CODES. FILE NOT FOUND
+	ret = bin_run(m, bin);
 }
 
 static void	execute(t_meta *m, t_token *tok)

@@ -6,28 +6,11 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:57:28 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:26:02 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// TODO think about moving char **path to meta.
-
-static void	free_dca(char **arr)
-{
-	char **orig;
-
-	orig = arr;
-	while (*arr)
-	{
-		printf("%s\n",*arr);
-		free(*arr);
-		arr++;
-	}
-		// free(*(arr++));
-	free(orig);
-}
 
 // static int	bin_check(char **paths, char *bin)
 // paths들을 순회하며 bin이 발견될 시 path 반환. 못찾으면 0 반환
@@ -89,7 +72,7 @@ static void	path_stitch(char **path, char *file)
 	}
 }
 
-static int	bin_find(t_meta *m, char *bin)
+static char	*bin_find(t_meta *m, char *bin)
 {
 	char	*tmp;
 	char	*path;
@@ -97,24 +80,34 @@ static int	bin_find(t_meta *m, char *bin)
 	
 	path = env_get(m, "PATH");
 	if (!path)
-		return (1); // TODO manage exit codes.
+		return (0); 
 	paths = ft_split(path, ':');
 	if (!paths)
 		perror_exit("ft_split failed @find_bin");
 	free(path);
-	path = 0;
 	path = bin_find_paths(paths, bin);
 	if (!path)
-		return (2); // TODO EC failed to find binary
+		return (0);
 	path_stitch(&path, bin);
 	printf("found executable @%s\n",path);
-	free(path);
-	free_dca(paths);
+	ms_free_dca(&paths);
+	return (path);
 }
 
 // find binary file and run it.  
 
-void	execute_bin(t_meta *m)
+static int	bin_run(t_meta *m, char *bin)
 {
-	bin_find(m, m->argv[0]);
+	char	**env;
+	int		ret;
+	m->pid = fork();
+	if (m->pid == 0)
+	{
+		env = env_build(m);
+		execve(bin, m->argv, env); // TODO manage errno
+		ms_free_dca(&env);
+	}
+	else
+		waitpid(m->pid, &ret, 0);
+	return (ret);
 }

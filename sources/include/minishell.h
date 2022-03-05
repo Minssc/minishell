@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 21:00:34 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 15:15:18 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 // 아래 헤더들 살펴보기
 
+# include <wait.h>
 # include <dirent.h>
 # include <signal.h>
 # include "libft.h"
@@ -70,12 +71,13 @@ typedef struct s_meta
 	int			p_out;
 	int			in;
 	int			out;
+	int			pid;
 }				t_meta;
 
 typedef unsigned char t_byte;
 
 // bin.c
-void	execute_bin(t_meta *m);
+int		execute_bin(t_meta *m);
 
 // argv.c
 char	**argv_build(t_token *tok);
@@ -99,6 +101,7 @@ void	expand(t_meta *m);
 
 // env.c
 void	env_init(t_meta *m, char **envp);
+char	**env_build(t_meta *m);
 t_list	*env_find(t_meta *m, char *key);
 char	*env_get(t_meta *m, char *key);
 int		env_set(t_meta *m, char *key, char *value);
@@ -120,6 +123,10 @@ void	mexit(int ec);
 void	mexit_pe(int ec);
 void	mexit_cm(char *str, int ec);
 void	perror_exit(char *str);
+
+// msfunc/ms_free.c
+void	ms_free_dca(char ***dca);
+void	ms_free(void **ptr);
 
 // msfunc/ms_substr.c
 char	*ms_substr(char const *s, unsigned int start, int len);
