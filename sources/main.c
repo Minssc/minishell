@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 21:35:13 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 02:18:59 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,28 @@ static int	quotes(char *line)
 
 static void	loop_start(t_meta *m)
 {
-	char	*str;
-
 	while (1)
 	{
-		str = readline("minishell$ ");
-		if (!str)
+		m->line = readline("minishell$ ");
+		if (!m->line)
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
 			mexit(0);
 		}
-		if (ms_isemptystr(str))
+		if (ms_isemptystr(m->line))
 		{
-			free(str);
+			ms_free((void **)(&m->line));
 			continue ;
 		}
 		// if (quotes(str))
 		// 	continue ;
-		add_history(str);
-			
-		m->token_start = 0;
-		parse(m, str);
+		add_history(m->line);
+		token_destroy(m);
+		parse(m, m->line);
 		// 파싱에 문제가 없는 경우
 		// 명령어 실행 혹은 에러(예외)처리
 		exec_start(m);
-		free(str);
+		ms_free((void **)(&m->line));
 	}
 }
 

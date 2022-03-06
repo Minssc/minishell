@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 16:26:25 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/07 02:19:32 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,11 @@ void	meta_destroy(void)
 	t_meta	*m;
 
 	m = meta_get();
+	token_destroy(m);
+	env_destroy(m);
+	argv_destroy(m);
+	if (m->line)
+		free(m->line);
+	rl_clear_history();
 	free(m);
 }

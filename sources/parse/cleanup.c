@@ -6,21 +6,11 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 19:20:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 01:28:06 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 01:30:47 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// TODO reduce function count
-
-static void	escape(char **str)
-{
-	char	nc;
-
-	nc = *(*str + 1);
-	(*str)++;
-}
 
 static int	quotes(char **str)
 {
@@ -143,14 +133,11 @@ void	cleanup(t_meta *m)
 	ct = m->token_start;
 	while (ct)
 	{
-		// remove_quotes_and_escape(&ct->str);
 		nlen = get_nlen(ct->str);
-		// printf("%s#len: %d, nlen: %d\n",ct->str,ft_strlen(ct->str),nlen);
 		if (nlen != ft_strlen(ct->str))
 		{
 			tmp = ct->str;
 			ct->str = make_nstr(ct->str, nlen);
-			// printf("nlen:%s#\n",ct->str);
 			free(tmp);
 		}
 		ct = ct->next;

@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/06 21:40:21 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/07 01:56:43 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,21 +18,27 @@ SRCF_B		=	bonus
 BI			=	builtin/
 
 FIL_M		=	main \
-				env \
 				meta \
 				mexit \
 				minishell \
 				signal \
-				parse \
 				syntax \
-				expand \
-				cleanup \
-				token \
-				exec \
-				argv \
-				bin \
 				redir \
 				fd \
+				heredoc \
+				exec/exec \
+				exec/exec_util \
+				exec/argv \
+				exec/bin \
+				token/token \
+				token/token_util \
+				env/env \
+				env/env_util \
+				parse/parse \
+				parse/sort \
+				parse/expand \
+				parse/expand_util \
+				parse/cleanup \
 				msfunc/ms_trim \
 				msfunc/ms_argjoin \
 				msfunc/ms_isspace \
@@ -40,6 +46,7 @@ FIL_M		=	main \
 				msfunc/ms_free \
 				msfunc/ms_find \
 				msfunc/ms_custom \
+				msfunc/ms_stitch \
 				builtin/pwd \
 				builtin/env \
 				builtin/unset \
