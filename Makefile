@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/07 01:56:43 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/07 02:28:08 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ BI			=	builtin/
 FIL_M		=	main \
 				meta \
 				mexit \
-				minishell \
 				signal \
 				syntax \
 				redir \

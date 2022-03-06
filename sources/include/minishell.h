@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:56:30 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 02:28:15 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,6 @@ void	fd_close(int fd);
 void	redir_r(t_meta *m, t_token *tok, t_byte type);
 void	redir_l(t_meta *m, t_token *tok, t_byte type);
 int		redir_p(t_meta *m, t_token *tok);
-
-// minishell.c
-int		ms_loop(t_meta *m);
 
 // meta.c
 t_meta	*meta_get(void);
