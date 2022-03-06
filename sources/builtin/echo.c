@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:45 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 16:22:40 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/05 23:09:02 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	builtin_echo(char **contents)
 	int		i;
 
 	m = meta_get();
+	if (custom_double_char_len(contents) == 1)
+		return (custom_putendl("", 0));
 	is_n = check_opt_n(contents[1]);
 	i = 0;
 	if (is_n)
