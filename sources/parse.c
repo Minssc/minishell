@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 01:26:21 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 00:27:30 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,60 @@ static void	delim(t_meta *m, char **line, char **cur)
 	*line = *cur;			
 }
 
+static int	stop_moving(t_token *tok)
+{
+	t_token	*prev;
+
+	if (!tok || (tok->type & (T_CMD | T_ARG)))
+	{
+		prev = token_prev_delim(tok);
+		if (!prev || (prev->type & T_PIP))
+			return (1);
+	}
+	return (0);
+}
+
+static void	insert_token(t_meta *m, t_token *tok, t_token *bef)
+{
+	tok->prev->next = tok->next;
+	if (tok->next)
+		tok->next->prev = tok->prev;
+	if (!bef)
+	{
+		m->token_start->prev = tok;
+		tok->next = m->token_start;
+		m->token_start = tok;
+		tok->prev = 0;
+	}
+	else
+	{
+		tok->prev = bef;
+		tok->next = bef->next;
+		if (bef->next)
+			bef->next->prev = tok;
+		bef->next = tok;
+	}
+}
+
+static void	sort_args(t_meta *m)
+{
+	t_token	*cur;
+	t_token	*prev;
+
+	cur = m->token_start;
+	while (cur)
+	{
+		prev = token_prev_delim(cur);
+		if (cur->type == T_ARG && prev && (prev->type & REDIR))
+		{
+			while (!stop_moving(prev))
+				prev = prev->prev;
+			insert_token(m, cur, prev);
+		}
+		cur = cur->next;
+	}
+}
+
 void	parse(t_meta *m, char *line)
 {
 	char	*cur;
@@ -111,17 +165,17 @@ void	parse(t_meta *m, char *line)
 			cur++;
 	}
 	add_token(m, line, cur);
-	
 	token_ident_all(m);
+	sort_args(m);
 	//임시 코드
 	t_token *ct = m->token_start;
 	expand(m);
 	cleanup(m);	
-	printf("\nFinal tokens\n");
-	ct = m->token_start;
-	while (ct)
-	{
-		printf("#%s#\n",ct->str);
-		ct = ct->next;
-	}
+	// printf("\nFinal tokens\n");
+	// ct = m->token_start;
+	// while (ct)
+	// {
+	// 	printf("#%s#id:%d\n",ct->str,ct->type);
+	// 	ct = ct->next;
+	// }
 }

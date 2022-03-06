@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/05 21:13:36 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/06 21:40:21 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ FIL_M		=	main \
 				exec \
 				argv \
 				bin \
+				redir \
+				fd \
 				msfunc/ms_trim \
 				msfunc/ms_argjoin \
 				msfunc/ms_isspace \

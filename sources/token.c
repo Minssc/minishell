@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:08:19 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 00:15:37 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 00:13:32 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,27 @@
 
 t_byte	token_ident(t_token *tok)
 {
-	if (tok->type & 0b11111100)
-		return (tok->type);
-	if (ft_strncmp(tok->str, "|", 1) == 0)
-		tok->type = T_PIP;
-	else if (ft_strncmp(tok->str, "<<", 2) == 0)
-		tok->type = T_APL;
-	else if (ft_strncmp(tok->str, ">>", 2) == 0)
-		tok->type = T_APR;
-	else if (ft_strncmp(tok->str, "<", 1) == 0)
-		tok->type = T_RDL;
-	else if (ft_strncmp(tok->str, ">", 1) == 0)
-		tok->type = T_RDR;
-	else if (!tok->prev || (tok->prev->type & 0b11111100))
-		tok->type = T_CMD;
+	t_byte	nt;
+
+	nt = T_EMP;
+	if (ft_strcmp(tok->str, "|") == 0)
+		nt = T_PIP;
+	else if (ft_strcmp(tok->str, "<<") == 0)
+		nt = T_APL;
+	else if (ft_strcmp(tok->str, ">>") == 0)
+		nt = T_APR;
+	else if (ft_strcmp(tok->str, "<") == 0)
+		nt = T_RDL;
+	else if (ft_strcmp(tok->str, ">") == 0)
+		nt = T_RDR;
+	else if (!tok->prev || (tok->prev->type & DELIM))
+		nt = T_CMD;
 	else
-		tok->type = T_ARG;
+		nt = T_ARG;
+	if (tok->type && (nt & DELIM))
+		 ;
+	else
+		tok->type = nt;
 	return (tok->type);
 }
 
@@ -80,4 +85,36 @@ void	token_del(t_token *tok)
 	if (tok->str)
 		free(tok->str);
 	free(tok);
+}
+
+t_token	*token_next_delim(t_token *tok)
+{
+	t_token	*ret;
+
+	if (!tok)
+		return (0);
+	ret = tok->next;
+	while (ret)
+	{
+		if (ret->type & DELIM)
+			return (ret);
+		ret = ret->next;
+	}
+	return (ret);
+}
+
+t_token	*token_prev_delim(t_token *tok)
+{
+	t_token	*ret;
+
+	if (!tok)
+		return (0);
+	ret = tok->prev;
+	while (ret)
+	{
+		if (ret->type & DELIM)
+			return (ret);
+		ret = ret->prev;
+	}
+	return (ret);
 }

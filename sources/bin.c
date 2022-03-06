@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 19:20:03 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 00:28:20 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,15 @@ int	bin_run(t_meta *m, char *bin)
 	if (m->pid == 0)
 	{
 		env = env_build(m);
-		char **av = m->argv;
-		// printf("bin full path:%s#\n",bin);
-		// printf("argv supplied\n\n");
-		// while (*av)
-		// {
-		// 	printf("%s#\n",*av);
-		// 	av++;
-		// }
-		// printf("EOA");
+		// ft_putendl_fd("RUN PLS",STDERR_FILENO);
 		if (execve(bin, m->argv, env) == -1); // TODO manage errno
 			printf("\nerrno: %d\n", errno);
+		// ft_putendl_fd("RUN DONE",STDERR_FILENO);
 		ms_free_dca(&env);
+		mexit(ret);
 	}
 	else
 		waitpid(m->pid, &ret, 0);
+	// ft_putendl_fd("BIN RUN OK",STDERR_FILENO);
 	return (ret);
 }

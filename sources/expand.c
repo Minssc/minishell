@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 01:27:15 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/06 21:57:09 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	skip_quotes(char **str)
 	}
 }
 
-static char	*find_e(char *str)
+char	*find_e(char *str)
 {
 	while (*str)
 	{
@@ -78,7 +78,7 @@ static void	find_key(char **pos)
 		(*pos)++;
 }
 
-static void	insert_env(t_meta *m, char **ostr, char **epos) 
+void	insert_env(t_meta *m, char **ostr, char **epos) 
 {
 	char	*nstr;
 	char	*key;
