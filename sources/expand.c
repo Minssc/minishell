@@ -6,19 +6,51 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 20:13:02 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/06 21:57:09 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_e(char *str)
+// TODO reduce function count
+
+static void	escape(char **str)
+{
+	char	nc;
+
+	nc = *(*str + 1);
+	(*str)++;
+	if (nc == '\"' || nc == '$')
+		(*str)++;
+}
+
+static void	skip_quotes(char **str)
+{
+	char	quote;
+
+	quote = **str;
+	(*str)++;
+	while (**str)
+	{
+		if (**str == '\\')
+			escape(str);
+		if (**str == quote)
+			break ;
+		else
+			(*str)++;
+	}
+}
+
+char	*find_e(char *str)
 {
 	while (*str)
 	{
+		if (*str == '\\')
+			escape(&str);
 		if (*str == '\'')
-			ms_skip_quotes(&str, *str);
-		else if (*str == '$' && *(str + 1) && !ms_isspace(*(str + 1)))
+			skip_quotes(&str);
+		else if (*str == '$' && *(str + 1) && !ms_isspace(*(str + 1))
+					&& *(str + 1) != '\"')
 			return (str);
 		str++;
 	}
@@ -34,7 +66,19 @@ static void	stitch(char **s1, char *s2)
 	free(os1);
 }
 
-static void	insert_env(t_meta *m, char **ostr, char **epos)
+static void	find_key(char **pos)
+{
+	if (**pos == '?')
+	{
+		(*pos)++;
+		return ;
+	}
+	while (**pos && !ms_isspace(**pos) && **pos != '$' &&
+			**pos !='\'' && **pos != '\"')
+		(*pos)++;
+}
+
+void	insert_env(t_meta *m, char **ostr, char **epos) 
 {
 	char	*nstr;
 	char	*key;
@@ -46,11 +90,12 @@ static void	insert_env(t_meta *m, char **ostr, char **epos)
 	if (*ostr != *epos)
 		nstr = ft_substr(*ostr, 0 , (*epos) - (*ostr));
 	*ostr = (*epos)++;
-	while (**epos && !ms_isspace(**epos) && **epos != '$' &&
-			**epos !='\'' && **epos != '\"')
-		(*epos)++;
-	key = ms_substr(*ostr, 1, (*epos) - (*ostr) - 1); // TODO branch when key == ?
-	env_val = env_get(m, key);
+	find_key(epos);
+	key = ms_substr(*ostr, 1, (*epos) - (*ostr) - 1);
+	if (key[0] == '?')
+		env_val = ft_itoa(m->exit_status);
+	else
+		env_val = env_get(m, key);
 	stitch(&nstr, env_val);
 	stitch(&nstr, *epos);
 	free(orig);
