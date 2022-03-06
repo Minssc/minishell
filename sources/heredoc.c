@@ -6,11 +6,13 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:14:02 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 02:26:02 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO make function to remove escape characters
 
 static void	readdoc(t_meta *m, t_token *tok)
 {
