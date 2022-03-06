@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:38:27 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/06 21:35:13 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void	loop_start(t_meta *m)
 			free(str);
 			continue ;
 		}
-		if (quotes(str))
-			continue ;
+		// if (quotes(str))
+		// 	continue ;
 		add_history(str);
 			
 		m->token_start = 0;
@@ -68,8 +68,8 @@ int	main(int argc, char *argv[] __attribute__((unused)), char *envp[])
 		return (0);
 	}
 	m = meta_init();
-	// m->in = dup(stdin);
-	// m->out = dup(stdout);
+	m->stdin = dup(STDIN_FILENO);
+	m->stdout = dup(STDOUT_FILENO);
 	env_init(m, envp);
 	set_signal();
 	loop_start(m);

@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:55:00 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/06 22:00:56 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <dirent.h>
 # include <signal.h>
 # include <errno.h>
-# include "libft.h"
+# include <sys/stat.h>
 // libreadline-dev
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -36,15 +36,16 @@
 //Token Type
 // EMPTY, COMMAND, ARGUMENT, PIPE, APPEND LEFT/RIGHT, INPUT, REDIRECTION LEFT/RIGHT
 
-# define T_EMP 0b00000000
-# define T_CMD 0b00000001
-# define T_ARG 0b00000010
-# define T_PIP 0b00000100
-# define T_APL 0b00001000
-# define T_APR 0b00010000
-# define T_INP 0b00100000
-# define T_RDR 0b01000000
-# define T_RDL 0b10000000
+# define T_EMP	0b00000000
+# define T_CMD	0b00000001
+# define T_ARG	0b00000010
+# define T_PIP	0b00000100
+# define T_APL	0b00001000
+# define T_APR	0b00010000
+# define T_RDR	0b00100000
+# define T_RDL	0b01000000
+# define REDIR	0b01111000
+# define DELIM	0b01111100
 
 # define B_CD	0b00000001
 # define B_ECHO	0b00000010
@@ -53,6 +54,10 @@
 # define B_EXPT	0b00010000
 # define B_PWD	0b00100000
 # define B_UNST	0b01000000
+
+# define S_FLAG (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+
+# define HEDOC	".heredoc"
 
 typedef struct s_token
 {
@@ -68,14 +73,24 @@ typedef struct s_meta
 	t_token		*token_start;
 	t_list		*list_env;
 	char		**argv;
-	int			p_in;
-	int			p_out;
-	int			in;
-	int			out;
+	int			stop;
+	int			stdin;
+	int			stdout;
+	int			fd_in;
+	int			fd_out;
 	int			pid;
+	int			child;
 }				t_meta;
 
 typedef unsigned char t_byte;
+
+// fd.c
+void	fd_close(int fd);
+
+// redir.c
+void	redir_r(t_meta *m, t_token *tok, t_byte type);
+void	redir_l(t_meta *m, t_token *tok, t_byte type);
+int		redir_p(t_meta *m, t_token *tok);
 
 // bin.c
 char	*bin_find(t_meta *m, char *bin);
@@ -95,11 +110,15 @@ void	token_ident_all(t_meta *m);
 t_byte	token_ident(t_token *tok);
 void	token_add_back(t_token **th, t_token *nt);
 void	token_del(t_token *tok);
+t_token	*token_prev_delim(t_token *tok);
+t_token	*token_next_delim(t_token *tok);
 
-// unquote.c
-void	unquote(t_meta *m);
+// cleanup.c
+void	cleanup(t_meta *m);
 
 // expand.c
+char	*find_e(char *str);
+void	insert_env(t_meta *m, char **ostr, char **epos);
 void	expand(t_meta *m);
 
 // env.c
@@ -143,9 +162,6 @@ char	*ms_argjoin(char const *s1, char const *s2);
 // msfunc/ms_isspace.c
 int		ms_isspace(char c);
 int		ms_isemptystr(char *str);
-
-// msfunc/ms_correct.c
-int		ms_correct_builtin_cmd(char *bcmd, char *comp);
 
 // msfunc/ms_find.c
 t_list	*find_prev_node(t_list *root, t_list *cur_ptr);
