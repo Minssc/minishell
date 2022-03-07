@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 02:01:34 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 16:06:28 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,34 @@ char	*bin_find(t_meta *m, char *bin)
 	return (path);
 }
 
+static int	check_error(t_meta *m, char *bin)
+{
+	DIR *dir;
+	int	fd;
+	int	ret;
+	int	is_root;
+
+	ret = 0;
+	is_root = (ft_strchr(bin, '/') == 0);
+	fd = open(bin, O_WRONLY);
+	dir = opendir(bin);
+	if (is_root)
+		ms_puterr(bin, EM_CMD_NOT_FOUND);
+	else if (fd == -1 && !dir)
+		ms_puterr(bin, EM_NO_SUCH_FILE_DIR);
+	else if (fd == -1 && dir)
+		ms_puterr(bin, EM_IS_DIR);
+	else if (fd != -1 && dir)
+		ms_puterr(bin, EM_PERM_DENIED);
+	if (is_root && fd == -1 && !dir)
+		ret = UCMD;
+	else
+		ret = ISDIR;
+	fd_close(fd);
+	if (dir)
+		closedir(dir);
+	return (ret);
+}
 // find binary file and run it.  
 
 int	bin_run(t_meta *m, char *bin)
@@ -103,16 +131,18 @@ int	bin_run(t_meta *m, char *bin)
 	char	**env;
 	int		ret;
 
+	ret = 0;
 	m->pid = fork();
 	if (m->pid == 0)
 	{
 		env = env_build(m);
-		if (execve(bin, m->argv, env) == -1); // TODO manage errno
-			printf("\nerrno: %d\n", errno);
+		if (ft_strchr(bin, '/') && execve(bin, m->argv, env) == -1); 
+			ret = check_error(m, bin);
 		ms_free_dca(&env);
 		mexit(ret);
 	}
 	else
 		waitpid(m->pid, &ret, 0);
+	ret = WEXITSTATUS(ret);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 14:51:54 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 16:45:55 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,14 @@ static void	loop_start(t_meta *m)
 		}
 		if (quotes(m->line))
 		{
-			ft_putendl_fd("quote not closed, ignoring", STDERR_FILENO);
+			ms_puterr(ET_SYNTAX, EM_UNEXPECTED_EOF);
+			ms_free((void **)(&m->line));
 			continue ;
 		}
 		add_history(m->line);
-		token_destroy(m);
 		parse(m, m->line);
-		// 파싱에 문제가 없는 경우
-		// 명령어 실행 혹은 에러(예외)처리
 		exec_start(m);
+		token_destroy(m);
 		ms_free((void **)(&m->line));
 	}
 }
@@ -76,12 +75,13 @@ int	main(int argc, char *argv[] __attribute__((unused)), char *envp[])
 
 	if (argc > 1)
 	{
-		printf("too many arguments\n");
+		ms_puterr(ET_SYNTAX, EM_TOO_MANY_ARGS);
 		return (0);
 	}
 	m = meta_init();
 	m->stdin = dup(STDIN_FILENO);
 	m->stdout = dup(STDOUT_FILENO);
+	fd_reset(m);
 	env_init(m, envp);
 	set_signal();
 	loop_start(m);

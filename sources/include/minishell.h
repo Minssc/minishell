@@ -6,15 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2022/03/05 23:05:29 by tjung            ###   ########.fr       */
-=======
-/*   Updated: 2022/03/06 22:00:56 by minsunki         ###   ########seoul.kr  */
->>>>>>> 733a375c8787fa5a7f6ed2e0a212226fe452ee66
-=======
-/*   Updated: 2022/03/07 14:45:55 by minsunki         ###   ########seoul.kr  */
->>>>>>> dbec2b083810c424d75017b32a709593b5391303
+/*   Updated: 2022/03/07 17:34:37 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +18,7 @@
 # include <stdio.h>
 # include <signal.h>
 # include "libft.h"
+# include "error.h"
 
 // 아래 헤더들 살펴보기
 
@@ -98,6 +91,9 @@ void	heredoc(t_meta *m, t_token *tok);
 
 // fd.c
 void	fd_close(int fd);
+void	fd_reset(t_meta *m);
+void	fd_destroy(t_meta *m);
+void	fd_reset_std(t_meta *m);
 
 // redir.c
 void	redir_r(t_meta *m, t_token *tok, t_byte type);
@@ -204,6 +200,9 @@ int		custom_putendl(char *str, int ret);
 
 // msfunc/ms_stitch.c
 void	ms_stitch(char **s1, char *s2);
+
+// msfunc/ms_puterr.c
+void	ms_puterr(char *type, char *msg);
 
 //builtin/
 // builtin/pwd.c
