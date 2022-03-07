@@ -6,21 +6,21 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:00:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:01:29 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 22:43:24 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-static int	stop_moving(t_token *tok)
+static int	stop_moving(t_token *tok, int targ)
 {
 	t_token	*prev;
 
 	if (!tok || (tok->type & (T_CMD | T_ARG)))
 	{
 		prev = token_prev_delim(tok);
-		if (!prev || (prev->type & T_PIP))
+		if (!prev || (prev->type & targ))
 			return (1);
 	}
 	return (0);
@@ -48,6 +48,30 @@ static void	insert_token(t_meta *m, t_token *tok, t_token *bef)
 	}
 }
 
+void	move_heredoc(t_meta *m, t_token *pcmd, t_token *hdoc, t_token *cmd)
+{
+	while (!stop_moving(pcmd, T_PIP | T_APL))
+		pcmd = pcmd->prev;
+	hdoc->prev->next = cmd->next;
+	if (cmd->next)
+		cmd->next->prev = hdoc->prev;
+	if (!pcmd)
+	{
+		m->token_start->prev = cmd;
+		cmd->next = m->token_start;
+		m->token_start = hdoc;
+		hdoc->prev = 0;
+	}
+	else
+	{
+		hdoc->prev = pcmd;
+		cmd->next = pcmd->next;
+		if (pcmd->next)
+			pcmd->next->prev = cmd;
+		pcmd->next = hdoc;
+	}
+}
+
 void	sort_tokens(t_meta *m)
 {
 	t_token	*cur;
@@ -59,10 +83,12 @@ void	sort_tokens(t_meta *m)
 		prev = token_prev_delim(cur);
 		if (cur->type == T_ARG && prev && (prev->type & REDIR))
 		{
-			while (!stop_moving(prev))
+			while (!stop_moving(prev, T_PIP))
 				prev = prev->prev;
 			insert_token(m, cur, prev);
 		}
+		else if (cur->type == T_APL && prev && (prev->type & REDIR))
+			move_heredoc(m, prev, cur, cur->next);
 		cur = cur->next;
 	}
 }
