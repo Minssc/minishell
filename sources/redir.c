@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:26:28 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 17:02:50 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 22:55:53 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	redir_p(t_meta *m, t_token *tok)
 	else
 	{
 		fd_close(pfd[0]);
+		if (m->fd_out != -1)
+			return (1);
 		dup2(pfd[1], STDOUT_FILENO);
 		m->fd_out = pfd[1];
 		return (1);
