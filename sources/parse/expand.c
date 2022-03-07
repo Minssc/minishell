@@ -6,65 +6,11 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 21:57:09 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 14:34:00 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// TODO reduce function count
-
-static void	escape(char **str)
-{
-	char	nc;
-
-	nc = *(*str + 1);
-	(*str)++;
-	if (nc == '\"' || nc == '$')
-		(*str)++;
-}
-
-static void	skip_quotes(char **str)
-{
-	char	quote;
-
-	quote = **str;
-	(*str)++;
-	while (**str)
-	{
-		if (**str == '\\')
-			escape(str);
-		if (**str == quote)
-			break ;
-		else
-			(*str)++;
-	}
-}
-
-char	*find_e(char *str)
-{
-	while (*str)
-	{
-		if (*str == '\\')
-			escape(&str);
-		if (*str == '\'')
-			skip_quotes(&str);
-		else if (*str == '$' && *(str + 1) && !ms_isspace(*(str + 1))
-					&& *(str + 1) != '\"')
-			return (str);
-		str++;
-	}
-	return (0);
-}
-
-static void	stitch(char **s1, char *s2)
-{
-	char	*os1;
-	
-	os1 = *s1;
-	*s1 = ft_strjoin(*s1, s2);
-	free(os1);
-}
 
 static void	find_key(char **pos)
 {
@@ -74,7 +20,7 @@ static void	find_key(char **pos)
 		return ;
 	}
 	while (**pos && !ms_isspace(**pos) && **pos != '$' &&
-			**pos !='\'' && **pos != '\"')
+			**pos !='\'' && **pos != '\"' && **pos != '\\')
 		(*pos)++;
 }
 
@@ -96,8 +42,8 @@ void	insert_env(t_meta *m, char **ostr, char **epos)
 		env_val = ft_itoa(m->exit_status);
 	else
 		env_val = env_get(m, key);
-	stitch(&nstr, env_val);
-	stitch(&nstr, *epos);
+	ms_stitch(&nstr, env_val);
+	ms_stitch(&nstr, *epos);
 	free(orig);
 	free(env_val);
 	free(key);

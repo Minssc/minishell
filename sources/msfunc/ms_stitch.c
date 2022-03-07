@@ -1,15 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   ms_stitch.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/06 15:26:42 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 15:26:50 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/07 01:06:33 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/07 01:07:06 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// PIPING
+void	ms_stitch(char **s1, char *s2)
+{
+	char	*os1;
+	
+	os1 = *s1;
+	*s1 = ft_strjoin(*s1, s2);
+	free(os1);
+}

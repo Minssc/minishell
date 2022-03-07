@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   token_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/03 20:08:19 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 00:13:32 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/07 01:19:12 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/07 01:31:41 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,53 +40,6 @@ t_byte	token_ident(t_token *tok)
 	return (tok->type);
 }
 
-void	token_ident_all(t_meta *m)
-{
-	t_token	*ct;
-
-	ct = m->token_start;
-	while (ct)
-	{
-		ct->type = T_EMP;
-		token_ident(ct);
-		ct = ct->next;
-	}
-}
-
-void	token_add_back(t_token **th, t_token *nt)
-{
-	t_token	*prev;
-
-	if (!*th)
-		*th = nt;
-	else
-	{
-		prev = *th;
-		while (prev && prev->next)
-			prev = prev->next;
-		prev->next = nt;
-		nt->prev = prev;
-	}
-}
-
-void	token_del(t_token *tok)
-{
-	t_token *prev;
-	t_token *next;
-
-	if (!tok)
-		return ;
-	prev = tok->prev;
-	next = tok->next;
-	if (prev)
-		prev->next = next;
-	if (next)
-		next->prev = prev;
-	if (tok->str)
-		free(tok->str);
-	free(tok);
-}
-
 t_token	*token_next_delim(t_token *tok)
 {
 	t_token	*ret;
@@ -117,4 +70,18 @@ t_token	*token_prev_delim(t_token *tok)
 		ret = ret->prev;
 	}
 	return (ret);
+}
+
+// TODO remove this?
+void	token_ident_all(t_meta *m)
+{
+	t_token	*ct;
+
+	ct = m->token_start;
+	while (ct)
+	{
+		ct->type = T_EMP;
+		token_ident(ct);
+		ct = ct->next;
+	}
 }
