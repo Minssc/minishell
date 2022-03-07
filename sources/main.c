@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 02:18:59 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 14:51:54 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,22 @@ static int	quotes(char *line)
 	flag = 0;
 	while (*line)
 	{
-		if (*line == '\'')
-			flag ^= 0b01;
-		else if (*line == '\"')
-			flag ^= 0b10;
+		if (!flag && *line == '\\' && (*(line + 1) == '\''
+				|| *(line + 1) == '\"'))
+			line+=2;
+		if ((flag & Q_SQ) && *line == '\'')
+			flag ^= Q_SQ;
+		else if (flag & Q_DQ)
+		{
+			if (*line == '\\' && *(line + 1) == '\"')
+				line++;
+			else if (*line == '\"')
+				flag ^= Q_DQ;
+		}
+		else if (!(flag & Q_SQ) && *line == '\'')
+			flag ^= Q_SQ;
+		else if (!(flag & Q_DQ) && *line == '\"')
+			flag ^= Q_DQ;
 		line++;
 	}
 	return (flag);
@@ -35,7 +47,7 @@ static void	loop_start(t_meta *m)
 		m->line = readline("minishell$ ");
 		if (!m->line)
 		{
-			ft_putendl_fd("exit", STDOUT_FILENO);
+			ft_putendl_fd("exit", STDERR_FILENO);
 			mexit(0);
 		}
 		if (ms_isemptystr(m->line))
@@ -43,8 +55,11 @@ static void	loop_start(t_meta *m)
 			ms_free((void **)(&m->line));
 			continue ;
 		}
-		// if (quotes(str))
-		// 	continue ;
+		if (quotes(m->line))
+		{
+			ft_putendl_fd("quote not closed, ignoring", STDERR_FILENO);
+			continue ;
+		}
 		add_history(m->line);
 		token_destroy(m);
 		parse(m, m->line);

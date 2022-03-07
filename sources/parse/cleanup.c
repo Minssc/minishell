@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 19:20:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:30:47 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 14:59:20 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,10 @@ static int	quotes(char **str)
 	quote = *(*str)++;
 	while (**str)
 	{
-		if (quote == '\"' && **str == '\\')
+		if (quote == '\"' && **str == '\\' && *(*str + 1) == '\"')
 		{
-			if (*(++(*str)) == '\"')
-			{
-				ret++;
-				(*str)++;
-			}
-			continue ;
+			ret++;
+			(*str) += 2;
 		}
 		if (quote == **str)
 			break ;
@@ -75,14 +71,10 @@ static void	nstr_quotes(char **str, char **ret, int *i)
 	quote = *(*str)++;
 	while (**str)
 	{
-		if (quote == '\"' && **str == '\\')
+		if (quote == '\"' && **str == '\\' && *(*str + 1) == '\"')
 		{
-			if (*(++(*str)) == '\"')
-			{
-				(*ret)[(*i)++] = **str;
-				(*str)++;
-			}
-			continue ;
+			(*ret)[(*i)++] = '\"';
+			(*str) += 2;
 		}
 		if (quote == **str)
 			break ;

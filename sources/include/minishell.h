@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 02:28:15 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 14:45:55 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define QUOTES_DQ 0b01;
-# define QUOTES_SQ 0b10;
+# define Q_DQ 0b01
+# define Q_SQ 0b10
 
 //Token Type
 // EMPTY, COMMAND, ARGUMENT, PIPE, APPEND LEFT/RIGHT, INPUT, REDIRECTION LEFT/RIGHT
