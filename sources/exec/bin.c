@@ -6,15 +6,13 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 00:28:20 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 02:01:34 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO 절대경로 처리
-
-// static int	bin_check(char **paths, char *bin)
+// static int	bin_find_paths(char **paths, char *bin)
 // paths들을 순회하며 bin이 발견될 시 path 반환. 못찾으면 0 반환
 
 static char	*bin_find_paths(char **paths, char *bin)
@@ -58,7 +56,10 @@ static void	path_stitch(char **path, char *file)
 
 	tmp = *path;
 	if ((*path)[plen - 1] == '/')
+	{
 		*path = ft_strjoin(*path, file);
+		free(tmp);
+	}
 	else
 	{
 		*path = (char *)ft_calloc(sizeof(char), plen + flen + 1 + 1);
@@ -106,15 +107,12 @@ int	bin_run(t_meta *m, char *bin)
 	if (m->pid == 0)
 	{
 		env = env_build(m);
-		// ft_putendl_fd("RUN PLS",STDERR_FILENO);
 		if (execve(bin, m->argv, env) == -1); // TODO manage errno
 			printf("\nerrno: %d\n", errno);
-		// ft_putendl_fd("RUN DONE",STDERR_FILENO);
 		ms_free_dca(&env);
 		mexit(ret);
 	}
 	else
 		waitpid(m->pid, &ret, 0);
-	// ft_putendl_fd("BIN RUN OK",STDERR_FILENO);
 	return (ret);
 }

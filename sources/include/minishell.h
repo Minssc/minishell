@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/06 22:00:56 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 14:45:55 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define QUOTES_DQ 0b01;
-# define QUOTES_SQ 0b10;
+# define Q_DQ 0b01
+# define Q_SQ 0b10
 
 //Token Type
 // EMPTY, COMMAND, ARGUMENT, PIPE, APPEND LEFT/RIGHT, INPUT, REDIRECTION LEFT/RIGHT
@@ -73,6 +73,7 @@ typedef struct s_meta
 	t_token		*token_start;
 	t_list		*list_env;
 	char		**argv;
+	char		*line;
 	int			stop;
 	int			stdin;
 	int			stdout;
@@ -84,6 +85,9 @@ typedef struct s_meta
 
 typedef unsigned char t_byte;
 
+// heredoc.c
+void	heredoc(t_meta *m, t_token *tok);
+
 // fd.c
 void	fd_close(int fd);
 
@@ -91,49 +95,6 @@ void	fd_close(int fd);
 void	redir_r(t_meta *m, t_token *tok, t_byte type);
 void	redir_l(t_meta *m, t_token *tok, t_byte type);
 int		redir_p(t_meta *m, t_token *tok);
-
-// bin.c
-char	*bin_find(t_meta *m, char *bin);
-int		bin_run(t_meta *m, char *bin);
-// int		execute_bin(t_meta *m);
-
-// argv.c
-char	**argv_build(t_token *tok);
-void	argv_destroy(t_meta *m);
-
-// exec.c
-void	exec_start(t_meta *m);
-
-// token.c
-int		token_istype(t_token *tok, char *str);
-void	token_ident_all(t_meta *m);
-t_byte	token_ident(t_token *tok);
-void	token_add_back(t_token **th, t_token *nt);
-void	token_del(t_token *tok);
-t_token	*token_prev_delim(t_token *tok);
-t_token	*token_next_delim(t_token *tok);
-
-// cleanup.c
-void	cleanup(t_meta *m);
-
-// expand.c
-char	*find_e(char *str);
-void	insert_env(t_meta *m, char **ostr, char **epos);
-void	expand(t_meta *m);
-
-// env.c
-void	env_init(t_meta *m, char **envp);
-char	**env_build(t_meta *m);
-t_list	*env_find(t_meta *m, char *key);
-char	*env_get(t_meta *m, char *key);
-int		env_set(t_meta *m, char *key, char *value);
-
-// parse.c
-void	parse(t_meta *m, char *line);
-void	ms_skip_quotes(char **str, char quote);
-
-// minishell.c
-int		ms_loop(t_meta *m);
 
 // meta.c
 t_meta	*meta_get(void);
@@ -146,6 +107,67 @@ void	mexit_pe(int ec);
 void	mexit_cm(char *str, int ec);
 void	perror_exit(char *str);
 
+// signal.c
+void	set_signal(void);
+
+//exec/
+// exec.c
+void	exec_start(t_meta *m);
+
+// bin.c
+char	*bin_find(t_meta *m, char *bin);
+int		bin_run(t_meta *m, char *bin);
+
+// argv.c
+char	**argv_build(t_token *tok);
+void	argv_destroy(t_meta *m);
+
+// exec_util.c
+t_token	*next_cmd(t_token *tok);
+int		is_builtin(char *bin);
+
+//token/
+// token.c
+void	token_add_back(t_token **th, t_token *nt);
+void	token_destroy(t_meta *m);
+void	token_parse(t_meta *m, char *from, char *to);
+
+// token_util.c
+t_byte	token_ident(t_token *tok);
+t_token	*token_prev_delim(t_token *tok);
+t_token	*token_next_delim(t_token *tok);
+void	token_ident_all(t_meta *m);
+
+//env/
+// env.c
+void	env_init(t_meta *m, char **envp);
+char	**env_build(t_meta *m);
+void	env_destroy(t_meta *m);
+
+// env_util.c
+t_list	*env_find(t_meta *m, char *key);
+char	*env_get(t_meta *m, char *key);
+int		env_set(t_meta *m, char *key, char *value);
+
+//parse/
+// parse/parse.c
+void	parse(t_meta *m, char *line);
+void	ms_skip_quotes(char **str, char quote);
+
+// parse/ourt.c
+void	sort_tokens(t_meta *m);
+
+// parse/expand.c
+void	insert_env(t_meta *m, char **ostr, char **epos);
+void	expand(t_meta *m);
+
+// parse/expand_util.c
+char	*find_e(char *str);
+
+// cleanup.c
+void	cleanup(t_meta *m);
+
+//msfunc/
 // msfunc/ms_free.c
 void	ms_free_dca(char ***dca);
 void	ms_free(void **ptr);
@@ -171,16 +193,29 @@ void	custom_char_free(char *one, char *two);
 int		custom_double_char_len(char **ptr);
 int		custom_perr_and_set_exnum(char *str, int exnum, char *heap, int ret);
 
-// signal.c
-void	set_signal(void);
+// msfunc/ms_stitch.c
+void	ms_stitch(char **s1, char *s2);
 
-// builtin/
+//builtin/
+// builtin/pwd.c
 int		builtin_pwd(void);
+
+// builtin/env.c
 int		builtin_env(char **argu);
+
+// builtin/unset.c
 int		builtin_unset(char **keys);
+
+// builtin/export.c
 int		builtin_export(char **entries);
+
+// builtin/echo.c
 int		builtin_echo(char **contents);
+
+// builtin/exit.c
 void	builtin_exit(char **exit_cmd);
+
+// builtin/cd.c
 int		builtin_cd(char **mv_cmd);
 
 #endif
