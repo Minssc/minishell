@@ -6,13 +6,35 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 02:26:02 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 14:32:44 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO make function to remove escape characters
+static void	escape_and_write(char *str, int fd)
+{
+	while (*str)
+	{
+		if (*str == '\\')
+			str++;
+		ft_putchar_fd(*str, fd);
+		str++;
+	}
+	ft_putchar_fd('\n', fd);
+}
+
+static char	*find_exp(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\\' && *(str + 1) == '$')
+			str+=2;
+		if (*str == '$')
+			return (str);
+		str++;
+	}
+}
 
 static void	readdoc(t_meta *m, t_token *tok)
 {
@@ -26,13 +48,13 @@ static void	readdoc(t_meta *m, t_token *tok)
 		inp = readline("> ");
 		if (!inp || !ft_strcmp(tok->str, inp))
 			break ;
-		exp = find_e(inp);
+		exp = find_exp(inp);
 		while (exp)
 		{
 			insert_env(m, &inp, &exp);
-			exp = find_e(inp);
+			exp = find_exp(inp);
 		}
-		ft_putendl_fd(inp, fd);
+		escape_and_write(inp, fd);
 		ms_free((void **)&inp);
 	}
 	ms_free((void **)&inp);

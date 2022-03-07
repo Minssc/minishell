@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:08:37 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 14:34:00 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	find_key(char **pos)
 		return ;
 	}
 	while (**pos && !ms_isspace(**pos) && **pos != '$' &&
-			**pos !='\'' && **pos != '\"')
+			**pos !='\'' && **pos != '\"' && **pos != '\\')
 		(*pos)++;
 }
 
