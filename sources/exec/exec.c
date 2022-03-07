@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:26:01 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/07 17:24:16 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	execute_bin(t_meta *m)
 		ret = bin_run(m, m->argv[0]);
 	else
 		ret = bin_run(m, bin);
+	m->exit_status = ret;
 }
 
 static void	exec_cmd(t_meta *m, t_token *tok)
@@ -89,15 +90,13 @@ void	exec_start(t_meta *m)
 	t_token	*ct;
 	int		stat;
 
+	m->stop = 0;
 	ct = next_cmd(m->token_start);
 	execute(m, ct);
-	dup2(m->stdin,STDIN_FILENO);
-	dup2(m->stdout,STDOUT_FILENO);
-	fd_close(m->fd_out);
-	fd_close(m->fd_in);
+	fd_reset_std(m);
+	fd_destroy(m);
+	fd_reset(m);
 	waitpid(-1, &stat, 0);
-	stat = WEXITSTATUS(stat);
 	if (m->child)
 		mexit(stat);
-	m->stop = 0;
 }
