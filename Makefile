@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/07 02:28:08 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/07 15:36:50 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ FIL_M		=	main \
 				msfunc/ms_find \
 				msfunc/ms_custom \
 				msfunc/ms_stitch \
+				msfunc/ms_puterr \
 				builtin/pwd \
 				builtin/env \
 				builtin/unset \
