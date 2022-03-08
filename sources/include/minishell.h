@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 16:51:39 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/08 17:13:42 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@
 # define B_UNST	0b01000000
 
 # define S_FLAG (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
-
-# define HEDOC	".heredoc"
 
 typedef struct s_token
 {
@@ -150,7 +148,6 @@ void	token_parse(t_meta *m, char *from, char *to);
 t_byte	token_ident(t_token *tok);
 t_token	*token_prev_delim(t_token *tok);
 t_token	*token_next_delim(t_token *tok);
-void	token_ident_all(t_meta *m);
 
 //env/
 // env.c
