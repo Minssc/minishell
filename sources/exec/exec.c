@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 22:55:06 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 16:29:22 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	exec_start(t_meta *m)
 	int		stat;
 
 	m->stop = 0;
+	m->hd_cur = 0;
 	ct = next_cmd(m->token_start);
 	execute(m, ct);
 	fd_reset_std(m);

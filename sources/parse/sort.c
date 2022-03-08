@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:00:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 22:43:24 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 16:30:08 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	insert_token(t_meta *m, t_token *tok, t_token *bef)
 	}
 }
 
+// obsolete function. 
+
 void	move_heredoc(t_meta *m, t_token *pcmd, t_token *hdoc, t_token *cmd)
 {
 	while (!stop_moving(pcmd, T_PIP | T_APL))
@@ -87,8 +89,6 @@ void	sort_tokens(t_meta *m)
 				prev = prev->prev;
 			insert_token(m, cur, prev);
 		}
-		else if (cur->type == T_APL && prev && (prev->type & REDIR))
-			move_heredoc(m, prev, cur, cur->next);
 		cur = cur->next;
 	}
 }

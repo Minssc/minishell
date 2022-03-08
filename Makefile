@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/07 15:36:50 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/08 16:35:40 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,10 @@ FIL_M		=	main \
 				mexit \
 				signal \
 				syntax \
-				redir \
 				fd \
-				heredoc \
+				redir/redir \
+				redir/heredoc \
+				redir/heredoc_util \
 				exec/exec \
 				exec/exec_util \
 				exec/argv \
@@ -57,6 +58,8 @@ FIL_M		=	main \
 
 FIL_B		=
 
+FIL_HDOC	=	/tmp/minishell_heredoc_*
+
 SRCS_M		=	$(addsuffix .c, $(addprefix $(SRCF)/, $(FIL_M)))
 SRCS_B		=	$(addsuffix _bonus.c, $(addprefix $(SRCF_B)/, $(FIL_M) $(FIL_B)))
 
@@ -80,16 +83,18 @@ RM			=	rm -f
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
 
 $(NAME)		:	$(OBJS_M)
-			make bonus -C libft
+			make bonus -j16 -C libft
+			$(RM) $(FIL_HDOC)
 			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
 
 
 bonus		:	$(OBJS_B)
 			make bonus -C libft
+			$(RM) $(FIL_HDOC)
 			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL)-o $(NAME)
 
 clean		:
-			$(RM) $(OBJS_M) $(OBJS_B)
+			$(RM) $(OBJS_M) $(OBJS_B) $(FIL_HDOC)
 			make clean -C libft
 
 all			:	$(NAME)

@@ -1,16 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   heredoc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 14:32:44 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/08 16:22:52 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/08 16:25:07 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*heredoc_getname(int num)
+{
+	char	*nascii;
+	char	*tmp;
+	char	*ret;
+
+	ret = ft_strdup("/tmp/minishell_heredoc_");
+	if (!ret)
+		perror_exit("ft_strdup failed @heredoc_getname");
+	nascii = ft_itoa(num);
+	if (!nascii)
+	{
+		free(ret);
+		perror_exit("ft_itoa failed @heredoc_getname");
+	}
+	tmp = ret;
+	ret = ft_strjoin(ret, nascii);
+	if (!ret)
+	{
+		free(tmp);
+		free(nascii);
+		perror_exit("ft_strjoin failed @heredoc_getname");
+	}
+	free(tmp);
+	free(nascii);
+	return (ret);
+}
 
 static void	escape_and_write(char *str, int fd)
 {
@@ -36,17 +64,15 @@ static char	*find_exp(char *str)
 	}
 }
 
-static void	readdoc(t_meta *m, t_token *tok)
+void	heredoc_read(t_meta *m, char *tstr, int fd)
 {
-	int		fd;
 	char	*inp;
 	char	*exp;
 
-	fd = open(HEDOC, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	while (1)
 	{
 		inp = readline("> ");
-		if (!inp || !ft_strcmp(tok->str, inp))
+		if (!inp || !ft_strcmp(tstr, inp))
 			break ;
 		exp = find_exp(inp);
 		while (exp)
@@ -57,27 +83,6 @@ static void	readdoc(t_meta *m, t_token *tok)
 		escape_and_write(inp, fd);
 		ms_free((void **)&inp);
 	}
-	ms_free((void **)&inp);
-	fd_close(fd);
-}
-
-void	heredoc(t_meta *m, t_token *tok)
-{
-	int		last_hdoc;
-
-	last_hdoc = 1;
-	readdoc(m, tok);
-	while (tok)
-	{
-		if (tok->type == T_APL)
-			last_hdoc = 0;
-		if (tok->type == T_PIP)
-			break ;
-		tok = tok->next;
-	}
-	if (!last_hdoc)
-		return ;
-	fd_close(m->fd_in);
-	m->fd_in = open(HEDOC, O_RDONLY, S_IRWXU);
-	dup2(m->fd_in, STDIN_FILENO);
+	if (inp)
+		free(inp);
 }

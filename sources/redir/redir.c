@@ -6,11 +6,18 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:26:28 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 22:55:53 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 16:29:31 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	handle_fderror(t_meta *m, char *tstr)
+{
+	ms_puterr(tstr, strerror(errno));
+	m->stop = 1;
+	m->exit_status = 1;
+}
 
 void	redir_r(t_meta *m, t_token *tok, t_byte type)
 {
@@ -20,56 +27,56 @@ void	redir_r(t_meta *m, t_token *tok, t_byte type)
 	else
 		m->fd_out = open(tok->str, O_CREAT | O_WRONLY | O_APPEND, S_FLAG);
 	if (m->fd_out < 0)
-	{
-		ms_puterr(tok->str, EM_NO_SUCH_FILE_DIR);
-		m->stop = 1;
-		m->exit_status = 1;
-		return ;
-	}
-	dup2(m->fd_out, STDOUT_FILENO);
+		handle_fderror(m, tok->str);
+	else
+		dup2(m->fd_out, STDOUT_FILENO);
 }
 
 void	redir_l(t_meta *m, t_token *tok, t_byte type)
 {
+	char	*hname;
+
 	if (type == T_RDL)
 	{
 		fd_close(m->fd_in);
 		m->fd_in = open(tok->str, O_RDONLY, S_IRWXU);
 		if (m->fd_in < 0)
-		{
-			ms_puterr(tok->str,EM_NO_SUCH_FILE_DIR);
-			m->stop = 1;
-			m->exit_status = 1;
-			return ;
-		}
-		dup2(m->fd_in, STDIN_FILENO);
+			handle_fderror(m, tok->str);
+		else
+			dup2(m->fd_in, STDIN_FILENO);
 	}
 	else
-		heredoc(m, tok);
+	{
+		hname = heredoc_getname(m->hd_cur++);
+		fd_close(m->fd_in);
+		m->fd_in = open(hname, O_RDONLY, S_IRWXU);
+		if (m->fd_in < 0)
+			handle_fderror(m, "heredoc");
+		else
+			dup2(m->fd_in, STDIN_FILENO);
+	}
 }
 
 int	redir_p(t_meta *m, t_token *tok)
 {
-	int	pfd[2];
-
-	pipe(pfd);
+	pipe(m->pipe);
 	m->pid = fork();
 	if (m->pid == 0)
 	{
-		fd_close(pfd[1]);
-		dup2(pfd[0], STDIN_FILENO);
-		m->fd_in = pfd[0];
+		fd_close(m->pipe[1]);
+		m->pipe[1] = -1;
 		m->child = 1;
 		m->stop = 0;
 		return (2);
 	}
 	else
 	{
-		fd_close(pfd[0]);
+		fd_close(m->pipe[0]);
+		m->pipe[0] = -1;
 		if (m->fd_out != -1)
 			return (1);
-		dup2(pfd[1], STDOUT_FILENO);
-		m->fd_out = pfd[1];
+		dup2(m->pipe[1], STDOUT_FILENO);
+		m->fd_out = m->pipe[1];
 		return (1);
 	}
 }
