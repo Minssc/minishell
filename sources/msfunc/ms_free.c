@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:01:19 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:22:13 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 20:07:45 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	ms_free_dca(char ***dca)
 {
 	char **tdca;
 
-	if (!dca || *dca)
+	if (!dca || !(*dca))
 		return ;
 	tdca = *dca;
 	while (*tdca)
 	{
 		free(*tdca);
-		tdca = 0;
+		*tdca = 0;
 		tdca++;
 	}
 	free(*dca);

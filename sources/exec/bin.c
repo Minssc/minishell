@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 16:06:28 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 20:15:00 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 static char	*bin_find_paths(char **paths, char *bin)
 {
 	DIR				*dir;
+	char			**cur;
 	struct dirent	*item;
 	// const size_t	blen = ft_strlen(bin);
 
-	while (*paths)
+	cur = paths;
+	while (*cur)
 	{
-		dir = opendir(*paths);
+		dir = opendir(*cur);
 		if (dir)
 		{
 			item = readdir(dir);
@@ -32,13 +34,13 @@ static char	*bin_find_paths(char **paths, char *bin)
 				if (ft_strcmp(item->d_name, bin) == 0)
 				{
 					closedir(dir);
-					return (*paths);
+					return (*cur);
 				}
 				item = readdir(dir);
 			}
 			closedir(dir);
 		}
-		paths++;
+		cur++;
 	}
 	return (0);
 }
@@ -47,7 +49,7 @@ static char	*bin_find_paths(char **paths, char *bin)
 // stitch path and file to the supplied *path 
 // takes care of both / terminated path and non terminated path.
 
-static void	path_stitch(char **path, char *file)
+static int	path_stitch(char **path, char *file)
 {
 	char			*tmp;
 	const size_t	plen = ft_strlen(*path);
@@ -56,15 +58,12 @@ static void	path_stitch(char **path, char *file)
 
 	tmp = *path;
 	if ((*path)[plen - 1] == '/')
-	{
 		*path = ft_strjoin(*path, file);
-		free(tmp);
-	}
 	else
 	{
 		*path = (char *)ft_calloc(sizeof(char), plen + flen + 1 + 1);
 		if (!(*path))
-			perror_exit("ft_calloc failed @path_stitch");
+			return (1);
 		i = -1;
 		while (++i < plen)
 			(*path)[i] = tmp[i];
@@ -73,11 +72,11 @@ static void	path_stitch(char **path, char *file)
 		while (++i < flen + 1)
 			(*path)[plen + 1 + i] = file[i];
 	}
+	return (0);
 }
 
 char	*bin_find(t_meta *m, char *bin)
 {
-	char	*tmp;
 	char	*path;
 	char	**paths;
 	
@@ -85,13 +84,20 @@ char	*bin_find(t_meta *m, char *bin)
 	if (!path)
 		return (0); 
 	paths = ft_split(path, ':');
+	free(path);
 	if (!paths)
 		perror_exit("ft_split failed @find_bin");
-	free(path);
 	path = bin_find_paths(paths, bin);
 	if (!path)
+	{
+		ms_free_dca(&paths);
 		return (0);
-	path_stitch(&path, bin);
+	}
+	if (path_stitch(&path, bin))
+	{
+		ms_free_dca(&paths);
+		perror_exit("ft_calloc failed @path_stitch");
+	}
 	ms_free_dca(&paths);
 	return (path);
 }
