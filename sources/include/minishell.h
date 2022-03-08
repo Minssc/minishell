@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 17:34:37 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/08 16:51:39 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,20 @@ typedef struct s_meta
 	int			stdout;
 	int			fd_in;
 	int			fd_out;
+	int			pipe[2];
 	int			pid;
 	int			child;
+	int			hd_cur;
 }				t_meta;
 
 typedef unsigned char	t_byte;
 
-// heredoc.c
-void	heredoc(t_meta *m, t_token *tok);
 
 // fd.c
 void	fd_close(int fd);
 void	fd_reset(t_meta *m);
 void	fd_destroy(t_meta *m);
 void	fd_reset_std(t_meta *m);
-
-// redir.c
-void	redir_r(t_meta *m, t_token *tok, t_byte type);
-void	redir_l(t_meta *m, t_token *tok, t_byte type);
-int		redir_p(t_meta *m, t_token *tok);
 
 // meta.c
 t_meta	*meta_get(void);
@@ -113,6 +108,21 @@ void	perror_exit(char *str);
 
 // signal.c
 void	set_signal(void);
+
+//redir/
+// redir.c
+void	redir_r(t_meta *m, t_token *tok, t_byte type);
+void	redir_l(t_meta *m, t_token *tok, t_byte type);
+int		redir_p(t_meta *m, t_token *tok);
+
+// heredoc.c
+void	heredoc_init(t_meta *m);
+char	*heredoc_getname(int num);
+
+// heredoc_util.c
+char	*heredoc_getname(int num);
+void	heredoc_read(t_meta *m, char *tstr, int fd);
+
 
 //exec/
 // exec.c
