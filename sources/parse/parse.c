@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:04:30 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 16:11:50 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ void	parse(t_meta *m, char *line)
 			cur++;
 	}
 	token_parse(m, line, cur);
-	token_ident_all(m);
+	// token_ident_all(m);
 	sort_tokens(m);
+	heredoc_init(m);
 	expand(m);
 	cleanup(m);	
 }
