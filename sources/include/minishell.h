@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 16:29:13 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 16:51:39 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_meta
 	int			hd_cur;
 }				t_meta;
 
-typedef unsigned char t_byte;
+typedef unsigned char	t_byte;
 
 
 // fd.c
@@ -206,6 +206,7 @@ t_list	*find_prev_node(t_list *root, t_list *cur_ptr);
 void	custom_char_free(char *one, char *two);
 int		custom_double_char_len(char **ptr);
 int		custom_perr_and_set_exnum(char *str, int exnum, char *heap, int ret);
+int		custom_putendl(char *str, int ret);
 
 // msfunc/ms_stitch.c
 void	ms_stitch(char **s1, char *s2);
