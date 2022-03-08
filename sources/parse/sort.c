@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:00:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 16:30:08 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 17:08:38 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,32 +45,6 @@ static void	insert_token(t_meta *m, t_token *tok, t_token *bef)
 		if (bef->next)
 			bef->next->prev = tok;
 		bef->next = tok;
-	}
-}
-
-// obsolete function. 
-
-void	move_heredoc(t_meta *m, t_token *pcmd, t_token *hdoc, t_token *cmd)
-{
-	while (!stop_moving(pcmd, T_PIP | T_APL))
-		pcmd = pcmd->prev;
-	hdoc->prev->next = cmd->next;
-	if (cmd->next)
-		cmd->next->prev = hdoc->prev;
-	if (!pcmd)
-	{
-		m->token_start->prev = cmd;
-		cmd->next = m->token_start;
-		m->token_start = hdoc;
-		hdoc->prev = 0;
-	}
-	else
-	{
-		hdoc->prev = pcmd;
-		cmd->next = pcmd->next;
-		if (pcmd->next)
-			pcmd->next->prev = cmd;
-		pcmd->next = hdoc;
 	}
 }
 

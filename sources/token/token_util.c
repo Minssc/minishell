@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:19:12 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:31:41 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 17:08:57 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,4 @@ t_token	*token_prev_delim(t_token *tok)
 		ret = ret->prev;
 	}
 	return (ret);
-}
-
-// TODO remove this?
-void	token_ident_all(t_meta *m)
-{
-	t_token	*ct;
-
-	ct = m->token_start;
-	while (ct)
-	{
-		ct->type = T_EMP;
-		token_ident(ct);
-		ct = ct->next;
-	}
 }
