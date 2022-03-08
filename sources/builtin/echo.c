@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:51:45 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 23:09:02 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/08 19:41:56 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ static int	str_size(char **contents, int i)
 }
 
 // opt_n 과 "-n" 을 비교 -> 같으면 1, 다르면 0
-static int	check_opt_n(char *opt_n)
+static int	check_opt_n(char **opt_n, int *idx)
 {
-	if (!ft_strcmp(opt_n, "-n"))
-		return (1);
-	return (0);
+	int	is_n;
+
+	is_n = 0;
+	while (!ft_strcmp(opt_n[*idx + 1], "-n"))
+	{
+		is_n = 1;
+		++(*idx);
+	}
+	return (is_n);
 }
 
 // norm 분리 - builtin_echo 연장
@@ -64,10 +70,8 @@ int	builtin_echo(char **contents)
 	m = meta_get();
 	if (custom_double_char_len(contents) == 1)
 		return (custom_putendl("", 0));
-	is_n = check_opt_n(contents[1]);
 	i = 0;
-	if (is_n)
-		++i;
+	is_n = check_opt_n(contents, &i);
 	size = str_size(contents, i + 1);
 	sum = (char *)malloc(sizeof(char) * size);
 	if (!sum)
