@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 21:15:18 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 12:19:40 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,9 @@ char	*find_e(char *str);
 void	cleanup(t_meta *m);
 
 //msfunc/
+
+// msfunc/ms_set_es.c
+int		msfunc/ms_set_es(t_meta *m, int exit_status);
 // msfunc/ms_free.c
 void	ms_free_dca(char ***dca);
 void	ms_free(void **ptr);
