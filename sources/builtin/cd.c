@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:07 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/04 21:53:21 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/09 17:52:53 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	mv_oldpwd(t_meta *m)
 		perror_exit("getcwd failed @builtin_cd/mv_oldpwd");
 	oldpwd = env_get(m, "OLDPWD");
 	if (!oldpwd)
-		return (custom_perr_and_set_exnum("cd: OLDPWD not set", 1, pwd, 1));
+		return (custom_perr_and_set_exnum("OLDPWD not set", 1, pwd, 1));
 	if (chdir(oldpwd) == -1)
 	{
 		custom_char_free(oldpwd, pwd);
@@ -82,6 +82,25 @@ static int	mv_home(t_meta *m)
 	m->exit_status = 0;
 	custom_char_free(pwd, home);
 	return (0);
+}
+
+// not a directory
+static int	is_direc(t_meta *m, char *path)
+{
+	struct stat	buf;
+
+	if (stat(path, &buf) == -1)
+	{
+		ms_puterr(path, "No such file or directory");
+		printf("%s\n",strerror(errno));
+	}
+	else if ((buf.st_mode & S_IFMT) != S_IFDIR)
+		ms_puterr(path, "Not a directory");
+	else
+		ms_puterr(path, "Permission denied");
+	m->exit_status = 1;
+	return (1);
+	
 }
 
 // norm 분리 - builtin_cd 연장
@@ -126,12 +145,8 @@ int	builtin_cd(char **mv_cmd)
 		if (!ft_strncmp(mv_cmd[1], "-", 2))
 			return (mv_oldpwd(m));
 		if (is_invalid_path(m, mv_cmd[1]))
-		{
-			ft_putendl_fd("cd: No such file or directory", STDERR_FILENO);
-			m->exit_status = 1;
-			return (1);
-		}
+			return (is_direc(m, mv_cmd[1]));
 		return (sub_builtin_cd(m, mv_cmd[1]));
 	}
-	return (custom_perr_and_set_exnum("cd: too many arguments", 1, NULL, 1));
+	return (custom_perr_and_set_exnum("too many arguments", 1, NULL, 1));
 }

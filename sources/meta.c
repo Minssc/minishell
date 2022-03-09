@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 02:19:32 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 16:29:14 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,5 @@ void	meta_destroy(void)
 	argv_destroy(m);
 	if (m->line)
 		free(m->line);
-	rl_clear_history();
 	free(m);
 }

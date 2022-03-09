@@ -71,10 +71,12 @@ OBJS_B		=	$(SRCS_B:.c=.o)
 CC			=	gcc
 # CFLAGS		=	-Wall -Wextra -Werror
 CFLAG_EXT	=	-Llibft -lft \
-				-Lreadline-master -lreadline -lhistory \
+				-Lreadline-master/readline -lreadline -lhistory \
 				-ltermcap
 
 RL_DIR		=	readline-master/readline
+
+CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -Ireadline-master
 
 RM			=	rm -f
 
