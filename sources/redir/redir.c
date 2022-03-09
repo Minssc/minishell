@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:26:28 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 17:33:22 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 20:24:33 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,28 @@ void	redir_l(t_meta *m, t_token *tok, t_byte type)
 	}
 }
 
+static void	child_setup(t_meta *m, t_token *tok)
+{
+	fd_close(m->pipe[1]);
+	dup2(m->pipe[0], STDIN_FILENO);
+	m->pipe[1] = -1;
+	m->child = 1;
+	m->stop = 0;
+	if (m->fd_out != -1)
+	{
+		fd_close(m->fd_out);
+		m->fd_out = -1;
+		dup2(m->stdout, STDOUT_FILENO);
+	}
+}
+
 int	redir_p(t_meta *m, t_token *tok)
 {
 	pipe(m->pipe);
 	m->pid = fork();
 	if (m->pid == 0)
 	{
-		fd_close(m->pipe[1]);
-		dup2(m->pipe[0], STDIN_FILENO);
-		m->pipe[1] = -1;
-		m->child = 1;
-		m->stop = 0;
+		child_setup(m, tok);
 		return (2);
 	}
 	else

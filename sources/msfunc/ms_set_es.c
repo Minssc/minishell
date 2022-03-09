@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ms_set_es.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 13:23:14 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/08 21:17:06 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/09 12:18:16 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/09 12:21:09 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//ctrl-\ = 3 ctrl-c = 2
+// set exit status only when current exit status is 0
+// returns 1 when failed, 0 when success
 
-void	sig_handler(int signum)
+int	ms_set_es(t_meta *m, int exit_status)
 {
-	t_meta *m;
-
-	m = meta_get();
-	write(STDOUT_FILENO, "\n", 1);
-	if (!m->waiting && signum == SIGINT)
-	{
-		if (rl_on_new_line() == -1)
-			mexit(1);
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-void	set_signal(void)
-{
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	if (m->exit_status)
+		return (1);
+	m->exit_status = exit_status;
+	return (0);
 }

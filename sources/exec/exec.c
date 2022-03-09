@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 16:29:22 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/08 22:02:24 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,13 @@ static int	execute_bin(t_meta *m)
 	if (!bin)
 		ret = bin_run(m, m->argv[0]);
 	else
+	{
 		ret = bin_run(m, bin);
+		free(bin);
+	}
 	m->exit_status = ret;
+	ft_putstr_fd("EXIT STATUS UPDATE: ", STDERR_FILENO);
+	ft_putnbr_fd(m->exit_status, STDERR_FILENO);
 }
 
 static void	exec_cmd(t_meta *m, t_token *tok)
@@ -90,8 +95,11 @@ void	exec_start(t_meta *m)
 	t_token	*ct;
 	int		stat;
 
+	stat = 0;
 	m->stop = 0;
 	m->hd_cur = 0;
+	if (!m->token_start)
+		return ;
 	ct = next_cmd(m->token_start);
 	execute(m, ct);
 	fd_reset_std(m);

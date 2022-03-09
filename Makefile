@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/08 16:35:40 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/09 12:19:56 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ FIL_M		=	main \
 				exec/exec_util \
 				exec/argv \
 				exec/bin \
+				exec/bin_util \
 				token/token \
 				token/token_util \
 				env/env \
@@ -39,6 +40,7 @@ FIL_M		=	main \
 				parse/expand \
 				parse/expand_util \
 				parse/cleanup \
+				msfunc/ms_set_es \
 				msfunc/ms_trim \
 				msfunc/ms_argjoin \
 				msfunc/ms_isspace \
