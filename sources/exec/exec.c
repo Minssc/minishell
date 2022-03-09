@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 22:02:24 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 12:34:50 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static int	execute_bin(t_meta *m)
 		free(bin);
 	}
 	m->exit_status = ret;
-	ft_putstr_fd("EXIT STATUS UPDATE: ", STDERR_FILENO);
-	ft_putnbr_fd(m->exit_status, STDERR_FILENO);
 }
 
 static void	exec_cmd(t_meta *m, t_token *tok)
