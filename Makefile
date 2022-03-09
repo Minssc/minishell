@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/09 16:24:51 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/09 19:51:38 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,15 +74,19 @@ CFLAG_EXT	=	-Llibft -lft \
 				-Lreadline-master -lreadline -lhistory \
 				-ltermcap
 
-CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include
+RL_DIR		=	readline-master/readline
 
 RM			=	rm -f
+
+CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -I$(RL_DIR)
 
 %.o			:	%.c
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
 
 $(NAME)		:	$(OBJS_M)
 			make bonus -j16 -C libft
+			test -f $(RL_DIR)/Makefile || (cd $(RL_DIR) && ./configure)
+			make static -C $(RL_DIR)
 			$(RM) $(FIL_HDOC)
 			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
 
@@ -93,14 +97,16 @@ bonus		:	$(OBJS_B)
 			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL)-o $(NAME)
 
 clean		:
-			$(RM) $(OBJS_M) $(OBJS_B) $(FIL_HDOC)
+			test -f $(RL_DIR)/Makefile && make clean -C $(RL_DIR) || echo -n
 			make clean -C libft
+			$(RM) $(OBJS_M) $(OBJS_B) $(FIL_HDOC)
 
 all			:	$(NAME)
 
 fclean		:	clean
-			$(RM) $(NAME)
+			test -f $(RL_DIR)/Makefile && make distclean -C $(RL_DIR)
 			make fclean -C libft
+			$(RM) $(NAME)
 
 re			:	fclean all
 
