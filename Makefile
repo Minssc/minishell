@@ -76,6 +76,8 @@ CFLAG_EXT	=	-Llibft -lft \
 
 RL_DIR		=	readline-master/readline
 
+CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -Ireadline-master
+
 RM			=	rm -f
 
 CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -I$(RL_DIR)
