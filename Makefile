@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/09 12:19:56 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/09 16:24:51 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,16 +70,13 @@ OBJS_B		=	$(SRCS_B:.c=.o)
 
 CC			=	gcc
 # CFLAGS		=	-Wall -Wextra -Werror
-CFLAG_EXT	=	-L/usr/lib -lreadline \
-				-Llibft -lft \
+CFLAG_EXT	=	-Llibft -lft \
+				-Lreadline-master -lreadline -lhistory \
+				-ltermcap
 
 CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include
 
 RM			=	rm -f
-
-# LIB_NAME		=	readline
-# LIB_HEADER		=	/usr/local/opt/readline/include/
-#  LIB_FOLDER		=	/usr/local/opt/readline/lib/
 
 %.o			:	%.c
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
