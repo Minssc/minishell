@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:53:05 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/05 23:08:03 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/09 18:01:09 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,19 @@ int	custom_putendl(char *str, int ret)
 
 	m = meta_get();
 	ft_putendl_fd(str, STDOUT_FILENO);
+	m->exit_status = ret;
+	return (ret);
+}
+
+// pustr 함수와 기본적으로 동일
+// m->exit_status = ret;
+// 반환값 있음 (ret)
+int	custom_putstr(char *str, int ret)
+{
+	t_meta	*m;
+
+	m = meta_get();
+	ft_putstr_fd(str, STDOUT_FILENO);
 	m->exit_status = ret;
 	return (ret);
 }
