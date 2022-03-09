@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 21:31:10 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 16:33:56 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	bin_run(t_meta *m, char *bin)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		env = env_build(m);
-		if (ft_strchr(bin, '/') && execve(bin, m->argv, env) == -1); 
+		if (ft_strchr(bin, '/') && execve(bin, m->argv, env) == -1)
 			ret = check_error(m, bin);
 		ms_free_dca(&env);
 		mexit(ret);
