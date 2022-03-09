@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:26:28 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 20:24:33 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 12:40:48 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	handle_fderror(t_meta *m, char *tstr)
 {
 	ms_puterr(tstr, strerror(errno));
 	m->stop = 1;
-	m->exit_status = 1;
+	ms_set_es(m, 1);
 }
 
 void	redir_r(t_meta *m, t_token *tok, t_byte type)

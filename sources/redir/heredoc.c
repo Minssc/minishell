@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 16:32:57 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 12:40:40 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	readdoc(t_meta *m, t_token *tok, char *hname)
 	{
 		ms_puterr(hname, strerror(errno));
 		m->stop = 1;
-		m->exit_status = 1;
+		ms_set_es(m, 1);
 		return ;		
 	}
 	heredoc_read(m, tok->str, fd);
