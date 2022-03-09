@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 16:29:47 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/09 18:01:18 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ void	custom_char_free(char *one, char *two);
 int		custom_double_char_len(char **ptr);
 int		custom_perr_and_set_exnum(char *str, int exnum, char *heap, int ret);
 int		custom_putendl(char *str, int ret);
+int		custom_putstr(char *str, int ret);
 
 // msfunc/ms_stitch.c
 void	ms_stitch(char **s1, char *s2);
