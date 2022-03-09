@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/09 19:51:38 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/09 20:24:20 by minsunki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,14 +97,14 @@ bonus		:	$(OBJS_B)
 			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL)-o $(NAME)
 
 clean		:
-			test -f $(RL_DIR)/Makefile && make clean -C $(RL_DIR) || echo -n
+			test -f $(RL_DIR)/Makefile && make clean -C $(RL_DIR) || echo missing conf, skipping libreadline clean
 			make clean -C libft
 			$(RM) $(OBJS_M) $(OBJS_B) $(FIL_HDOC)
 
 all			:	$(NAME)
 
 fclean		:	clean
-			test -f $(RL_DIR)/Makefile && make distclean -C $(RL_DIR)
+			test -f $(RL_DIR)/Makefile && make distclean -C $(RL_DIR) || echo missing conf, skipping libreadline fclean
 			make fclean -C libft
 			$(RM) $(NAME)
 
