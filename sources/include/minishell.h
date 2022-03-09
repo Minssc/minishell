@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 12:39:58 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 16:23:00 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 
 // 아래 헤더들 살펴보기
 
-# include <wait.h>
 # include <dirent.h>
 # include <signal.h>
 # include <errno.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 // libreadline-dev
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -45,6 +45,7 @@
 # define T_APR	0b00010000
 # define T_RDR	0b00100000
 # define T_RDL	0b01000000
+
 # define REDIR	0b01111000
 # define DELIM	0b01111100
 
