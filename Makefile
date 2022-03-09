@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/09 20:24:20 by minsunki         ###   ########.fr        #
+#    Updated: 2022/03/09 22:38:20 by minsunki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ OBJS_B		=	$(SRCS_B:.c=.o)
 CC			=	gcc
 # CFLAGS		=	-Wall -Wextra -Werror
 CFLAG_EXT	=	-Llibft -lft \
-				-Lreadline-master -lreadline -lhistory \
+				-Lreadline-master/readline -lreadline -lhistory \
 				-ltermcap
 
 RL_DIR		=	readline-master/readline

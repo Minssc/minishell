@@ -6,21 +6,21 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:00:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 17:08:38 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 22:36:18 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-static int	stop_moving(t_token *tok, int targ)
+static int	stop_moving(t_token *tok)
 {
 	t_token	*prev;
 
 	if (!tok || (tok->type & (T_CMD | T_ARG)))
 	{
 		prev = token_prev_delim(tok);
-		if (!prev || (prev->type & targ))
+		if (!prev || (prev->type & T_PIP))
 			return (1);
 	}
 	return (0);
@@ -59,7 +59,7 @@ void	sort_tokens(t_meta *m)
 		prev = token_prev_delim(cur);
 		if (cur->type == T_ARG && prev && (prev->type & REDIR))
 		{
-			while (!stop_moving(prev, T_PIP))
+			while (!stop_moving(prev))
 				prev = prev->prev;
 			insert_token(m, cur, prev);
 		}

@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:08:19 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 02:17:25 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 22:40:56 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ void	token_parse(t_meta *m, char *from, char *to)
 	nt->str = ft_substr(from, 0, to - from);
 	if (!nt->str)
 		perror_exit("ft_substr failed @add_token");
-	token_ident(nt);
 	token_add_back(&m->token_start, nt);
+	token_ident(nt);
 }

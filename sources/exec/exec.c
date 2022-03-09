@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 14:54:41 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 16:35:11 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	execute_builtin(t_meta *m, int flag)
 	return (ret);
 }
 
-static int	execute_bin(t_meta *m)
+static void	execute_bin(t_meta *m)
 {
 	char	*bin;
 	int		ret;

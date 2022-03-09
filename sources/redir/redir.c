@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:26:28 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 12:40:48 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 22:42:57 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ void	redir_l(t_meta *m, t_token *tok, t_byte type)
 		fd_close(m->fd_in);
 		m->fd_in = open(hname, O_RDONLY, S_IRWXU);
 		if (m->fd_in < 0)
-			handle_fderror(m, "heredoc");
+			handle_fderror(m, hname);
 		else
 			dup2(m->fd_in, STDIN_FILENO);
+		free(hname);
 	}
 }
 

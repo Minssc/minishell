@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:52 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 16:25:07 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/09 16:35:34 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static char	*find_exp(char *str)
 			return (str);
 		str++;
 	}
+	return (0);
 }
 
 void	heredoc_read(t_meta *m, char *tstr, int fd)
