@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
+#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/11 00:18:02 by tjung            ###   ########.fr        #
+#    Updated: 2022/03/11 00:55:01 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,12 +95,6 @@ $(NAME)		:	$(OBJS_M)
 			$(RM) $(FIL_HDOC)
 			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
 
-
-bonus		:	$(OBJS_B)
-			make bonus -C libft
-			$(RM) $(FIL_HDOC)
-			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL)-o $(NAME)
-
 clean		:
 			test -f $(RL_DIR)/Makefile && make clean -C $(RL_DIR) || echo missing conf, skipping libreadline clean
 			make clean -C libft
@@ -115,4 +109,4 @@ fclean		:	clean
 
 re			:	fclean all
 
-.PHONY		:	.c.o all clean fclean re bonus
+.PHONY		:	.c.o all clean fclean re

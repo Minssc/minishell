@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 00:17:49 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 00:54:05 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@
 # define B_EXPT	0b00010000
 # define B_PWD	0b00100000
 # define B_UNST	0b01000000
-
-# define S_FLAG (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 
 typedef struct s_token
 {
