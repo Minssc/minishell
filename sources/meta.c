@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 16:29:14 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/10 20:05:20 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	meta_destroy(void)
 	token_destroy(m);
 	env_destroy(m);
 	argv_destroy(m);
+	if (m->rl_msg)
+		free(m->rl_msg);
 	if (m->line)
 		free(m->line);
 	free(m);

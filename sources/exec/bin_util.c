@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   bin_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:14:21 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:47:01 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 22:52:55 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 // static int	bin_find_paths(char **paths, char *bin)
 // paths들을 순회하며 bin이 발견될 시 path 반환. 못찾으면 0 반환
+// const size_t	blen = ft_strlen(bin);
 
 static char	*bin_find_paths(char **paths, char *bin)
 {
 	DIR				*dir;
 	char			**cur;
 	struct dirent	*item;
-	// const size_t	blen = ft_strlen(bin);
 
 	cur = paths;
 	while (*cur)
@@ -47,7 +46,7 @@ static char	*bin_find_paths(char **paths, char *bin)
 }
 
 // static void	path_stitch(char **paths, char *file)
-// stitch path and file to the supplied *path 
+// stitch path and file to the supplied *path
 // takes care of both / terminated path and non terminated path.
 
 static int	path_stitch(char **path, char *file)
@@ -80,10 +79,10 @@ char	*bin_find(t_meta *m, char *bin)
 {
 	char	*path;
 	char	**paths;
-	
+
 	path = env_get(m, "PATH");
 	if (!path)
-		return (0); 
+		return (0);
 	paths = ft_split(path, ':');
 	free(path);
 	if (!paths)

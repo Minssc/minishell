@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   argv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:36:57 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/05 15:56:49 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 22:52:17 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	get_nargs(t_token *tok)
 }
 
 // builds arguemnt vector to be used in execution.
-// TODO make an adaquate free function for argv. 
+// TODO make an adaquate free function for argv.
 // iterate through the tokens until end of ARG type tokens.
 // const inst nargs to preserve precious line.
 
@@ -57,13 +57,13 @@ char	**argv_build(t_token *tok)
 	return (ret);
 }
 
-// frees argv array. 
+// frees argv array.
 // remember to zero the argv afterwards as a good habbit.
 
 void	argv_destroy(t_meta *m)
 {
 	char	**argv;
-	
+
 	if (!m->argv)
 		return ;
 	argv = m->argv;

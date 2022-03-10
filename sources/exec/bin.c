@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:49:24 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 22:53:08 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	check_error(char *bin)
 {
-	DIR *dir;
+	DIR	*dir;
 	int	fd;
 	int	ret;
 	int	is_root;
@@ -40,7 +40,7 @@ static int	check_error(char *bin)
 		closedir(dir);
 	return (ret);
 }
-// find binary file and run it.  
+// find binary file and run it.
 
 static int	process_stat(int stat)
 {

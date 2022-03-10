@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:01:19 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 20:07:45 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 19:21:31 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	ms_free(void **ptr)
 
 // void	ms_free_dca(char ***dca)
 // free and zero out a double character array.
-// has to be null filled and null terminated. 
+// has to be null filled and null terminated.
 
 void	ms_free_dca(char ***dca)
 {
-	char **tdca;
+	char	**tdca;
 
 	if (!dca || !(*dca))
 		return ;

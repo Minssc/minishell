@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mexit.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:36 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 17:11:01 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:01:43 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	mexit_cm(char *str, int ec)
 
 void	perror_exit(char *str)
 {
-	ft_putendl_fd("Error",STDERR_FILENO);
-	ft_putendl_fd(str,STDERR_FILENO);
+	ft_putendl_fd("Error", STDERR_FILENO);
+	ft_putendl_fd(str, STDERR_FILENO);
 	mexit_pe(255);
 }

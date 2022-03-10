@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:45:10 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 22:57:56 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@
 # include "readline/readline.h"
 # include "readline/history.h"
 
-
 # define Q_DQ 0b01
 # define Q_SQ 0b10
 
 //Token Type
-// EMPTY, COMMAND, ARGUMENT, PIPE, APPEND LEFT/RIGHT, INPUT, REDIRECTION LEFT/RIGHT
+// EMPTY, COMMAND, ARGUMENT, PIPE
+// APPEND LEFT/RIGHT, REDIRECTION LEFT/RIGHT
+// INPUT
 
 # define T_EMP	0b00000000
 # define T_CMD	0b00000001
@@ -74,6 +75,7 @@ typedef struct s_meta
 	t_list		*list_env;
 	char		**argv;
 	char		*line;
+	char		*rl_msg;
 	int			stop;
 	int			stdin;
 	int			stdout;
@@ -87,7 +89,6 @@ typedef struct s_meta
 }				t_meta;
 
 typedef unsigned char	t_byte;
-
 
 // fd.c
 void	fd_close(int fd);
@@ -122,7 +123,6 @@ char	*heredoc_getname(int num);
 // heredoc_util.c
 char	*heredoc_getname(int num);
 void	heredoc_read(t_meta *m, char *tstr, int fd);
-
 
 //exec/
 // exec.c
@@ -183,9 +183,9 @@ char	*find_e(char *str);
 void	cleanup(t_meta *m);
 
 //msfunc/
-
 // msfunc/ms_set_es.c
 int		ms_set_es(t_meta *m, int exit_status);
+
 // msfunc/ms_free.c
 void	ms_free_dca(char ***dca);
 void	ms_free(void **ptr);
@@ -219,6 +219,10 @@ void	ms_stitch(char **s1, char *s2);
 // msfunc/ms_puterr.c
 void	ms_puterr(char *type, char *msg);
 
+//rlmsg
+// rlmsg/rl_set_msg.c
+void	rl_set_message(t_meta *m);
+
 //builtin/
 // builtin/pwd.c
 int		builtin_pwd(void);
@@ -240,5 +244,7 @@ void	builtin_exit(char **exit_cmd);
 
 // builtin/cd.c
 int		builtin_cd(char **mv_cmd);
+// builtin/cd_sub.c
+int		sub_builtin_cd(t_meta *m, char *path);
 
 #endif

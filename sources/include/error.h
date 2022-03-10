@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:13:58 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 17:25:43 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 18:49:26 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,4 @@
 # define UCMD 127
 # define ISDIR 126
 
-# endif
+#endif

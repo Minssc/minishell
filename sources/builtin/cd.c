@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:07 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 17:52:53 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/10 20:53:00 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,42 +90,13 @@ static int	is_direc(t_meta *m, char *path)
 	struct stat	buf;
 
 	if (stat(path, &buf) == -1)
-	{
 		ms_puterr(path, "No such file or directory");
-		printf("%s\n",strerror(errno));
-	}
 	else if ((buf.st_mode & S_IFMT) != S_IFDIR)
 		ms_puterr(path, "Not a directory");
 	else
 		ms_puterr(path, "Permission denied");
 	m->exit_status = 1;
 	return (1);
-	
-}
-
-// norm 분리 - builtin_cd 연장
-static int	sub_builtin_cd(t_meta *m, char *path)
-{
-	char	*oldpwd;
-	char	*pwd;
-
-	oldpwd = env_get(m, "PWD");
-	if (chdir(path) == -1)
-		perror_exit("chdir(path) failed @builtin_cd/sub_builtin_cd");
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
-	{
-		free(oldpwd);
-		perror_exit("getcwd failed @builtin_cd/sub_builtin_cd");
-	}
-	if (env_set(m, "OLDPWD", oldpwd) || env_set(m, "PWD", pwd))
-	{
-		custom_char_free(oldpwd, pwd);
-		perror_exit("env_set() failed @builtin_cd/sub_builtin_cd");
-	}
-	m->exit_status = 0;
-	custom_char_free(oldpwd, pwd);
-	return (0);
 }
 
 // 성공시 return (0), 실패시 retrun (1)
@@ -140,6 +111,8 @@ int	builtin_cd(char **mv_cmd)
 		return (mv_home(m));
 	else if (idx == 2)
 	{
+		if (!ft_strncmp(mv_cmd[1], "~", 2))
+			return (mv_home(m));
 		if (!ft_strncmp(mv_cmd[1], "~/", 3))
 			return (mv_home(m));
 		if (!ft_strncmp(mv_cmd[1], "-", 2))

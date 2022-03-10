@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/10 15:43:19 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/10 20:48:05 by tjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,13 +50,15 @@ FIL_M		=	main \
 				msfunc/ms_custom \
 				msfunc/ms_stitch \
 				msfunc/ms_puterr \
+				rlmsg/rl_set_msg \
 				builtin/pwd \
 				builtin/env \
 				builtin/unset \
 				builtin/export \
 				builtin/echo \
 				builtin/exit \
-				builtin/cd
+				builtin/cd \
+				builtin/cd_sub
 
 FIL_B		=
 

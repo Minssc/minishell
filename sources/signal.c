@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 13:23:14 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/08 21:17:06 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:01:50 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	sig_handler(int signum)
 {
-	t_meta *m;
+	t_meta	*m;
 
 	m = meta_get();
 	write(STDOUT_FILENO, "\n", 1);

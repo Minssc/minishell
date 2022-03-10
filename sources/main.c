@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 13:29:15 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 22:27:55 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	quotes(char *line)
 	{
 		if (!flag && *line == '\\' && (*(line + 1) == '\''
 				|| *(line + 1) == '\"'))
-			line+=2;
+			line += 2;
 		if ((flag & Q_SQ) && *line == '\'')
 			flag ^= Q_SQ;
 		else if (flag & Q_DQ)
@@ -40,11 +40,22 @@ static int	quotes(char *line)
 	return (flag);
 }
 
+static void	sub_loop(t_meta *m)
+{
+	add_history(m->line);
+	parse(m, m->line);
+	exec_start(m);
+	token_destroy(m);
+	ms_free((void **)(&m->rl_msg));
+	ms_free((void **)(&m->line));
+}
+
 static void	loop_start(t_meta *m)
 {
 	while (1)
 	{
-		m->line = readline("minishell$ ");
+		rl_set_message(m);
+		m->line = readline(m->rl_msg);
 		if (!m->line)
 		{
 			ft_putendl_fd("exit", STDERR_FILENO);
@@ -61,17 +72,13 @@ static void	loop_start(t_meta *m)
 			ms_free((void **)(&m->line));
 			continue ;
 		}
-		add_history(m->line);
-		parse(m, m->line);
-		exec_start(m);
-		token_destroy(m);
-		ms_free((void **)(&m->line));
+		sub_loop(m);
 	}
 }
 
 int	main(int argc, char *argv[] __attribute__((unused)), char *envp[])
 {
-	t_meta		*m;
+	t_meta	*m;
 
 	if (argc > 1)
 	{

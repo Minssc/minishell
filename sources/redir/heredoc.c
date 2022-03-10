@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 12:40:40 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:00:39 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	readdoc(t_meta *m, t_token *tok, char *hname)
 		ms_puterr(hname, strerror(errno));
 		m->stop = 1;
 		ms_set_es(m, 1);
-		return ;		
+		return ;
 	}
 	heredoc_read(m, tok->str, fd);
 	fd_close(fd);

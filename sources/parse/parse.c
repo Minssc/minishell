@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:46:11 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:00:08 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	delim(t_meta *m, char **line, char **cur)
 		token_parse(m, *line, ++(*cur));
 	else
 		token_parse(m, *line, *cur);
-	*line = *cur;			
+	*line = *cur;
 }
 
 void	parse(t_meta *m, char *line)
@@ -87,5 +87,5 @@ void	parse(t_meta *m, char *line)
 	sort_tokens(m);
 	heredoc_init(m);
 	expand(m);
-	cleanup(m);	
+	cleanup(m);
 }
