@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/09 22:38:20 by minsunki         ###   ########.fr        #
+#    Updated: 2022/03/10 15:43:19 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ OBJS_M		=	$(SRCS_M:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
 
 CC			=	gcc
-# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 CFLAG_EXT	=	-Llibft -lft \
 				-Lreadline-master/readline -lreadline -lhistory \
 				-ltermcap
@@ -87,7 +87,7 @@ CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -I$(RL_DIR)
 
 $(NAME)		:	$(OBJS_M)
 			make bonus -j16 -C libft
-			test -f $(RL_DIR)/Makefile || (cd $(RL_DIR) && ./configure)
+			test -f $(RL_DIR)/Makefile && echo found Makefile for libreadline! skipping conf. || (cd $(RL_DIR) && ./configure)
 			make static -C $(RL_DIR)
 			$(RM) $(FIL_HDOC)
 			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)

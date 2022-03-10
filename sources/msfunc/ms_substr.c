@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:49:23 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 18:52:16 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 15:47:53 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ms_substr(char const *s, unsigned int start, int len)
 		return (0);
 	if ((unsigned int)ft_strlen(s) < start || len <= 0)
 		return (ft_strdup(""));
-	if (ft_strlen(s + start) < len)
+	if ((int)ft_strlen(s + start) < len)
 		len = ft_strlen(s + start);
 	dmem = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dmem)

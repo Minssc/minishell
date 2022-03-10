@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:08:19 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 22:40:56 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 15:47:30 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	token_destroy(t_meta *m)
 
 void	token_parse(t_meta *m, char *from, char *to)
 {
-	t_token *lt;
 	t_token	*nt;
 
 	if (from >= to)

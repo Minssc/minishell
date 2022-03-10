@@ -7,51 +7,75 @@ minishell. 작고 귀여운 쉘 만들기.
 ```
 
 ## Dependency 
-#### libreadline-dev
-```sh
-sudo apt install libreadline-dev
-```
+#### libreadline: GNU Readline Library v8.1 included
+
 
 ## 프로젝트 구조
 ```bash
 .
 ├── Makefile
-├── bonus					#TODO?
-├── libft					#libft 
+├── bonus               
+├── libft               #libft
+├── readline-master     #libreadline, libhistory
+│   └── readline
 ├── readme.md
-└── sources
-    ├── builtin				# 빌트인 함수들 
-    │   ├── cd.c
-    │   ├── echo.c
-    │   ├── env.c
-    │   ├── exit.c
-    │   ├── export.c
-    │   ├── pwd.c
-    │   └── unset.c
-    ├── msfunc				# minishell functions. 유틸 함수들
-    ├── include				# 헤더 파일들
-    │   └── minishell.h
-    ├── main.c				
-    ├── meta.c				
-    └── mexit.c
+├── sources             #source folder for mandatory part
+│   ├── builtin         #Builtin functions
+│   │   ├── cd.c
+│   │   ├── echo.c
+│   │   ├── env.c
+│   │   ├── exit.c
+│   │   ├── export.c
+│   │   ├── pwd.c
+│   │   └── unset.c
+│   ├── env             #env related functions
+│   │   ├── env.c
+│   │   └── env_util.c
+│   ├── exec            #execution related functions
+│   │   ├── argv.c
+│   │   ├── bin.c
+│   │   ├── bin_util.c
+│   │   ├── exec.c
+│   │   └── exec_util.c
+│   ├── fd.c
+│   ├── include         #headers 
+│   │   ├── error.h
+│   │   └── minishell.h
+│   ├── main.c
+│   ├── meta.c
+│   ├── mexit.c
+│   ├── msfunc          #misc minishell functions
+│   │   ├── ms_argjoin.c
+│   │   ├── ms_custom.c
+│   │   ├── ms_find.c
+│   │   ├── ms_free.c
+│   │   ├── ms_isspace.c
+│   │   ├── ms_puterr.c
+│   │   ├── ms_set_es.c
+│   │   ├── ms_stitch.c
+│   │   ├── ms_substr.c
+│   │   ├── ms_tolower.c
+│   │   └── ms_trim.c
+│   ├── parse           #parsing related functions
+│   │   ├── cleanup.c
+│   │   ├── expand.c
+│   │   ├── expand_util.c
+│   │   ├── parse.c
+│   │   └── sort.c
+│   ├── redir           #redirection related functions
+│   │   ├── heredoc.c
+│   │   ├── heredoc_util.c
+│   │   └── redir.c
+│   ├── signal.c
+│   ├── syntax.c
+│   └── token           #token related functions
+│       ├── token.c
+│       └── token_util.c
 ```
 ## TODO
 ```
-argv를 < << > >> | delim으로 잘라서 보관. list사용? delim type 저장 필요
-모든 list에 대하여
-	앞뒤로 공백 trim?
-	"" '' $("미포함?) 선행 처리. 문자열 대체. ()는 서브젝트 포함인가?
-
-	syntax에 맞는지 먼저 확인해야 함.
-
-	처리된 문자열을 기반으로 exec.
-	delim type에 따라 exec 결과물 처리
-		redirection, pipe 
-
-builtin 함수들 작성하기.
-environment 알아보기 
-ctrl-C ctrl-D ctrl-\ 시그널 관련 알아보기 
-
-7일 내로 일단 mandatory 평가 받기	<3.9 
-10일 내로 수정 및 평가 완료하기		~3.12
+Syntax 확인
+$SHLVL
+norminette
+3.12 평가 예정
 ```

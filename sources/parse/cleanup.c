@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 19:20:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 14:59:20 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 15:50:50 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	quotes(char **str)
 static int	get_nlen(char *str)
 {
 	int		ret;
-	char	quote;
 
 	ret = 0;
 	while (*str)
@@ -118,9 +117,8 @@ static char	*make_nstr(char *str, int nlen)
 void	cleanup(t_meta *m)
 {
 	t_token	*ct;
-	char	*qp;
 	char	*tmp;
-	int		nlen;
+	size_t	nlen;
 
 	ct = m->token_start;
 	while (ct)

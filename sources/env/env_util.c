@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:17:07 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:17:55 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 15:51:30 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_list	*env_find(t_meta *m, char *key)
 {
 	size_t	klen;
 	t_list	*cur;
-	int		i;
 
 	if (!key)
 		return (0);
@@ -62,12 +61,12 @@ char	*env_get(t_meta *m, char *key)
 static char	*merge_kv(char *key, char *value)
 {
 	char	*ret;
-	size_t	klen;
-	size_t	vlen;
+	int		klen;
+	int		vlen;
 	int		i;
 
-	klen = ft_strlen(key);
-	vlen = ft_strlen(value);
+	klen = (int)ft_strlen(key);
+	vlen = (int)ft_strlen(value);
 	ret = (char *)malloc(sizeof(char) * (klen + vlen + 1 + 1));
 	if (!ret)
 		perror_exit("malloc failed @merge_kv");
@@ -90,7 +89,6 @@ static char	*merge_kv(char *key, char *value)
 
 int	env_set(t_meta *m, char *key, char *value)
 {
-	size_t	klen;
 	t_list	*entry;
 	t_list	*nl;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 18:01:18 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/10 15:45:10 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@
 # include <stdio.h>
 # include <signal.h>
 # include <string.h>
-# include "libft.h"
-# include "error.h"
-
-// 아래 헤더들 살펴보기
-
 # include <dirent.h>
 # include <signal.h>
 # include <errno.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-// libreadline-dev
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "libft.h"
+# include "error.h"
+
+// libreadline
+# include "readline/readline.h"
+# include "readline/history.h"
+
 
 # define Q_DQ 0b01
 # define Q_SQ 0b10
@@ -114,7 +113,7 @@ void	set_signal(void);
 // redir.c
 void	redir_r(t_meta *m, t_token *tok, t_byte type);
 void	redir_l(t_meta *m, t_token *tok, t_byte type);
-int		redir_p(t_meta *m, t_token *tok);
+int		redir_p(t_meta *m);
 
 // heredoc.c
 void	heredoc_init(t_meta *m);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 16:35:11 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/10 15:45:03 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	execute(t_meta *m, t_token *tok)
 	else if (pt && (pt->type & (T_RDL | T_APL)))
 		redir_l(m, tok, pt->type); 
 	else if (pt && (pt->type & T_PIP))
-		piped = redir_p(m, tok); 
+		piped = redir_p(m); 
 	if (nt && piped != 1)
 		execute(m, nt->next);
 	if ((!pt || (pt->type & T_PIP)) && piped != 1 && !m->stop)

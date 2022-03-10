@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 19:33:26 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 15:46:26 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	expand(t_meta *m)
 {
 	t_token	*ct;
 	char	*exp;
-	char	*cur;
 
 	ct = m->token_start;
 	while (ct)

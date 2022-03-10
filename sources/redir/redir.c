@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:26:28 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 22:42:57 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 15:45:23 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	redir_l(t_meta *m, t_token *tok, t_byte type)
 	}
 }
 
-static void	child_setup(t_meta *m, t_token *tok)
+static void	child_setup(t_meta *m)
 {
 	fd_close(m->pipe[1]);
 	dup2(m->pipe[0], STDIN_FILENO);
@@ -73,13 +73,13 @@ static void	child_setup(t_meta *m, t_token *tok)
 	}
 }
 
-int	redir_p(t_meta *m, t_token *tok)
+int	redir_p(t_meta *m)
 {
 	pipe(m->pipe);
 	m->pid = fork();
 	if (m->pid == 0)
 	{
-		child_setup(m, tok);
+		child_setup(m);
 		return (2);
 	}
 	else

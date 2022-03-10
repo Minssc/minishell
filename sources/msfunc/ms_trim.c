@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:56:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 01:23:38 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 15:48:49 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	*ms_trim(char *str)
 	int		i;
 	char	*ret;
 	char	*tmp;
-	size_t	slen;
+	int		slen;
 
 	i = 0;
 	while (str[i] && ms_isspace(str[i]))
 		i++;
 	ret = ft_strdup(str + i);
-	slen = ft_strlen(ret);
+	slen = (int)ft_strlen(ret);
 	i = slen - 1;
 	while (ms_isspace(str[i]))
 		i--;
