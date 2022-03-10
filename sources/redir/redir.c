@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:26:28 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:45:23 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 00:53:50 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ void	redir_r(t_meta *m, t_token *tok, t_byte type)
 {
 	fd_close(m->fd_out);
 	if (type == T_RDR)
-		m->fd_out = open(tok->str, O_CREAT | O_WRONLY | O_TRUNC, S_FLAG);
+		m->fd_out = open(tok->str, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR
+				| S_IWUSR | S_IRGRP | S_IROTH);
 	else
-		m->fd_out = open(tok->str, O_CREAT | O_WRONLY | O_APPEND, S_FLAG);
+		m->fd_out = open(tok->str, O_CREAT | O_WRONLY | O_APPEND, S_IRUSR
+				| S_IWUSR | S_IRGRP | S_IROTH);
 	if (m->fd_out < 0)
 		handle_fderror(m, tok->str);
 	else

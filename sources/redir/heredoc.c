@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 23:00:39 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 00:51:08 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	readdoc(t_meta *m, t_token *tok, char *hname)
 {
 	int		fd;
 
-	fd = open(hname, O_CREAT | O_WRONLY | O_TRUNC, S_FLAG);
+	fd = open(hname, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP
+			| S_IROTH);
 	if (fd < 0)
 	{
 		ms_puterr(hname, strerror(errno));
