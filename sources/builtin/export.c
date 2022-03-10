@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:12 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 20:05:47 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/10 15:51:59 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	sub_builtin_export(t_meta *m, char *entry, char *equal)
 int	builtin_export(char **entries)
 {
 	t_meta	*m;
-	char	*entry;
 	char	*equal;
 	int		i;
 

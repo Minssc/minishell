@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 17:01:07 by minsunki         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:49:24 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_error(t_meta *m, char *bin)
+static int	check_error(char *bin)
 {
 	DIR *dir;
 	int	fd;
@@ -71,7 +71,7 @@ int	bin_run(t_meta *m, char *bin)
 		signal(SIGQUIT, SIG_DFL);
 		env = env_build(m);
 		if (ft_strchr(bin, '/') == 0 || execve(bin, m->argv, env) == -1)
-			ret = check_error(m, bin);
+			ret = check_error(bin);
 		ms_free_dca(&env);
 		mexit(ret);
 	}

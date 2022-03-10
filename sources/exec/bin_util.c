@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:14:21 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 21:15:18 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 15:47:01 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static char	*bin_find_paths(char **paths, char *bin)
 static int	path_stitch(char **path, char *file)
 {
 	char			*tmp;
-	const size_t	plen = ft_strlen(*path);
-	const size_t	flen = ft_strlen(file);
+	const int		plen = (int)ft_strlen(*path);
+	const int		flen = (int)ft_strlen(file);
 	int				i;
 
 	tmp = *path;

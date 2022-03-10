@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/09 17:21:40 by minsunki         ###   ########.fr        #
+#    Updated: 2022/03/10 15:43:19 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,20 +69,26 @@ OBJS_M		=	$(SRCS_M:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
 
 CC			=	gcc
-# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 CFLAG_EXT	=	-Llibft -lft \
 				-Lreadline-master/readline -lreadline -lhistory \
 				-ltermcap
 
+RL_DIR		=	readline-master/readline
+
 CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -Ireadline-master
 
 RM			=	rm -f
+
+CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -I$(RL_DIR)
 
 %.o			:	%.c
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
 
 $(NAME)		:	$(OBJS_M)
 			make bonus -j16 -C libft
+			test -f $(RL_DIR)/Makefile && echo found Makefile for libreadline! skipping conf. || (cd $(RL_DIR) && ./configure)
+			make static -C $(RL_DIR)
 			$(RM) $(FIL_HDOC)
 			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
 
@@ -93,14 +99,16 @@ bonus		:	$(OBJS_B)
 			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL)-o $(NAME)
 
 clean		:
-			$(RM) $(OBJS_M) $(OBJS_B) $(FIL_HDOC)
+			test -f $(RL_DIR)/Makefile && make clean -C $(RL_DIR) || echo missing conf, skipping libreadline clean
 			make clean -C libft
+			$(RM) $(OBJS_M) $(OBJS_B) $(FIL_HDOC)
 
 all			:	$(NAME)
 
 fclean		:	clean
-			$(RM) $(NAME)
+			test -f $(RL_DIR)/Makefile && make distclean -C $(RL_DIR) || echo missing conf, skipping libreadline fclean
 			make fclean -C libft
+			$(RM) $(NAME)
 
 re			:	fclean all
 
