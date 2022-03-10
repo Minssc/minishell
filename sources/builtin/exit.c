@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:06 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 20:40:29 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/10 23:34:13 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static int	sub_builtin_exit_perror(int idx, int is_num, char *arg)
 	{
 		ft_putendl_fd("exit", STDERR_FILENO);
 		if (!is_num)
-			ms_puterr(arg, "numeric argument required");
+			ms_puterr(arg, EM_NUMERIC_REQUIR);
 		else
 		{
-			ms_puterr(arg, "too many arguments");
+			ms_puterr(arg, EM_TOO_MANY_ARGS);
 			return (0);
 		}
 	}

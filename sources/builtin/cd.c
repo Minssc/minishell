@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:49:07 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 20:53:00 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/10 23:32:08 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	mv_oldpwd(t_meta *m)
 		perror_exit("getcwd failed @builtin_cd/mv_oldpwd");
 	oldpwd = env_get(m, "OLDPWD");
 	if (!oldpwd)
-		return (custom_perr_and_set_exnum("OLDPWD not set", 1, pwd, 1));
+		return (custom_perr_and_set_exnum(EM_NO_ODLPWD, 1, pwd, 1));
 	if (chdir(oldpwd) == -1)
 	{
 		custom_char_free(oldpwd, pwd);
@@ -90,11 +90,11 @@ static int	is_direc(t_meta *m, char *path)
 	struct stat	buf;
 
 	if (stat(path, &buf) == -1)
-		ms_puterr(path, "No such file or directory");
+		ms_puterr(path, EM_NO_SUCH_FILE_DIR);
 	else if ((buf.st_mode & S_IFMT) != S_IFDIR)
-		ms_puterr(path, "Not a directory");
+		ms_puterr(path, EM_NOT_DIR);
 	else
-		ms_puterr(path, "Permission denied");
+		ms_puterr(path, EM_PERM_DENIED);
 	m->exit_status = 1;
 	return (1);
 }
@@ -121,5 +121,5 @@ int	builtin_cd(char **mv_cmd)
 			return (is_direc(m, mv_cmd[1]));
 		return (sub_builtin_cd(m, mv_cmd[1]));
 	}
-	return (custom_perr_and_set_exnum("too many arguments", 1, NULL, 1));
+	return (custom_perr_and_set_exnum(EM_TOO_MANY_ARGS, 1, NULL, 1));
 }
