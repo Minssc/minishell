@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:46:17 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 13:29:15 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:56:47 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	quotes(char *line)
 	{
 		if (!flag && *line == '\\' && (*(line + 1) == '\''
 				|| *(line + 1) == '\"'))
-			line+=2;
+			line += 2;
 		if ((flag & Q_SQ) && *line == '\'')
 			flag ^= Q_SQ;
 		else if (flag & Q_DQ)
@@ -40,11 +40,28 @@ static int	quotes(char *line)
 	return (flag);
 }
 
+static int	sub_loop(t_meta *m)
+{
+	int	eflag;
+
+	add_history(m->line);
+	eflag = parse(m, m->line);
+	if (!eflag)
+		exec_start(m);
+	token_destroy(m);
+	ms_free((void **)(&m->rl_msg));
+	ms_free((void **)(&m->line));
+	if (!eflag)
+		return (0);
+	return (1);
+}
+
 static void	loop_start(t_meta *m)
 {
 	while (1)
 	{
-		m->line = readline("minishell$ ");
+		rl_set_message(m);
+		m->line = readline(m->rl_msg);
 		if (!m->line)
 		{
 			ft_putendl_fd("exit", STDERR_FILENO);
@@ -61,17 +78,14 @@ static void	loop_start(t_meta *m)
 			ms_free((void **)(&m->line));
 			continue ;
 		}
-		add_history(m->line);
-		parse(m, m->line);
-		exec_start(m);
-		token_destroy(m);
-		ms_free((void **)(&m->line));
+		if (sub_loop(m))
+			continue ;
 	}
 }
 
 int	main(int argc, char *argv[] __attribute__((unused)), char *envp[])
 {
-	t_meta		*m;
+	t_meta	*m;
 
 	if (argc > 1)
 	{

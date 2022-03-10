@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:08:24 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 17:47:12 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 22:59:04 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_e(char *str)
 		if (!dq && *str == '\'')
 			skip_quotes(&str);
 		else if (*str == '$' && *(str + 1) && !ms_isspace(*(str + 1))
-					&& *(str + 1) != '\"')
+			&& *(str + 1) != '\"')
 			return (str);
 		else if (*str == '\"')
 			dq ^= Q_DQ;

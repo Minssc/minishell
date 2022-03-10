@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:46:11 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 00:17:05 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static void	delim(t_meta *m, char **line, char **cur)
 		token_parse(m, *line, ++(*cur));
 	else
 		token_parse(m, *line, *cur);
-	*line = *cur;			
+	*line = *cur;
 }
 
-void	parse(t_meta *m, char *line)
+int	parse(t_meta *m, char *line)
 {
 	char	*cur;
 
@@ -83,9 +83,9 @@ void	parse(t_meta *m, char *line)
 		else
 			cur++;
 	}
-	token_parse(m, line, cur);
-	sort_tokens(m);
-	heredoc_init(m);
-	expand(m);
-	cleanup(m);	
+	sub_parse(m, line, cur);
+	if (check_syntax_error(m))
+		return (1);
+	cleanup(m);
+	return (0);
 }

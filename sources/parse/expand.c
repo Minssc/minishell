@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:46:26 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 22:59:58 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ static void	find_key(char **pos)
 		(*pos)++;
 		return ;
 	}
-	while (**pos && !ms_isspace(**pos) && **pos != '$' &&
-			**pos !='\'' && **pos != '\"' && **pos != '\\')
+	while (**pos && !ms_isspace(**pos) && **pos != '$'
+		&& **pos != '\'' && **pos != '\"' && **pos != '\\')
 		(*pos)++;
 }
 
-void	insert_env(t_meta *m, char **ostr, char **epos) 
+void	insert_env(t_meta *m, char **ostr, char **epos)
 {
 	char	*nstr;
 	char	*key;
 	char	*env_val;
 	char	*orig;
-	
+
 	nstr = 0;
 	orig = *ostr;
 	if (*ostr != *epos)
-		nstr = ft_substr(*ostr, 0 , (*epos) - (*ostr));
+		nstr = ft_substr(*ostr, 0, (*epos) - (*ostr));
 	*ostr = (*epos)++;
 	find_key(epos);
 	key = ms_substr(*ostr, 1, (*epos) - (*ostr) - 1);

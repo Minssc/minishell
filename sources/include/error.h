@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:13:58 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 17:25:43 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:37:54 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 
 # define ET_SYNTAX "syntax"
 
+# define EM_UNEXPECTED_TOKEN "syntax error near unexpected token"
+
 # define EM_UNEXPECTED_EOF "unexpected end of file"
-# define EM_TOO_MANY_ARGS "too many args"
+# define EM_TOO_MANY_ARGS "too many arguments"
+
+# define EM_NO_ODLPWD "OLDPWD not set"
+# define EM_NUMERIC_REQUIR "Numeric argument required"
 
 # define EM_CMD_NOT_FOUND "command not found"
 # define EM_NO_SUCH_FILE_DIR "No such file or directory"
 # define EM_IS_DIR "Is a directory"
+# define EM_NOT_DIR "Not a directory"
 # define EM_PERM_DENIED "Permission denied"
 
 # define OK 0
@@ -28,4 +34,4 @@
 # define UCMD 127
 # define ISDIR 126
 
-# endif
+#endif

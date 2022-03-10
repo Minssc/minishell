@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:52 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 16:35:34 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/10 23:00:31 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*find_exp(char *str)
 	while (*str)
 	{
 		if (*str == '\\' && *(str + 1) == '$')
-			str+=2;
+			str += 2;
 		if (*str == '$')
 			return (str);
 		str++;

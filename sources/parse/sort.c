@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:00:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/09 22:36:18 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:00:18 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static int	stop_moving(t_token *tok)
 {

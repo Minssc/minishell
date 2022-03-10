@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:19:12 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/08 17:08:57 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:01:19 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_byte	token_ident(t_token *tok)
 	else
 		nt = T_ARG;
 	if (tok->type && (nt & DELIM))
-		 ;
+		;
 	else
 		tok->type = nt;
 	return (tok->type);

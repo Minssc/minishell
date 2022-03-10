@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:08:19 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:47:30 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 23:01:25 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	token_add_back(t_token **th, t_token *nt)
 void	token_destroy(t_meta *m)
 {
 	t_token	*tok;
-	t_token *tmp;
+	t_token	*tmp;
 
 	tok = m->token_start;
 	while (tok)

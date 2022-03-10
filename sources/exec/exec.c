@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:45:03 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 22:53:37 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	execute_builtin(t_meta *m, int flag)
 {
 	int		ret;
-	
+
 	ret = 0;
 	if (flag == B_CD)
 		ret = builtin_cd(m->argv);
@@ -79,9 +79,9 @@ static void	execute(t_meta *m, t_token *tok)
 	if (pt && (pt->type & (T_RDR | T_APR)))
 		redir_r(m, tok, pt->type);
 	else if (pt && (pt->type & (T_RDL | T_APL)))
-		redir_l(m, tok, pt->type); 
+		redir_l(m, tok, pt->type);
 	else if (pt && (pt->type & T_PIP))
-		piped = redir_p(m); 
+		piped = redir_p(m);
 	if (nt && piped != 1)
 		execute(m, nt->next);
 	if ((!pt || (pt->type & T_PIP)) && piped != 1 && !m->stop)
@@ -106,6 +106,6 @@ void	exec_start(t_meta *m)
 	waitpid(-1, &stat, 0);
 	if (m->child)
 		mexit(m->exit_status);
-	// m->exit_status = WEXITSTATUS(stat);
 	ms_set_es(m, WEXITSTATUS(stat));
 }
+// m->exit_status = WEXITSTATUS(stat);

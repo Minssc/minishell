@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:17:07 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:51:30 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 18:55:30 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_list	*env_find(t_meta *m, char *key)
 	while (cur)
 	{
 		if (ft_strncmp((char *)cur->content, key, klen) == 0
-				&& ((char *)(cur->content))[klen] == '=')
+			&& ((char *)(cur->content))[klen] == '=')
 			return (cur);
 		cur = cur->next;
 	}

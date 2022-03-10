@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:57:59 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:35:40 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/10 19:04:26 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	env_set_shlvl(t_meta *m)
+{
+	char	*shlvl_c;
+	int		shlvl_n;
+
+	shlvl_c = env_get(m, "SHLVL");
+	shlvl_n = ft_atoi(shlvl_c);
+	free(shlvl_c);
+	shlvl_n += 1;
+	shlvl_c = ft_itoa(shlvl_n);
+	if (env_set(m, "SHLVL", shlvl_c))
+		perror_exit("env_set() failed @env_init/env_set_shlvl");
+	free(shlvl_c);
+}
 
 void	env_init(t_meta *m, char **envp)
 {
@@ -28,11 +43,12 @@ void	env_init(t_meta *m, char **envp)
 		ft_lstadd_back(&m->list_env, nl);
 		cur++;
 	}
+	env_set_shlvl(m);
 }
 
 // char	**env_build(t_meta *m)
 // convert env list to double char array.
-// null terminated. 
+// null terminated.
 
 char	**env_build(t_meta *m)
 {
