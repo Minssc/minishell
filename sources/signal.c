@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 13:23:14 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/10 23:01:50 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 02:09:40 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	sig_handler(int signum)
 
 	m = meta_get();
 	write(STDOUT_FILENO, "\n", 1);
+	ms_set_es(m, 130);
 	if (!m->waiting && signum == SIGINT)
 	{
 		if (rl_on_new_line() == -1)
