@@ -6,7 +6,7 @@
 #    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/10 20:48:05 by tjung            ###   ########.fr        #
+#    Updated: 2022/03/11 00:18:02 by tjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ FIL_M		=	main \
 				env/env \
 				env/env_util \
 				parse/parse \
+				parse/parse_util \
 				parse/sort \
 				parse/expand \
 				parse/expand_util \

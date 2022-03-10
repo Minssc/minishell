@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 23:00:08 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 00:17:05 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	delim(t_meta *m, char **line, char **cur)
 	*line = *cur;
 }
 
-void	parse(t_meta *m, char *line)
+int	parse(t_meta *m, char *line)
 {
 	char	*cur;
 
@@ -83,9 +83,9 @@ void	parse(t_meta *m, char *line)
 		else
 			cur++;
 	}
-	token_parse(m, line, cur);
-	sort_tokens(m);
-	heredoc_init(m);
-	expand(m);
+	sub_parse(m, line, cur);
+	if (check_syntax_error(m))
+		return (1);
 	cleanup(m);
+	return (0);
 }

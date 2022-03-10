@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 22:57:56 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 00:17:49 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,11 @@ int		env_set(t_meta *m, char *key, char *value);
 
 //parse/
 // parse/parse.c
-void	parse(t_meta *m, char *line);
+int		parse(t_meta *m, char *line);
 void	ms_skip_quotes(char **str, char quote);
+
+// parse/parse_util.c
+void	sub_parse(t_meta *m, char *line, char *cur);
 
 // parse/ourt.c
 void	sort_tokens(t_meta *m);
@@ -178,6 +181,9 @@ void	expand(t_meta *m);
 
 // parse/expand_util.c
 char	*find_e(char *str);
+
+//syntax.c
+int		check_syntax_error(t_meta *m);
 
 // cleanup.c
 void	cleanup(t_meta *m);
