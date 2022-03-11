@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 20:15:11 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/11 23:46:38 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/12 00:00:05 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	error_check(char *entry, char *equal, char *key, int plus)
 		}
 		else
 			ms_puterr(entry, EM_INVALID_IDENT);
-		free(key);
 	}
 	else if (check_invalid_key(key, plus))
 	{
@@ -95,6 +94,7 @@ char	*get_key(char *entry, char *equal, int *ret)
 	}
 	else
 	{
+		printf("free\n");
 		key = get_data(entry, equal, 'k', 0);
 		*ret = error_check(entry, equal, key, 0);
 	}
