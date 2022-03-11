@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/11 00:55:01 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/11 13:33:07 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,8 +82,6 @@ RL_DIR		=	readline-master/readline
 CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -Ireadline-master
 
 RM			=	rm -f
-
-CFLAG_INCL	=	-Ilibft -Isources/include -Ibonus/include -I$(RL_DIR)
 
 %.o			:	%.c
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
