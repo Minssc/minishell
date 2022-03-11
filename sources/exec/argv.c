@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   argv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:36:57 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 22:52:17 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 16:52:44 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ static int	get_nargs(t_token *tok)
 	ret = 1;
 	while (ct)
 	{
+		if (ct->type == T_EMP)
+		{
+			ct = ct->next;
+			continue ;
+		}
 		if (token_ident(ct) == T_ARG)
 			ret++;
 		else
@@ -48,10 +53,18 @@ char	**argv_build(t_token *tok)
 	ret = (char **)ft_calloc(sizeof(char *), (nargs + 1));
 	if (!ret)
 		perror_exit("ft_calloc failed for ret @build_argv");
-	i = -1;
-	while (++i < nargs)
+	i = 0;
+	while (ct && i < nargs)
 	{
-		ret[i] = ft_strdup(ct->str);
+		if (ct->type == T_EMP)
+		{
+			ct = ct->next;
+			continue ;
+		}
+		if (ct->type == T_ARG || ct->type == T_CMD)
+			ret[i++] = ft_strdup(ct->str);
+		else if (ct->type & DELIM)
+			break ;
 		ct = ct->next;
 	}
 	return (ret);

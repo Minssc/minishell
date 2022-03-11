@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:26:21 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/07 01:26:32 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 16:43:58 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,30 @@ t_token	*next_cmd(t_token *tok)
 {
 	while (tok)
 	{
-		if (token_ident(tok) == T_CMD && !(tok->type & (REDIR)))
+		if (token_ident(tok) == T_CMD)
 			return (tok);
 		tok = tok->next;
 	}
 	return (0);
+}
+
+t_token	*exec_next(t_token *tok)
+{
+	t_token	*ret;
+
+	ret = 0;
+	tok = tok->next;
+	while (tok)
+	{
+		if (!ret && tok->type == T_EMP)
+			ret = tok;
+		if (tok->type == T_CMD)
+			return (tok);
+		else if (tok->type & DELIM)
+			break ;
+		tok = tok->next;
+	}
+	return (ret);
 }
 
 int	is_builtin(char *bin)
