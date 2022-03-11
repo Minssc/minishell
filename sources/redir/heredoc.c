@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 17:17:53 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 21:03:11 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	readdoc(t_meta *m, t_token *tok, char *hname)
 		}
 		signal(SIGINT, hdoc_sighandler);
 		m->hd_str = tok->str;
+		ms_free((void **)&m->line);
 		heredoc_read(m);
 		fd_close(m->hd_fd);
 		mexit(0);

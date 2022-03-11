@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:42:13 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 16:33:41 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 20:48:57 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	print_syntax_error(t_token *dt)
 	ft_putstr_fd("-minishell: ", STDERR_FILENO);
 	ft_putstr_fd(EM_UNEXPECTED_TOKEN, STDERR_FILENO);
 	ft_putstr_fd(" \'", STDERR_FILENO);
-	if (!token_next_valid(dt))
+	if (!token_next_valid(dt) && dt && dt->type != T_PIP)
 		ft_putstr_fd("newline", STDERR_FILENO);
 	else
 		ft_putstr_fd(dt->str, STDERR_FILENO);
