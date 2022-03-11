@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:42:13 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 00:13:18 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 14:56:31 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,31 @@ static void	print_syntax_error(t_token *dt)
 	ft_putendl_fd("\'", STDERR_FILENO);
 }
 
+static int	check_head(t_meta *m, t_token *ct)
+{
+	if (ct->type == T_PIP || ((ct->type & DELIM) && !ct->next))
+	{
+		if (!ct->prev)
+		{
+			m->exit_status = 2;
+			print_syntax_error(ct);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int	check_syntax_error(t_meta *m)
 {
 	t_token	*ct;
 	t_token	*dt;
 
 	ct = m->token_start;
+	if (check_head(m, ct))
+	{
+		m->exit_status = 2;
+		return (1);
+	}
 	while (ct)
 	{
 		dt = token_next_delim(ct);
