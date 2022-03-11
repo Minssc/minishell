@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 13:11:22 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 17:10:09 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,16 @@ static void	execute_bin(t_meta *m)
 	int		ret;
 
 	ret = 0;
-	bin = bin_find(m, m->argv[0]);
-	if (!bin)
-		ret = bin_run(m, m->argv[0]);
-	else
+	if (ft_strlen(m->argv[0]))
 	{
-		ret = bin_run(m, bin);
-		free(bin);
+		bin = bin_find(m, m->argv[0]);
+		if (!bin)
+			ret = bin_run(m, m->argv[0]);
+		else
+		{
+			ret = bin_run(m, bin);
+			free(bin);
+		}
 	}
 	ms_set_es(m, ret);
 }
@@ -83,7 +86,7 @@ static void	execute(t_meta *m, t_token *tok)
 	else if (pt && (pt->type & T_PIP))
 		piped = redir_p(m);
 	if (nt && piped != 1)
-		execute(m, nt->next);
+		execute(m, exec_next(nt));
 	if ((!pt || (pt->type & T_PIP)) && piped != 1 && !m->stop)
 		exec_cmd(m, tok);
 }
@@ -99,6 +102,8 @@ void	exec_start(t_meta *m)
 	if (!m->token_start)
 		return ;
 	ct = next_cmd(m->token_start);
+	if (!ct)
+		return ;
 	execute(m, ct);
 	fd_reset_std(m);
 	fd_destroy(m);
@@ -108,4 +113,3 @@ void	exec_start(t_meta *m)
 		mexit(m->exit_status);
 	ms_set_es(m, WEXITSTATUS(stat));
 }
-// m->exit_status = WEXITSTATUS(stat);
