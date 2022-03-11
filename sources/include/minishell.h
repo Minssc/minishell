@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 01:31:41 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 14:59:00 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_meta
 	int			hd_cur;
 	int			hd_fd;
 	char		*hd_str;
-	int			hd_stop;
 	int			waiting;
 }				t_meta;
 
@@ -171,7 +170,7 @@ int		parse(t_meta *m, char *line);
 void	ms_skip_quotes(char **str, char quote);
 
 // parse/parse_util.c
-void	sub_parse(t_meta *m, char *line, char *cur);
+int	sub_parse(t_meta *m, char *line, char *cur);
 
 // parse/ourt.c
 void	sort_tokens(t_meta *m);

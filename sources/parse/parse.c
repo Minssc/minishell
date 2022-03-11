@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 13:46:01 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 14:59:07 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ int	parse(t_meta *m, char *line)
 		else
 			cur++;
 	}
-	sub_parse(m, line, cur);
-	if (check_syntax_error(m))
+	if (sub_parse(m, line, cur))
 		return (1);
 	cleanup(m);
 	return (0);
