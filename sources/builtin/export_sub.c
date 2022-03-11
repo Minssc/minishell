@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 20:15:11 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/11 21:33:31 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 22:28:50 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	check_invalid_key(char *key, int plus)
 
 	size = ft_strlen(key);
 	idx = size;
+	if (idx == 0)
+		idx = 1;
 	while (key[--idx])
 	{
 		if (key[idx] == '+' || key[idx] == '-')
