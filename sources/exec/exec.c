@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 21:20:56 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 21:40:10 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ static void	execute(t_meta *m, t_token *tok)
 		piped = redir_p(m);
 	if (nt && piped != 1)
 		execute(m, exec_next(nt));
+	if (piped != 1 && !nt)
+		m->is_last = 1;
 	if ((!pt || (pt->type & T_PIP)) && piped != 1 && !m->stop)
 		exec_cmd(m, tok);
 }
@@ -99,6 +101,7 @@ void	exec_start(t_meta *m)
 	stat = 0;
 	m->stop = 0;
 	m->hd_cur = 0;
+	m->is_last = 0;
 	if (!m->token_start)
 		return ;
 	ct = next_cmd(m->token_start);
@@ -109,7 +112,7 @@ void	exec_start(t_meta *m)
 	fd_destroy(m);
 	fd_reset(m);
 	waitpid(-1, &stat, 0);
-	if (WEXITSTATUS(stat))
+	if (!m->is_last)
 		ms_set_es(m, WEXITSTATUS(stat));
 	if (m->child)
 		mexit(m->exit_status);
