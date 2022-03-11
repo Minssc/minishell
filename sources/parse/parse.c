@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:53:47 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 14:59:07 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 20:45:44 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	delim(t_meta *m, char **line, char **cur)
 {
 	token_parse(m, *line, *cur);
 	*line = (*cur)++;
-	if ((**cur && **cur == '<') || **cur == '>')
+	if (((**cur) && (**cur == '<' || **cur == '>') && (**line == **cur)))
 		token_parse(m, *line, ++(*cur));
 	else
 		token_parse(m, *line, *cur);

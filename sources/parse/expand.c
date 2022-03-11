@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 14:40:01 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 16:29:28 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,6 @@ void	insert_env(t_meta *m, char **ostr, char **epos)
 	*ostr = nstr;
 }
 
-static void	remove_empty_tokens(t_meta *m)
-{
-	t_token	*ct;
-	t_token	*tt;
-
-	ct = m->token_start;
-	while (ct)
-	{
-		tt = ct->next;
-		if (ft_strlen(ct->str) == 0)
-		{
-			if (!ct->prev)
-				m->token_start = ct->next;
-			else
-				ct->prev->next = ct->next;
-			free(ct->str);
-			if (ct->next)
-				ct->next->prev = ct->prev;
-			free(ct);
-		}
-		ct = tt;
-	}
-}
-
 void	expand(t_meta *m)
 {
 	t_token	*ct;
@@ -89,7 +65,7 @@ void	expand(t_meta *m)
 			insert_env(m, &ct->str, &exp);
 			exp = find_e(ct->str);
 		}
+		token_ident(ct);
 		ct = ct->next;
 	}
-	remove_empty_tokens(m);
 }

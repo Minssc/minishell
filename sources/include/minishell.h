@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 21:33:47 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 22:09:16 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 // APPEND LEFT/RIGHT, REDIRECTION LEFT/RIGHT
 // INPUT
 
-# define T_EMP	0b00000000
+# define T_NIL	0b00000000
 # define T_CMD	0b00000001
 # define T_ARG	0b00000010
 # define T_PIP	0b00000100
@@ -46,6 +46,7 @@
 # define T_APR	0b00010000
 # define T_RDR	0b00100000
 # define T_RDL	0b01000000
+# define T_EMP	0b10000000
 
 # define REDIR	0b01111000
 # define DELIM	0b01111100
@@ -86,6 +87,7 @@ typedef struct s_meta
 	int			hd_fd;
 	char		*hd_str;
 	int			waiting;
+	int			is_last;
 }				t_meta;
 
 typedef unsigned char	t_byte;
@@ -112,6 +114,7 @@ void	set_signal(void);
 
 //redir/
 // redir.c
+void	redir_fderror(t_meta *m, char *tstr, int isamb);
 void	redir_r(t_meta *m, t_token *tok, t_byte type);
 void	redir_l(t_meta *m, t_token *tok, t_byte type);
 int		redir_p(t_meta *m);
@@ -119,6 +122,7 @@ int		redir_p(t_meta *m);
 // heredoc.c
 void	heredoc_init(t_meta *m);
 char	*heredoc_getname(int num);
+void	heredoc_open(t_meta *m);
 
 // heredoc_util.c
 char	*heredoc_getname(int num);
@@ -127,6 +131,11 @@ void	heredoc_read(t_meta *m);
 //exec/
 // exec.c
 void	exec_start(t_meta *m);
+
+// exec_util.c
+t_token	*next_cmd(t_token *tok);
+int		is_builtin(char *bin);
+t_token	*exec_next(t_token *tok);
 
 // bin.c
 int		bin_run(t_meta *m, char *bin);
@@ -138,10 +147,6 @@ char	*bin_find(t_meta *m, char *bin);
 char	**argv_build(t_token *tok);
 void	argv_destroy(t_meta *m);
 
-// exec_util.c
-t_token	*next_cmd(t_token *tok);
-int		is_builtin(char *bin);
-
 //token/
 // token.c
 void	token_add_back(t_token **th, t_token *nt);
@@ -152,6 +157,8 @@ void	token_parse(t_meta *m, char *from, char *to);
 t_byte	token_ident(t_token *tok);
 t_token	*token_prev_delim(t_token *tok);
 t_token	*token_next_delim(t_token *tok);
+t_token	*token_prev_valid(t_token *tok);
+t_token	*token_next_valid(t_token *tok);
 
 //env/
 // env.c

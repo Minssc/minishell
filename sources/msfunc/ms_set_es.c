@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:18:16 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 02:02:48 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 21:24:06 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 int	ms_set_es(t_meta *m, int exit_status)
 {
-	if (m->exit_status && !exit_status)
-		return (1);
 	m->exit_status = exit_status;
 	return (0);
 }
