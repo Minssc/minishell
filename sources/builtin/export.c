@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:12 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 15:51:59 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 13:33:14 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static char	*get_data(char *entry, char *equal, char opt)
 	char	*str;
 	int		len;
 
+	str = NULL;
 	if (opt == 'k')
 	{
 		len = equal - entry;
