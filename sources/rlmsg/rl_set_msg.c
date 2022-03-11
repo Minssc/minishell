@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 20:46:08 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/10 22:50:35 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 23:13:02 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void	rl_set_message(t_meta *m)
 	int		len_pwd;
 	int		idx;
 
-	pwd = env_get(m, "PWD");
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		perror_exit("getcwd failed @rl_set_message");
 	len_pwd = ft_strlen(pwd);
 	idx = len_pwd - 1;
 	while (idx)
