@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:12:15 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 22:59:58 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 14:40:01 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static void	find_key(char **pos)
 		(*pos)++;
 		return ;
 	}
-	while (**pos && !ms_isspace(**pos) && **pos != '$'
-		&& **pos != '\'' && **pos != '\"' && **pos != '\\')
+	while (**pos && !ms_isspace(**pos) && **pos != '$' && **pos != '-'
+		&& **pos != '\'' && **pos != '\"' && **pos != '\\' && **pos != '='
+		&& **pos != '+')
 		(*pos)++;
 }
 
