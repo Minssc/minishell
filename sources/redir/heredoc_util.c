@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:52 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 23:00:31 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 02:01:36 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,37 @@ static char	*find_exp(char *str)
 	return (0);
 }
 
-void	heredoc_read(t_meta *m, char *tstr, int fd)
+static void	eolmsg(t_meta *m)
 {
-	char	*inp;
+	ft_putstr_fd("-minishell: here-document delimited by", STDERR_FILENO);
+	ft_putstr_fd(" end-of-file (wanted '", STDERR_FILENO);
+	ft_putstr_fd(m->hd_str, STDERR_FILENO);
+	ft_putendl_fd("')", STDERR_FILENO);
+}
+
+void	heredoc_read(t_meta *m)
+{
 	char	*exp;
 
 	while (1)
 	{
-		inp = readline("> ");
-		if (!inp || !ft_strcmp(tstr, inp))
+		m->line = readline("> ");
+		if (!m->line)
+		{
+			eolmsg(m);
 			break ;
-		exp = find_exp(inp);
+		}
+		if (ft_strcmp(m->hd_str, m->line))
+			break ;
+		exp = find_exp(m->line);
 		while (exp)
 		{
-			insert_env(m, &inp, &exp);
-			exp = find_exp(inp);
+			insert_env(m, &m->line, &exp);
+			exp = find_exp(m->line);
 		}
-		escape_and_write(inp, fd);
-		ms_free((void **)&inp);
+		escape_and_write(m->line, m->hd_fd);
+		ms_free((void **)&m->line);
 	}
-	if (inp)
-		free(inp);
+	if (m->line)
+		free(m->line);
 }

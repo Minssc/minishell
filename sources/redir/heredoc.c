@@ -6,27 +6,45 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 00:51:08 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 01:56:40 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	hdoc_sighandler(int signum)
+{
+	(void)signum;
+	write(STDOUT_FILENO, "\n", 1);
+	mexit(130);
+}
+
 static void	readdoc(t_meta *m, t_token *tok, char *hname)
 {
-	int		fd;
+	int	stat;
 
-	fd = open(hname, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP
-			| S_IROTH);
-	if (fd < 0)
+	signal(SIGINT, SIG_IGN);
+	stat = 0;
+	m->pid = fork();
+	if (m->pid == 0)
 	{
-		ms_puterr(hname, strerror(errno));
-		m->stop = 1;
-		ms_set_es(m, 1);
-		return ;
+		m->hd_fd = open(hname, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR
+				| S_IRGRP | S_IROTH);
+		if (m->hd_fd < 0)
+		{
+			ms_puterr(hname, strerror(errno));
+			mexit(1);
+		}
+		signal(SIGINT, hdoc_sighandler);
+		m->hd_str = tok->str;
+		heredoc_read(m);
+		fd_close(m->hd_fd);
+		mexit(0);
 	}
-	heredoc_read(m, tok->str, fd);
-	fd_close(fd);
+	else
+		waitpid(m->pid, &stat, 0);
+	ms_set_es(m, WEXITSTATUS(stat));
+	set_signal();
 }
 
 // tmp 폴더에 minishell_heredoc_# 이름 형식으로 heredoc 문서들 저장

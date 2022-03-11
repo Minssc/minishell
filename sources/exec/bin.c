@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:51:40 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 22:53:08 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 02:10:49 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static int	process_stat(int stat)
 	else if (WTERMSIG(stat))
 	{
 		ret = WTERMSIG(stat);
-		ft_putendl_fd("Quit", STDERR_FILENO);
+		if (ret == SIGQUIT)
+			ft_putendl_fd("Quit", STDERR_FILENO);
 		ret += 128;
 	}
 	return (ret);

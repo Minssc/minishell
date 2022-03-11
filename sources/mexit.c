@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mexit.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:36 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 23:01:43 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 11:15:21 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,18 @@ void	mexit(int ec)
 void	mexit_pe(int ec)
 {
 	if (ec == 255)
-		printf("minishell: exit: User defined exit\n");
+		ft_putendl_fd("minishell: exit: User defined exit", STDERR_FILENO);
 	else
-		printf("minishell: exit: %s\n", strerror(ec));
+	{
+		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+		ft_putendl_fd(strerror(ec), STDERR_FILENO);
+	}
 	mexit(ec);
 }
 
 void	mexit_cm(char *str, int ec)
 {
-	printf("%s\n", str);
+	ft_putendl_fd(str, STDERR_FILENO);
 	mexit(ec);
 }
 

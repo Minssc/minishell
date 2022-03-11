@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 00:54:05 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 01:31:41 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ typedef struct s_meta
 	int			pid;
 	int			child;
 	int			hd_cur;
+	int			hd_fd;
+	char		*hd_str;
+	int			hd_stop;
 	int			waiting;
 }				t_meta;
 
@@ -120,7 +123,7 @@ char	*heredoc_getname(int num);
 
 // heredoc_util.c
 char	*heredoc_getname(int num);
-void	heredoc_read(t_meta *m, char *tstr, int fd);
+void	heredoc_read(t_meta *m);
 
 //exec/
 // exec.c
