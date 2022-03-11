@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 17:04:11 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 17:17:53 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	heredoc_init(t_meta *m)
 void	heredoc_open(t_meta *m)
 {
 	char	*hname;
-	
+
 	hname = heredoc_getname(m->hd_cur++);
 	fd_close(m->fd_in);
 	m->fd_in = open(hname, O_RDONLY, S_IRWXU);
