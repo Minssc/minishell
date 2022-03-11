@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:52 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 02:01:36 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 13:39:36 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ void	heredoc_read(t_meta *m)
 		if (!m->line)
 		{
 			eolmsg(m);
+			ms_free((void **)&m->line);
 			break ;
 		}
-		if (ft_strcmp(m->hd_str, m->line))
+		if (ft_strcmp(m->hd_str, m->line) == 0)
+		{
+			ms_free((void **)&m->line);
 			break ;
+		}
 		exp = find_exp(m->line);
 		while (exp)
 		{
@@ -96,6 +100,4 @@ void	heredoc_read(t_meta *m)
 		escape_and_write(m->line, m->hd_fd);
 		ms_free((void **)&m->line);
 	}
-	if (m->line)
-		free(m->line);
 }

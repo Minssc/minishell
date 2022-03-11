@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 01:13:38 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 01:56:40 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 13:40:50 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	hdoc_sighandler(int signum)
 {
+	t_meta	*m;
+
+	m = meta_get();
 	(void)signum;
 	write(STDOUT_FILENO, "\n", 1);
+	fd_close(m->hd_fd);
+	m->hd_fd = -1;
 	mexit(130);
 }
 
