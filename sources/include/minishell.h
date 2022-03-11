@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 14:59:00 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 15:34:25 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ int		parse(t_meta *m, char *line);
 void	ms_skip_quotes(char **str, char quote);
 
 // parse/parse_util.c
-int	sub_parse(t_meta *m, char *line, char *cur);
+int		sub_parse(t_meta *m, char *line, char *cur);
 
 // parse/ourt.c
 void	sort_tokens(t_meta *m);
