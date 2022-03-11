@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 01:31:41 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 14:11:02 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_meta
 	int			hd_cur;
 	int			hd_fd;
 	char		*hd_str;
-	int			hd_stop;
 	int			waiting;
 }				t_meta;
 
