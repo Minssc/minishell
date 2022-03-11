@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 20:15:11 by tjung             #+#    #+#             */
-/*   Updated: 2022/03/12 00:09:16 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/12 00:21:23 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,12 @@ int	error_check(char *entry, char *equal, char *key, int plus)
 char	*get_key(char *entry, char *equal, int *ret)
 {
 	char	*key;
+	int		idx;
 
-	if (entry[equal - entry - 1] == '+')
+	idx = equal - entry;
+	if (idx == 0)
+		idx = 1;
+	if (entry[idx - 1] == '+')
 	{
 		key = get_data(entry, equal, 'k', 1);
 		*ret = error_check(entry, equal, key, 1);
