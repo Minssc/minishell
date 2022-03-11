@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 17:10:09 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 21:20:56 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ void	exec_start(t_meta *m)
 	fd_destroy(m);
 	fd_reset(m);
 	waitpid(-1, &stat, 0);
+	if (WEXITSTATUS(stat))
+		ms_set_es(m, WEXITSTATUS(stat));
 	if (m->child)
 		mexit(m->exit_status);
-	ms_set_es(m, WEXITSTATUS(stat));
 }

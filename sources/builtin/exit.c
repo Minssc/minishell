@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:06 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 18:01:29 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 21:22:15 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void	do_exit(int is_pip, int es, char *arg, int opt)
 	t_meta	*m;
 
 	m = meta_get();
+	m->exit_status = es;
 	if ((!m->child && !is_pip) || (m->child && !is_pip))
 	{
-		m->exit_status = es;
 		if (!m->child)
 			ft_putendl_fd("exit", STDERR_FILENO);
 		if (opt == 3)
