@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:13:58 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/10 23:37:54 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 18:56:39 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define EM_IS_DIR "Is a directory"
 # define EM_NOT_DIR "Not a directory"
 # define EM_PERM_DENIED "Permission denied"
+
+# define EM_INVALID_IDENT "Not a valid identifier"
+# define EM_INVALID_OPT "Invalid option"
 
 # define OK 0
 # define ERR 1

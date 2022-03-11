@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 21:31:30 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/11 22:09:16 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,12 @@ int		builtin_unset(char **keys);
 
 // builtin/export.c
 int		builtin_export(char **entries);
+// builtin/export_sub.c
+char	*get_data(char *entry, char *equal, char opt, int plus);
+int		check_invalid_key(char *key, int plus);
+int		error_check(char *entry, char *equal, char *key, int plus);
+char	*get_key(char *entry, char *equal, int *ret);
+char	*get_value_plus(char *key, char *value);
 
 // builtin/echo.c
 int		builtin_echo(char **contents);

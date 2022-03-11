@@ -6,30 +6,26 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:52:12 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 13:33:14 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/11 22:00:46 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// opt 1 -> key, opt 2 -> value
-static char	*get_data(char *entry, char *equal, char opt)
+// norm 분리 - sub_builtin_export 연장
+static int	sub_sub_export(t_meta *m, char *key, char *value)
 {
-	char	*str;
-	int		len;
+	char	*tmp;
+	int		ret;
 
-	str = NULL;
-	if (opt == 'k')
-	{
-		len = equal - entry;
-		str = ft_substr(entry, 0, len);
-	}
-	else if (opt == 'v')
-	{
-		len = ft_strlen(equal) - 1;
-		str = ft_substr(entry, (equal + 1) - entry, len);
-	}
-	return (str);
+	tmp = get_value_plus(key, value);
+	if (!tmp)
+		ret = env_set(m, key, value);
+	else
+		ret = env_set(m, key, tmp);
+	if (tmp)
+		free(tmp);
+	return (ret);
 }
 
 // norm 분리 - builtin_export 연장
@@ -39,11 +35,21 @@ static int	sub_builtin_export(t_meta *m, char *entry, char *equal)
 	char	*value;
 	int		ret;
 
-	key = get_data(entry, equal, 'k');
-	value = get_data(entry, equal, 'v');
-	ret = env_set(m, key, value);
-	free(key);
-	free(value);
+	ret = 0;
+	key = get_key(entry, equal, &ret);
+	if (!ret)
+	{
+		value = get_data(entry, equal, 'v', 0);
+		if (entry[equal - entry - 1] == '+')
+			ret = sub_sub_export(m, key, value);
+		else
+			ret = env_set(m, key, value);
+		if (ret)
+			perror_exit("env_set failed @builtin_export");
+		custom_char_free(key, value);
+	}
+	else
+		free(key);
 	return (ret);
 }
 
@@ -62,7 +68,10 @@ int	builtin_export(char **entries)
 		if (!equal)
 			continue ;
 		if (sub_builtin_export(m, entries[i], equal))
-			perror_exit("env_set failed @builtin_export");
+		{
+			m->exit_status = 1;
+			return (1);
+		}
 	}
 	m->exit_status = 0;
 	return (0);
