@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/11 13:33:07 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/11 20:16:29 by tjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ FIL_M		=	main \
 				builtin/env \
 				builtin/unset \
 				builtin/export \
+				builtin/export_sub \
 				builtin/echo \
 				builtin/exit \
 				builtin/cd \
