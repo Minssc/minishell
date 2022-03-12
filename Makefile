@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/12 13:31:01 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/12 14:35:07 by tjung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ FIL_M		=	main \
 
 FIL_B		=
 
-FIL_HDOC	=	/tmp/minishell_heredoc_*
+FIL_HDOC	=	./.minishell_heredoc_*
 
 SRCS_M		=	$(addsuffix .c, $(addprefix $(SRCF)/, $(FIL_M)))
 SRCS_B		=	$(addsuffix _bonus.c, $(addprefix $(SRCF_B)/, $(FIL_M) $(FIL_B)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:52 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 13:39:36 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/12 14:34:53 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*heredoc_getname(int num)
 	char	*tmp;
 	char	*ret;
 
-	ret = ft_strdup("/tmp/minishell_heredoc_");
+	ret = ft_strdup("./.minishell_heredoc_");
 	if (!ret)
 		perror_exit("ft_strdup failed @heredoc_getname");
 	nascii = ft_itoa(num);
