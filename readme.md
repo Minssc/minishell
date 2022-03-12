@@ -14,37 +14,40 @@ minishell. 작고 귀여운 쉘 만들기.
 ```bash
 .
 ├── Makefile
-├── bonus               
-├── libft               #libft
-├── readline-master     #libreadline, libhistory
+├── bonus				#sources/와 내용물 동일, _bonus suffix 추가
+├── libft
+├── readline-master		#GNU readline 8.1
 │   └── readline
 ├── readme.md
-├── sources             #source folder for mandatory part
-│   ├── builtin         #Builtin functions
+├── run.sh
+├── sources				#Mandatory 소스
+│   ├── builtin
 │   │   ├── cd.c
+│   │   ├── cd_sub.c
 │   │   ├── echo.c
 │   │   ├── env.c
 │   │   ├── exit.c
 │   │   ├── export.c
+│   │   ├── export_sub.c
 │   │   ├── pwd.c
 │   │   └── unset.c
-│   ├── env             #env related functions
+│   ├── env
 │   │   ├── env.c
 │   │   └── env_util.c
-│   ├── exec            #execution related functions
+│   ├── exec
 │   │   ├── argv.c
 │   │   ├── bin.c
 │   │   ├── bin_util.c
 │   │   ├── exec.c
 │   │   └── exec_util.c
 │   ├── fd.c
-│   ├── include         #headers 
+│   ├── include
 │   │   ├── error.h
 │   │   └── minishell.h
 │   ├── main.c
 │   ├── meta.c
 │   ├── mexit.c
-│   ├── msfunc          #misc minishell functions
+│   ├── msfunc
 │   │   ├── ms_argjoin.c
 │   │   ├── ms_custom.c
 │   │   ├── ms_find.c
@@ -56,26 +59,31 @@ minishell. 작고 귀여운 쉘 만들기.
 │   │   ├── ms_substr.c
 │   │   ├── ms_tolower.c
 │   │   └── ms_trim.c
-│   ├── parse           #parsing related functions
+│   ├── parse
+│   │   ├── asterisk.c
+│   │   ├── asterisk_compare.c
+│   │   ├── asterisk_util.c
 │   │   ├── cleanup.c
 │   │   ├── expand.c
 │   │   ├── expand_util.c
 │   │   ├── parse.c
+│   │   ├── parse_util.c
 │   │   └── sort.c
-│   ├── redir           #redirection related functions
+│   ├── redir
 │   │   ├── heredoc.c
 │   │   ├── heredoc_util.c
 │   │   └── redir.c
+│   ├── rlmsg
+│   │   └── rl_set_msg.c
 │   ├── signal.c
 │   ├── syntax.c
-│   └── token           #token related functions
+│   └── token
 │       ├── token.c
 │       └── token_util.c
+└── val.sh
+
 ```
 ## TODO
 ```
-Syntax 확인
-$SHLVL
-norminette
-3.12 평가 예정
+3.12 평가 완료! 
 ```
