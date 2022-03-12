@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tjung <tjung@student.42.fr>                +#+  +:+       +#+         #
+#    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/11 22:08:50 by tjung            ###   ########.fr        #
+#    Updated: 2022/03/12 11:52:03 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,6 @@ NAME		=	minishell
 
 SRCF		=	sources
 SRCF_B		=	bonus
-
-BI			=	builtin/
 
 FIL_M		=	main \
 				meta \
@@ -88,7 +86,7 @@ RM			=	rm -f
 			$(CC) $(CFLAGS) $(CFLAG_INCL) -c $< -o $@
 
 $(NAME)		:	$(OBJS_M)
-			make bonus -j16 -C libft
+			make bonus -C libft
 			test -f $(RL_DIR)/Makefile && echo found Makefile for libreadline! skipping conf. || (cd $(RL_DIR) && ./configure)
 			make static -C $(RL_DIR)
 			$(RM) $(FIL_HDOC)
