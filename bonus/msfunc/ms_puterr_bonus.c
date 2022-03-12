@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_tolower.c                                       :+:      :+:    :+:   */
+/*   ms_puterr_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 16:20:48 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/12 13:34:06 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/07 15:23:30 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/12 12:03:05 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_bonus.h"
 
-// char	*ms_tolower(char *str)
-// 전달받은 str을 모두 소문자로 변경
-
-char	*ms_tolower(char *str)
+void	ms_puterr(char *type, char *msg)
 {
-	char	*ret;
-
-	ret = str;
-	while (*str)
-	{
-		*str = ft_tolower(*str);
-		str++;
-	}
-	return (ret);
+	ft_putstr_fd("-minishell: ", STDERR_FILENO);
+	ft_putstr_fd(type, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(msg, STDERR_FILENO);
 }

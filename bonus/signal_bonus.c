@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_tolower.c                                       :+:      :+:    :+:   */
+/*   signal_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 16:20:48 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/12 13:34:06 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/01 13:23:14 by tjung             #+#    #+#             */
+/*   Updated: 2022/03/12 12:03:05 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_bonus.h"
 
-// char	*ms_tolower(char *str)
-// 전달받은 str을 모두 소문자로 변경
+//ctrl-\ = 3 ctrl-c = 2
 
-char	*ms_tolower(char *str)
+void	sig_handler(int signum)
 {
-	char	*ret;
+	t_meta	*m;
 
-	ret = str;
-	while (*str)
+	m = meta_get();
+	write(STDOUT_FILENO, "\n", 1);
+	ms_set_es(m, 130);
+	if (!m->waiting && signum == SIGINT)
 	{
-		*str = ft_tolower(*str);
-		str++;
+		if (rl_on_new_line() == -1)
+			mexit(1);
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
-	return (ret);
+}
+
+void	set_signal(void)
+{
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

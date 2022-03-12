@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_tolower.c                                       :+:      :+:    :+:   */
+/*   ms_set_es_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 16:20:48 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/12 13:34:06 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/09 12:18:16 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/12 12:03:05 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_bonus.h"
 
-// char	*ms_tolower(char *str)
-// 전달받은 str을 모두 소문자로 변경
+// update exit status only when current exit status is 0
+// do not update if supplied exit_status is 0.
+// returns 1 when failed, 0 when success
 
-char	*ms_tolower(char *str)
+int	ms_set_es(t_meta *m, int exit_status)
 {
-	char	*ret;
-
-	ret = str;
-	while (*str)
-	{
-		*str = ft_tolower(*str);
-		str++;
-	}
-	return (ret);
+	m->exit_status = exit_status;
+	return (0);
 }

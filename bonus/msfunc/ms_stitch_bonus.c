@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_tolower.c                                       :+:      :+:    :+:   */
+/*   ms_stitch_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 16:20:48 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/12 13:34:06 by minsunki         ###   ########seoul.kr  */
+/*   Created: 2022/03/07 01:06:33 by minsunki          #+#    #+#             */
+/*   Updated: 2022/03/12 12:03:05 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_bonus.h"
 
-// char	*ms_tolower(char *str)
-// 전달받은 str을 모두 소문자로 변경
-
-char	*ms_tolower(char *str)
+void	ms_stitch(char **s1, char *s2)
 {
-	char	*ret;
+	char	*os1;
 
-	ret = str;
-	while (*str)
-	{
-		*str = ft_tolower(*str);
-		str++;
-	}
-	return (ret);
+	os1 = *s1;
+	*s1 = ft_strjoin(*s1, s2);
+	free(os1);
 }

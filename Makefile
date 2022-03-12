@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/12 11:52:03 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/12 13:31:01 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ FIL_M		=	main \
 				msfunc/ms_custom \
 				msfunc/ms_stitch \
 				msfunc/ms_puterr \
+				msfunc/ms_tolower \
 				rlmsg/rl_set_msg \
 				builtin/pwd \
 				builtin/env \
@@ -91,6 +92,13 @@ $(NAME)		:	$(OBJS_M)
 			make static -C $(RL_DIR)
 			$(RM) $(FIL_HDOC)
 			$(CC) $(OBJS_M) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
+
+bonus		:	$(OBJS_B)
+			make bonus -C libft
+			test -f $(RL_DIR)/Makefile && echo found Makefile for libreadline! skipping conf. || (cd $(RL_DIR) && ./configure)
+			make static -C $(RL_DIR)
+			$(RM) $(FIL_HDOC)
+			$(CC) $(OBJS_B) $(CFLAG) $(CFLAG_EXT) $(CFLAG_INCL) -o $(NAME)
 
 clean		:
 			test -f $(RL_DIR)/Makefile && make clean -C $(RL_DIR) || echo missing conf, skipping libreadline clean
