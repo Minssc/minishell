@@ -6,7 +6,7 @@
 #    By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/22 23:04:25 by minsunki          #+#    #+#              #
-#    Updated: 2022/03/12 12:04:10 by minsunki         ###   ########seoul.kr   #
+#    Updated: 2022/03/12 13:31:01 by minsunki         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ FIL_M		=	main \
 				msfunc/ms_custom \
 				msfunc/ms_stitch \
 				msfunc/ms_puterr \
+				msfunc/ms_tolower \
 				rlmsg/rl_set_msg \
 				builtin/pwd \
 				builtin/env \

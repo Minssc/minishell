@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 16:20:48 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/03 12:29:09 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/12 13:34:06 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 
 char	*ms_tolower(char *str)
 {
+	char	*ret;
+
+	ret = str;
 	while (*str)
+	{
 		*str = ft_tolower(*str);
+		str++;
+	}
+	return (ret);
 }

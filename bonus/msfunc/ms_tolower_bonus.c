@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 16:20:48 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/12 12:03:05 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/12 13:37:43 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 
 char	*ms_tolower(char *str)
 {
+	char	*ret;
+
+	ret = str;
 	while (*str)
+	{
 		*str = ft_tolower(*str);
+		str++;
+	}
+	return (ret);
 }

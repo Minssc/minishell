@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 22:24:00 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/12 12:03:05 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/12 13:37:03 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,24 @@ static int	execute_builtin(t_meta *m, int flag)
 static void	execute_bin(t_meta *m)
 {
 	char	*bin;
+	char	*lc_cmd;
 	int		ret;
 
 	ret = 0;
-	if (ft_strlen(m->argv[0]))
+	lc_cmd = ft_strdup(m->argv[0]);
+	lc_cmd = ms_tolower(lc_cmd);
+	if (ft_strlen(lc_cmd))
 	{
-		bin = bin_find(m, m->argv[0]);
+		bin = bin_find(m, lc_cmd);
 		if (!bin)
-			ret = bin_run(m, m->argv[0]);
+			ret = bin_run(m, lc_cmd);
 		else
 		{
 			ret = bin_run(m, bin);
 			free(bin);
 		}
 	}
+	free(lc_cmd);
 	ms_set_es(m, ret);
 }
 

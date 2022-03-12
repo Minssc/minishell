@@ -6,7 +6,7 @@
 /*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/12 12:06:55 by minsunki         ###   ########seoul.kr  */
+/*   Updated: 2022/03/12 13:37:21 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,9 @@ void	ms_stitch(char **s1, char *s2);
 
 // msfunc/ms_puterr.c
 void	ms_puterr(char *type, char *msg);
+
+// msfunc/ms_tolower.c
+char	*ms_tolower(char *str);
 
 //rlmsg
 // rlmsg/rl_set_msg.c

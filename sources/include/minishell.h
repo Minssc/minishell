@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minsunki <minsunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 11:56:27 by minsunki          #+#    #+#             */
-/*   Updated: 2022/03/11 23:12:22 by tjung            ###   ########.fr       */
+/*   Updated: 2022/03/12 13:31:27 by minsunki         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,9 @@ void	ms_stitch(char **s1, char *s2);
 
 // msfunc/ms_puterr.c
 void	ms_puterr(char *type, char *msg);
+
+// msfunc/ms_tolower.c
+char	*ms_tolower(char *str);
 
 //rlmsg
 // rlmsg/rl_set_msg.c
